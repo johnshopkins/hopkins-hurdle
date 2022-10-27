@@ -1,0 +1,21 @@
+{
+  "name": "hopkins-hurcle",
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-parameters": "^7.18.8",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-react": "^7.18.6",
+    "@sentry/browser": "^6.0.0",
+    "@sentry/tracing": "^6.0.0",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "babelify": "^10.0.0",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.12.4",
+    "gulp-tasks": "git+https://github.com/johnshopkins/gulp-tasks#v1.0.0",
+    "minimist": "^1.2.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "main": "dist/js/main.js"
+}
