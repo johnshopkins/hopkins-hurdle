@@ -39,6 +39,7 @@ class Phrase extends Component {
       activeLetter: 0,
       direction: 'forward', // forward (new latter) OR backward (backspace)
       guess: guess,
+      animate: false,
     };
 
     this.onBackspace = this.onBackspace.bind(this);
@@ -73,8 +74,6 @@ class Phrase extends Component {
 
   evaluateGuess() {
 
-    const guess = this.state.guess;
-
     this.setState((state) => {
 
       let success = true;
@@ -98,7 +97,10 @@ class Phrase extends Component {
         this.props.onPass(guess) :
         this.props.onFail(guess);
 
-      return { guess: state.guess };
+      return {
+        animate: true,
+        guess: state.guess
+      };
     });
   }
 
@@ -152,16 +154,18 @@ class Phrase extends Component {
   }
 
   render() {
-    return <div className={'word'}>
+    return <div className={'guess'} role={'group'} aria-label={'Guess ' + (this.props.phraseNumber + 1)}>
       {this.state.guess.map((character, i) =>
         <Letter
+          animate={this.state.animate}
           direction={this.state.direction}
           focus={this.props.isCurrentRow && this.state.activeLetter === i}
           isComplete={this.props.isComplete}
           isSpace={character.correctLetter === ' '}
           key={i}
-          i={i}
+          letterNumber={i}
           onBackspace={() => this.onBackspace(i)}
+          isCurrentRow={this.props.isCurrentRow}
           onEnter={this.onEnter}
           onChange={(letter) => this.onChange(letter, i)}
           refocus={this.props.refocus}
@@ -175,6 +179,7 @@ class Phrase extends Component {
 Phrase.propTypes = {
   correctAnswer: PropTypes.string.isRequired,
   guess: PropTypes.string.isRequired,
+  phraseNumber: PropTypes.number.isRequired,
   isComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
   refocus: PropTypes.func.isRequired,

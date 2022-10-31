@@ -24,6 +24,7 @@ class Guesses extends Component {
           isComplete={this.props.status !== 'IN_PROGRESS' || i < this.props.currentRow}
           isCurrentRow={this.props.currentRow === i}
           guess={guess}
+          phraseNumber={i}
           key={i}
           onFail={this.props.onGuessFail}
           onPass={this.props.onPuzzlePass}

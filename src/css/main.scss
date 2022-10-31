@@ -1,4 +1,23 @@
-.word {
+@mixin flip($name, $to-color) {
+  @keyframes #{$name} {
+    0% { transform: scaleY(1); }
+
+    50% {
+      transform: scaleY(0);
+    }
+
+    100% {
+      transform: scaleY(1);
+      border-color: $to-color;
+    }
+  }
+}
+
+@include flip(flip-pass, green);
+@include flip(flip-shuffle, yellow);
+@include flip(flip-fail, #a1a1a1);
+
+.guess {
 
   input {
     border: 4px #ddd solid;
@@ -21,16 +40,33 @@
       visibility: hidden;
     }
 
-    &.pass {
-      border-color: green;
+    &:not(.animate) {
+      &.pass {
+        border-color: green;
+      }
+
+      &.fail {
+        border-color: #a1a1a1;
+      }
+
+      &.shuffle {
+        border-color: yellow;
+      }
     }
 
-    &.fail {
-      border-color: #a1a1a1;
-    }
+    &.animate {
+      &.pass {
+        animation: flip-pass 500ms ease forwards;
+      }
 
-    &.shuffle {
-      border-color: yellow;
+      &.shuffle {
+        animation: flip-shuffle 500ms ease forwards;
+      }
+
+      &.fail {
+        animation: flip-fail 500ms ease forwards;
+      }
+
     }
   }
 }

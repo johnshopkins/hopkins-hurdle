@@ -39,15 +39,22 @@ class Letter extends Component {
   }
 
   getClass() {
+
+    const classes = [];
+
     if (this.props.isSpace) {
-      return 'space';
+      classes.push('space');
     }
 
     if (this.props.status) {
-      return this.props.status;
+      classes.push(this.props.status);
     }
 
-    return null;
+    if (this.props.animate) {
+      classes.push('animate');
+    }
+
+    return classes.join(' ');
   }
 
   onChange(value) {
@@ -73,17 +80,21 @@ class Letter extends Component {
   }
 
   render() {
+
+    const animationDelay = (100 * this.props.letterNumber) + 'ms';
+
     return <input
       className={this.getClass()}
       disabled={this.props.isComplete}
-      type={'text'}
       maxLength={1}
       onChange={e => this.onChange(e.target.value)}
       onKeyDown={this.onKeyDown}
       onMouseDown={this.onMouseDown}
       pattern="[a-z]"
       ref={this.input}
-      // tabIndex={-1}
+      style={{animationDelay: animationDelay}}
+      tabIndex={this.props.isComplete || !this.props.isCurrentRow ? -1 : null}
+      type={'text'}
       value={this.props.value}
     />
   }
@@ -91,9 +102,12 @@ class Letter extends Component {
 }
 
 Letter.propTypes = {
+  animate: PropTypes.bool.isRequired,
   direction: PropTypes.string.isRequired,
   focus: PropTypes.bool.isRequired,
+  letterNumber: PropTypes.number.isRequired,
   isComplete: PropTypes.bool.isRequired,
+  isCurrentRow: PropTypes.bool.isRequired,
   onBackspace: PropTypes.func.isRequired,
   onEnter: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
