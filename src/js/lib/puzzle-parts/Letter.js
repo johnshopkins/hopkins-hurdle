@@ -61,7 +61,9 @@ class Letter extends Component {
   }
 
   onChange(value) {
-    if (value === '') {
+
+    if ((value === ' ' && !this.props.isSpace) || (value !== ' ' && !value.match(/[A-Za-z]/))) {
+      // space or not aletter
       return;
     }
 
@@ -91,7 +93,6 @@ class Letter extends Component {
       onChange={e => this.onChange(e.target.value)}
       onKeyDown={this.onKeyDown}
       onMouseDown={this.onMouseDown}
-      pattern="[a-z]"
       ref={this.input}
       style={{animationDelay: animationDelay}}
       tabIndex={this.props.isComplete || !this.props.isCurrentRow ? -1 : null}
