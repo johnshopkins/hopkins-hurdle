@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { savePuzzleState, loadPuzzleState } from './lib/helpers/persistance';
+import Answer from './lib/puzzle-parts/Answer';
 import Guesses from './lib/puzzle-parts/Guesses';
 
 class Puzzle extends Component {
@@ -103,6 +104,7 @@ class Puzzle extends Component {
           status={this.state.status}
         />
         <button onClick={this.clearLocalStorage}>Clear stored data</button>
+        {this.state.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
       </>
     );
   }
