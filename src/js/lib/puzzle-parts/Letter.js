@@ -67,7 +67,7 @@ class Letter extends Component {
       return;
     }
 
-    this.props.onChange(value);
+    this.props.onChange(value.toUpperCase());
   }
 
   onKeyDown(e) {

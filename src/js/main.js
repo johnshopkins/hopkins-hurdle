@@ -8,6 +8,9 @@ import Guesses from './lib/puzzle-parts/Guesses';
 class Puzzle extends Component {
 
   constructor(props) {
+
+    props.puzzle.answer = props.puzzle.answer.toUpperCase();
+
     super(props);
 
     this.availableGuesses = 6;
