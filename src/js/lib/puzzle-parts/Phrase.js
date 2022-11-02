@@ -166,7 +166,6 @@ class Phrase extends Component {
           letterNumber={i}
           onBackspace={() => this.onBackspace(i)}
           isCurrentRow={this.props.isCurrentRow}
-          onEnter={this.onEnter}
           onChange={(letter) => this.onChange(letter, i)}
           refocus={this.props.refocus}
           status={character.status}

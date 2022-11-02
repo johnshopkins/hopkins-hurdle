@@ -8,7 +8,6 @@ class Letter extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.onMouseDown = this.onMouseDown.bind(this);
 
     this.input = React.createRef();
 
@@ -75,8 +74,6 @@ class Letter extends Component {
 
   onMouseDown(e) {
     e.preventDefault();
-    // this.maybeFocus();
-    // this.props.refocus();
   }
 
   render() {

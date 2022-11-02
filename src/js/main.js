@@ -11,10 +11,13 @@ class Puzzle extends Component {
 
     this.availableGuesses = 6;
 
+    this.loadPuzzle = id => loadPuzzleState(id);
+    this.savePuzzle = (id, puzzle) => savePuzzleState(id, puzzle);
+
     // localStorage.removeItem('hopkinshurdle.' + this.props.id);
 
     // fetch any stored data from localStorage
-    const stored = this.props.loadPuzzle(this.props.id) || {};
+    const stored = this.loadPuzzle(this.props.id) || {};
 
     // combine stored and default state
     this.state = {
@@ -60,7 +63,7 @@ class Puzzle extends Component {
       }
 
       return update;
-    }, () => this.props.savePuzzle(this.props.id, this.state));
+    }, this.onPuzzleFinish);
   }
 
   onPuzzlePass(guess) {
@@ -76,10 +79,16 @@ class Puzzle extends Component {
       update.guesses = state.guesses;
 
       return update;
-    }, () => {
-      this.props.savePuzzle(this.props.id, this.state)
-      console.log(this.state)
-    });
+    }, this.onPuzzleFinish);
+  }
+
+  /**
+   * Things that need to happen regardless of PASS/FAIL
+   */
+  onPuzzleFinish() {
+
+    this.savePuzzle(this.props.id, this.state);
+
   }
 
   render() {
@@ -101,9 +110,6 @@ class Puzzle extends Component {
 }
 
 Puzzle.defaultProps = {
-  puzzle: {},
-  loadPuzzle: id => loadPuzzleState(id),
-  savePuzzle: (id, puzzle) => savePuzzleState(id, puzzle),
 };
 
 Puzzle.propTypes = {
