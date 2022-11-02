@@ -67,7 +67,7 @@ class Puzzle extends Component {
       }
 
       return update;
-    }, this.onPuzzleFinish);
+    }, this.onPuzzleEnd);
   }
 
   onPuzzlePass(guess) {
@@ -83,13 +83,11 @@ class Puzzle extends Component {
       update.guesses = state.guesses;
 
       return update;
-    }, this.onPuzzleFinish);
+
+    }, this.onPuzzleEnd);
   }
 
-  /**
-   * Things that need to happen regardless of PASS/FAIL
-   */
-  onPuzzleFinish() {
+  onPuzzleEnd() {
 
     this.savePuzzle(this.props.id, this.state);
 
