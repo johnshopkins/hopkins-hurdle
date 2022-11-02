@@ -25,6 +25,10 @@ class Letter extends Component {
     if (this.props.focus) {
       this.input.current.focus();
 
+      if (this.props.triggerFocus) {
+        this.props.onRefocusComplete();
+      }
+
       if (this.props.isSpace) {
         if (this.props.direction === 'forward') {
           // autochange (skip) spaces
@@ -108,7 +112,8 @@ Letter.propTypes = {
   onBackspace: PropTypes.func.isRequired,
   onEnter: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  refocus: PropTypes.func.isRequired,
+  onRefocusComplete: PropTypes.func.isRequired,
+  triggerFocus: PropTypes.bool.isRequired,
   status: PropTypes.string,
   value: PropTypes.string,
 };

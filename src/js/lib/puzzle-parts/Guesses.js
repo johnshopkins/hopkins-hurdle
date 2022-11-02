@@ -8,16 +8,29 @@ class Guesses extends Component {
   constructor(props) {
     super(props);
 
-    this.refocus = this.refocus.bind(this);
+    this.state = {
+      triggerFocus: false
+    };
+
+    this.triggerRefocus = this.triggerRefocus.bind(this);
+    this.onRefocusComplete = this.onRefocusComplete.bind(this);
   }
 
-  refocus() {
-    console.log('Guesses::refocus', 'how to refocus???')
-    // console.log(this.props.currentRow)
+  /**
+   * Change the state t
+   */
+  triggerRefocus() {
+    this.setState({ triggerFocus: true });
+  }
+
+  onRefocusComplete() {
+    this.setState({ triggerFocus: false });
   }
 
   render() {
-    return <div className={'guesses'} onClick={this.refocus}>
+    // console.log('guesses render', this.state)
+
+    return <div className={'guesses'} onClick={this.triggerRefocus}>
       {this.props.guesses.map((guess, i) =>
         <Phrase
           correctAnswer={this.props.correctAnswer}
@@ -28,7 +41,8 @@ class Guesses extends Component {
           key={i}
           onFail={this.props.onGuessFail}
           onPass={this.props.onPuzzlePass}
-          refocus={this.refocus}
+          onRefocusComplete={this.onRefocusComplete}
+          triggerFocus={this.state.triggerFocus}
         />
       )}
     </div>

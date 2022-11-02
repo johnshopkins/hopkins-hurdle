@@ -167,7 +167,8 @@ class Phrase extends Component {
           onBackspace={() => this.onBackspace(i)}
           isCurrentRow={this.props.isCurrentRow}
           onChange={(letter) => this.onChange(letter, i)}
-          refocus={this.props.refocus}
+          onRefocusComplete={this.props.onRefocusComplete}
+          triggerFocus={this.props.triggerFocus && this.props.isCurrentRow && this.state.activeLetter === i}
           status={character.status}
           value={character.guessedLetter} />
       )}
@@ -181,9 +182,10 @@ Phrase.propTypes = {
   phraseNumber: PropTypes.number.isRequired,
   isComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
-  refocus: PropTypes.func.isRequired,
   onFail: PropTypes.func.isRequired,
   onPass: PropTypes.func.isRequired,
+  onRefocusComplete: PropTypes.func.isRequired,
+  triggerFocus: PropTypes.bool.isRequired,
 };
 
 export default Phrase;
