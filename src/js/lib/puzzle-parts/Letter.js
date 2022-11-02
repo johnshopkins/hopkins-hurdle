@@ -95,7 +95,7 @@ class Letter extends Component {
       onMouseDown={this.onMouseDown}
       ref={this.input}
       style={{animationDelay: animationDelay}}
-      tabIndex={this.props.isComplete || !this.props.isCurrentRow ? -1 : null}
+      tabIndex={this.props.focus ? null : -1}
       type={'text'}
       value={this.props.value}
     />
