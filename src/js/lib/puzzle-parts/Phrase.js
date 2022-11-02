@@ -145,8 +145,10 @@ class Phrase extends Component {
   }
 
   onEnter() {
-    console.log('Phrase::onEnter', 'evaluate!')
-    if (this.state.guess.length < this.props.correctAnswer.length) {
+
+    const guess = this.state.guess.map(guess => guess.guessedLetter).join('');
+
+    if (guess.length < this.props.correctAnswer.length) {
       console.log('you need to finish ')
     } else {
       this.evaluateGuess();
