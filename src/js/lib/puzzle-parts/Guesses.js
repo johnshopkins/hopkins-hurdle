@@ -28,8 +28,6 @@ class Guesses extends Component {
   }
 
   render() {
-    // console.log('guesses render', this.state)
-
     return <div className={'guesses'} onClick={this.triggerRefocus}>
       {this.props.guesses.map((guess, i) =>
         <Phrase
@@ -39,6 +37,7 @@ class Guesses extends Component {
           guess={guess}
           phraseNumber={i}
           key={i}
+          displayMessage={this.props.displayMessage}
           onFail={this.props.onGuessFail}
           onPass={this.props.onPuzzlePass}
           onRefocusComplete={this.onRefocusComplete}
@@ -54,6 +53,7 @@ Guesses.propTypes = {
   guesses: PropTypes.array.isRequired,
   currentRow: PropTypes.number.isRequired,
   correctAnswer: PropTypes.string.isRequired,
+  displayMessage: PropTypes.func.isRequired,
   onPuzzlePass: PropTypes.func.isRequired,
   onGuessFail: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired,

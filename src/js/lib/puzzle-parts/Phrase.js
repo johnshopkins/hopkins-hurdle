@@ -149,7 +149,10 @@ class Phrase extends Component {
     const guess = this.state.guess.map(guess => guess.guessedLetter).join('');
 
     if (guess.length < this.props.correctAnswer.length) {
-      console.log('you need to finish ')
+      this.props.displayMessage({
+        type: 'error',
+        message: 'Not enough letters'
+      });
     } else {
       this.evaluateGuess();
     }
@@ -185,6 +188,7 @@ Phrase.propTypes = {
   phraseNumber: PropTypes.number.isRequired,
   isComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
+  displayMessage: PropTypes.func.isRequired,
   onFail: PropTypes.func.isRequired,
   onPass: PropTypes.func.isRequired,
   onRefocusComplete: PropTypes.func.isRequired,

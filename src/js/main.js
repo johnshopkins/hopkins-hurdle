@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { savePuzzleState, loadPuzzleState } from './lib/helpers/persistance';
 import Answer from './lib/puzzle-parts/Answer';
 import Guesses from './lib/puzzle-parts/Guesses';
+import Message from './lib/puzzle-parts/Message';
 
 class Puzzle extends Component {
 
@@ -18,8 +19,6 @@ class Puzzle extends Component {
     this.loadPuzzle = id => loadPuzzleState(id);
     this.savePuzzle = (id, puzzle) => savePuzzleState(id, puzzle);
 
-    // localStorage.removeItem('hopkinshurdle.' + this.props.id);
-
     // fetch any stored data from localStorage
     const stored = this.loadPuzzle(this.props.id) || {};
 
@@ -27,6 +26,7 @@ class Puzzle extends Component {
     this.state = {
       guesses: Array.apply(null, Array(this.availableGuesses)).map(() => ''),
       currentRow: 0,
+      message: {},
       status: 'IN_PROGRESS',
 
       // // for testing
@@ -38,9 +38,10 @@ class Puzzle extends Component {
       ...stored,
     };
 
-    console.log('Puzzle state', this.state);
+    // console.log('Puzzle state', this.state);
 
     this.clearLocalStorage = this.clearLocalStorage.bind(this);
+    this.displayMessage = this.displayMessage.bind(this);
     this.onGuessFail = this.onGuessFail.bind(this);
     this.onPuzzlePass = this.onPuzzlePass.bind(this);
   }
@@ -87,24 +88,45 @@ class Puzzle extends Component {
     }, this.onPuzzleEnd);
   }
 
+  clearMessage() {
+    this.setState({ message: {} });
+  }
+
+  displayMessage(message) {
+
+    this.setState({ message: message });
+
+    setTimeout(() => {
+      this.clearMessage();
+    }, message.ttl || 5000)
+  }
+  
   onPuzzleEnd() {
 
     this.savePuzzle(this.props.id, this.state);
 
+    setTimeout(() => {
+      this.displayMessage({
+        type: 'error',
+        message: this.state.status === 'PASS' ? 'Great job!' : 'Better luck next time.'
+      });
+    }, (this.props.puzzle.answer.length * 100) + 750) // 750ms after animation finishes
   }
 
   render() {
     return (
       <>
+        {this.state.message && <Message {...this.state.message} />}
         <Guesses
           guesses={this.state.guesses}
           currentRow={this.state.currentRow}
-          correctAnswer={this.props.puzzle.answer}
+          correctAnswer={this.props.puzzle.answer.toUpperCase()}
+          displayMessage={this.displayMessage}
           onPuzzlePass={this.onPuzzlePass}
           onGuessFail={this.onGuessFail}
           status={this.state.status}
         />
-        <button onClick={this.clearLocalStorage}>Clear stored data</button>
+        {this.props.debug && <button onClick={this.clearLocalStorage}>Clear stored data</button>}
         {this.state.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
       </>
     );
@@ -113,6 +135,7 @@ class Puzzle extends Component {
 }
 
 Puzzle.defaultProps = {
+  debug: false
 };
 
 Puzzle.propTypes = {
