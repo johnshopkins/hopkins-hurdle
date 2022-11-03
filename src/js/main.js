@@ -127,7 +127,7 @@ class Puzzle extends Component {
 
     return (
       <>
-        {this.state.message && <Message {...this.state.message} />}
+        <Message {...this.state.message} />
         <Clue
           clue={this.props.puzzle.clues[this.state.currentRow]}
           currentRow={this.state.currentRow}
