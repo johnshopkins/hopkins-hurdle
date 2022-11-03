@@ -74,6 +74,11 @@ class Puzzle extends Component {
 
       if (this.state.status === 'FAIL') {
         this.onPuzzleEnd();
+      } else {
+        this.displayMessage({
+          type: 'info',
+          message: 'Your guess is incorrect. Try again.'
+        });
       }
     });
   }
