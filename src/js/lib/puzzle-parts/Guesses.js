@@ -28,7 +28,15 @@ class Guesses extends Component {
   }
 
   render() {
-    return <div className={'guesses'} onClick={this.triggerRefocus}>
+
+    const attributes = {
+      'aria-label': 'Guesses',
+      className: 'guesses',
+      onClick: this.triggerRefocus,
+      role: 'region',
+    };
+
+    return <div {...attributes}>
       {this.props.guesses.map((guess, i) =>
         <Phrase
           correctAnswer={this.props.correctAnswer}

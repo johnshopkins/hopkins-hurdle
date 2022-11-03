@@ -180,7 +180,22 @@ class Phrase extends Component {
   }
 
   render() {
-    return <div className={'guess'} role={'group'} aria-label={'Guess ' + (this.props.phraseNumber + 1)}>
+
+    let label = `Guess ${this.props.phraseNumber + 1}`;
+
+    if (this.props.isComplete) {
+      label += ': complete'
+    } else if (this.props.isCurrentRow) {
+      label += ': in progress'
+    }
+
+    const attributes = {
+      'aria-label': label,
+      className: 'guess',
+      role: 'group'
+    }
+
+    return <div {...attributes}>
       {this.state.guess.map((character, i) =>
         <Letter
           animate={this.state.animate}
