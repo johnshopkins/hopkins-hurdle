@@ -70,6 +70,8 @@ class Puzzle extends Component {
 
       return update;
     }, () => {
+      this.savePuzzle(this.props.id, this.state);
+
       if (this.state.status === 'FAIL') {
         this.onPuzzleEnd();
       }
@@ -90,7 +92,10 @@ class Puzzle extends Component {
 
       return update;
 
-    }, this.onPuzzleEnd);
+    }, () => {
+      this.savePuzzle(this.props.id, this.state);
+      this.onPuzzleEnd();
+    });
   }
 
   clearMessage() {
@@ -107,9 +112,7 @@ class Puzzle extends Component {
   }
   
   onPuzzleEnd() {
-
-    this.savePuzzle(this.props.id, this.state);
-
+    
     setTimeout(() => {
       this.displayMessage({
         type: 'error',
