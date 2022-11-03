@@ -36,7 +36,11 @@ class Guesses extends Component {
       role: 'region',
     };
 
+    const answerDescription = `The answer consists of ${this.props.answerDescription}. You have ${this.props.remainingGuesses} guesses remaining.`;
+
     return <div {...attributes}>
+      <h2>Guesses</h2>
+      <p className={'visuallyhidden'}>{answerDescription}</p>
       {this.props.guesses.map((guess, i) =>
         <Phrase
           correctAnswer={this.props.correctAnswer}
@@ -64,6 +68,7 @@ Guesses.propTypes = {
   displayMessage: PropTypes.func.isRequired,
   onPuzzlePass: PropTypes.func.isRequired,
   onGuessFail: PropTypes.func.isRequired,
+  remainingGuesses: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
 };
 

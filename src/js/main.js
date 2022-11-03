@@ -122,19 +122,25 @@ class Puzzle extends Component {
   }
 
   render() {
+
+    const remainingGuesses = this.availableGuesses - (this.state.guesses.filter(n => n).length);
+
     return (
       <>
         {this.state.message && <Message {...this.state.message} />}
         <Clue
           clue={this.props.puzzle.clues[this.state.currentRow]}
+          currentRow={this.state.currentRow}
         />
         <Guesses
+          answerDescription={this.props.puzzle.answerDescription}
           guesses={this.state.guesses}
           currentRow={this.state.currentRow}
           correctAnswer={this.props.puzzle.answer.toUpperCase()}
           displayMessage={this.displayMessage}
           onPuzzlePass={this.onPuzzlePass}
           onGuessFail={this.onGuessFail}
+          remainingGuesses={remainingGuesses}
           status={this.state.status}
         />
         {this.props.debug && <button onClick={this.clearLocalStorage}>Clear stored data</button>}
