@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { savePuzzleState, loadPuzzleState } from './lib/helpers/persistance';
 import Answer from './lib/puzzle-parts/Answer';
+import Clue from './lib/puzzle-parts/Clue';
 import Guesses from './lib/puzzle-parts/Guesses';
 import Message from './lib/puzzle-parts/Message';
 
@@ -117,6 +118,9 @@ class Puzzle extends Component {
     return (
       <>
         {this.state.message && <Message {...this.state.message} />}
+        <Clue
+          clue={this.props.puzzle.clues[this.state.currentRow]}
+        />
         <Guesses
           guesses={this.state.guesses}
           currentRow={this.state.currentRow}

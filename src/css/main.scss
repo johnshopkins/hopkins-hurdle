@@ -17,6 +17,14 @@
 @include flip(flip-shuffle, yellow);
 @include flip(flip-fail, #a1a1a1);
 
+.clue {
+  width: 500px;
+
+  img {
+    max-width: 100%;
+  }
+}
+
 .guess {
 
   input {
