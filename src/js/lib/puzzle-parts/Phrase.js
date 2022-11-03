@@ -114,14 +114,23 @@ class Phrase extends Component {
   onChange(letter, i) {
     this.setState((state) => {
 
-      // update guess
-      state.guess[i].guessedLetter = letter;
-
-      return {
-        activeLetter: state.activeLetter + 1,
+      const update = {
         direction: 'forward',
-        guess: state.guess,
+      };
+
+      const guess = state.guess;
+
+      if (state.activeLetter !== guess.length - 1) {
+        // only increase the activeLetter if we're NOT on the last letter
+        update.activeLetter = state.activeLetter + 1
       }
+
+      // update guess
+      guess[i].guessedLetter = letter;
+
+      update.guess = guess;
+
+      return update;
     });
   }
 
@@ -129,18 +138,30 @@ class Phrase extends Component {
     this.setState((state) => {
 
       if (state.activeLetter === 0 ) {
-        // we're back at the beginning
+        // we're back at the beginning already
         return {};
       }
 
-      // remove guess from newly focused input
-      state.guess[i - 1].guessedLetter = '';
+      const update = {
+        direction: 'backward'
+      };
 
-      return {
-        activeLetter: state.activeLetter - 1,
-        direction: 'backward',
-        guess: state.guess,
+      const guess = state.guess;
+
+      if (state.activeLetter === state.guess.length - 1 && guess[i].guessedLetter.match(/[A-Za-z]/)) {
+
+        // last letter and NOT EMPTY. remove the letter, but do not move the cursor
+        guess[i].guessedLetter = '';
+
+      } else {
+        // not the last letter. go back a letter and remove its value
+        update.activeLetter = state.activeLetter - 1;
+        guess[i - 1].guessedLetter = '';
       }
+
+      update.guess = guess;
+
+      return update;
     });
   }
 
