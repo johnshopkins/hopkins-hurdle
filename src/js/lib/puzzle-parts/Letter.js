@@ -93,6 +93,7 @@ class Letter extends Component {
       onChange={e => this.onChange(e.target.value)}
       onKeyDown={this.onKeyDown}
       onMouseDown={this.onMouseDown}
+      readOnly={!this.props.focus}
       ref={this.input}
       style={{animationDelay: animationDelay}}
       tabIndex={this.props.focus ? null : -1}
