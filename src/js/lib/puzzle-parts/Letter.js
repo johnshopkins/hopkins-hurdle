@@ -87,6 +87,7 @@ class Letter extends Component {
     const animationDelay = (100 * this.props.letterNumber) + 'ms';
 
     return <input
+      aria-hidden={this.props.isSpace}
       className={this.getClass()}
       disabled={this.props.isComplete}
       maxLength={1}
