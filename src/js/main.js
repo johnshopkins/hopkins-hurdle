@@ -69,7 +69,11 @@ class Puzzle extends Component {
       }
 
       return update;
-    }, this.onPuzzleEnd);
+    }, () => {
+      if (this.state.status === 'FAIL') {
+        this.onPuzzleEnd();
+      }
+    });
   }
 
   onPuzzlePass(guess) {
