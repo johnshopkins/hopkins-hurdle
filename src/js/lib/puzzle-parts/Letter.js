@@ -82,12 +82,28 @@ class Letter extends Component {
     e.preventDefault();
   }
 
+  getNiceStatus() {
+    if (this.props.status === 'pass') {
+      return 'correct';
+    } else if (this.props.status === 'shuffle') {
+      return 'correct letter, but in wrong position'
+    } else {
+      return 'incorrect';
+    }
+  }
+
   render() {
 
     const animationDelay = (100 * this.props.letterNumber) + 'ms';
+    let label = `Letter #${this.props.letterNumber + 1}`;
+
+    if (this.props.isComplete) {
+      label += `: ${this.getNiceStatus()}`
+    }
 
     return <input
       aria-hidden={this.props.isSpace}
+      aria-label={label}
       className={this.getClass()}
       disabled={this.props.isComplete}
       maxLength={1}
