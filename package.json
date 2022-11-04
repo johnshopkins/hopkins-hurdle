@@ -1,6 +1,9 @@
 {
   "name": "hopkins-hurcle",
   "type": "module",
+  "scripts": {
+    "test": "mocha"
+  },
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
@@ -11,10 +14,11 @@
     "@sentry/tracing": "^6.0.0",
     "babel-plugin-add-module-exports": "^1.0.0",
     "babelify": "^10.0.0",
+    "chai": "^4.3.6",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.12.4",
     "gulp-tasks": "git+https://github.com/johnshopkins/gulp-tasks#v1.0.0",
-    "minimist": "^1.2.7",
+    "mocha": "^10.1.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

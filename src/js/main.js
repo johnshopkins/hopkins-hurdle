@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { savePuzzleState, loadPuzzleState } from './lib/helpers/persistance';
+import { savePuzzleState, loadPuzzleState} from './lib/helpers/persistance';
+import { local as localStorage } from './lib/helpers/storage';
+
 import Answer from './lib/puzzle-parts/Answer';
 import Clue from './lib/puzzle-parts/Clue';
 import Guesses from './lib/puzzle-parts/Guesses';
 import Message from './lib/puzzle-parts/Message';
+import Statistics from './lib/helpers/statistics';
 
 class Puzzle extends Component {
 
@@ -23,19 +26,15 @@ class Puzzle extends Component {
     // fetch any stored data from localStorage
     const stored = this.loadPuzzle(this.props.id) || {};
 
+    this.stats = new Statistics(this.availableGuesses, localStorage, this.props.logger);
+    // console.log('starting stats', this.stats.stats);
+
     // combine stored and default state
     this.state = {
       guesses: Array.apply(null, Array(this.availableGuesses)).map(() => ''),
       currentRow: 0,
       message: {},
       status: 'IN_PROGRESS',
-
-      // // for testing
-      // guesses: [
-      //   'teseet tape', '', '', '', '', ''
-      // ],
-      // currentRow: 1,
-
       ...stored,
     };
 
@@ -48,10 +47,10 @@ class Puzzle extends Component {
   }
 
   clearLocalStorage() {
-    localStorage.removeItem('hopkinshurdle.' + this.props.id);
+    localStorage.remove('hopkinshurdle.' + this.props.id);
   }
 
-  onGuessFail(guess) {
+  onGuessFail(guess, numberOfGuesses) {
     this.setState((state) => {
 
       // state keys to update
@@ -73,7 +72,7 @@ class Puzzle extends Component {
       this.savePuzzle(this.props.id, this.state);
 
       if (this.state.status === 'FAIL') {
-        this.onPuzzleEnd();
+        this.onPuzzleEnd(numberOfGuesses);
       } else {
         this.displayMessage({
           type: 'info',
@@ -83,7 +82,7 @@ class Puzzle extends Component {
     });
   }
 
-  onPuzzlePass(guess) {
+  onPuzzlePass(guess, numberOfGuesses) {
     this.setState((state) => {
 
       // state keys to update
@@ -99,7 +98,7 @@ class Puzzle extends Component {
 
     }, () => {
       this.savePuzzle(this.props.id, this.state);
-      this.onPuzzleEnd();
+      this.onPuzzleEnd(numberOfGuesses);
     });
   }
 
@@ -116,8 +115,11 @@ class Puzzle extends Component {
     }, message.ttl || 5000)
   }
   
-  onPuzzleEnd() {
-    
+  onPuzzleEnd(numberOfGuesses) {
+
+    this.stats = this.stats.update(this.state.status, numberOfGuesses);
+    // console.log('updated stats', this.stats)
+
     setTimeout(() => {
       this.displayMessage({
         type: 'error',
