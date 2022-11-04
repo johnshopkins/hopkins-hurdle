@@ -1,8 +1,8 @@
 import { assert } from 'chai';
 
 import Statistics from '../src/js/lib/helpers/statistics.js';
-import localStorageMock from './localStorageMock.js';
-import loggerMock from './loggerMock.js';
+import localStorageMock from './helpers/localStorageMock.js';
+import loggerMock from './helpers/loggerMock.js';
 
 const defaultStats = (num) => {
   return {
