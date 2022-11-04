@@ -71,8 +71,7 @@
     &.space {
       height: 30px;
       width: 5px;
-      //opacity: 50%; // we'll just hide this eventually
-      visibility: hidden;
+      opacity: 0; // screen readers will be able to read this
     }
 
     &:not(.animate) {

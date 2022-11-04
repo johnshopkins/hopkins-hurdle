@@ -92,25 +92,32 @@ class Letter extends Component {
     }
   }
 
-  render() {
+  getLabel() {
 
-    const animationDelay = (100 * this.props.letterNumber) + 'ms';
     let label = `Letter #${this.props.letterNumber + 1}`;
 
-    if (this.props.isComplete) {
+    if (this.props.isSpace) {
+      label += `: Space`
+    } else if (this.props.isComplete) {
       label += `: ${this.getNiceStatus()}`
     }
 
+    return label;
+  }
+
+  render() {
+
+    const animationDelay = (100 * this.props.letterNumber) + 'ms';
+
     return <input
-      aria-hidden={this.props.isSpace}
-      aria-label={label}
+      aria-label={this.getLabel()}
       className={this.getClass()}
       disabled={this.props.isComplete}
       maxLength={1}
       onChange={e => this.onChange(e.target.value)}
       onKeyDown={this.onKeyDown}
       onMouseDown={this.onMouseDown}
-      readOnly={!this.props.focus}
+      readOnly={this.isSpace || !this.props.focus}
       ref={this.input}
       style={{animationDelay: animationDelay}}
       tabIndex={this.props.focus ? null : -1}

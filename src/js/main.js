@@ -77,7 +77,7 @@ class Puzzle extends Component {
       } else {
         this.displayMessage({
           type: 'info',
-          message: 'Your guess is incorrect. Try again.'
+          message: 'Your guess is incorrect.'
         });
       }
     });
