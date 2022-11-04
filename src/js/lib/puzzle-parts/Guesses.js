@@ -36,7 +36,7 @@ class Guesses extends Component {
       role: 'region',
     };
 
-    const answerDescription = `The answer consists of ${this.props.answerDescription}. You have ${this.props.remainingGuesses} guesses remaining.`;
+    const answerDescription = `The answer consists of ${this.props.answerDescription}. You have ${this.props.remainingGuesses} ${this.props.remainingGuesses === 1 ? 'guess' : 'guesses'} remaining.`;
 
     return <div {...attributes}>
       <h2>Guesses</h2>
