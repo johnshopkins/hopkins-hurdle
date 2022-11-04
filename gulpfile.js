@@ -1,7 +1,7 @@
-const gulp       = require('gulp');
-const { Tasker } = require('gulp-tasks');
+import gulp from'gulp';
+import { Tasker } from 'gulp-tasks';
 
-const config = require('./config/gulp');
+import { config } from './config/gulp.js';
 
 const tasker = new Tasker(config);
 const tasks = {
@@ -11,9 +11,9 @@ const tasks = {
 
 const defaultTask = gulp.parallel(tasks.js, tasks.scss);
 
-exports.default = defaultTask;
+export default defaultTask;
 
-exports.watch = () => {
+export const watch = () => {
 
   defaultTask();
   gulp.watch(['./src/js/**/*.js'], tasks.js);

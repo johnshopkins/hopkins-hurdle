@@ -1,5 +1,6 @@
 {
   "name": "hopkins-hurcle",
+  "type": "module",
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@babel/plugin-proposal-class-properties": "^7.18.6",

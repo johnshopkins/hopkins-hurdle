@@ -1,7 +1,6 @@
-const argv = require('minimist')(process.argv.slice(2))
-babelify = require('babelify')
+import babelify from 'babelify';
 
-module.exports = {
+export const config = {
 
   js: {
 
