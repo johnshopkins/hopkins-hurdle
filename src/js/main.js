@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import { savePuzzleState, loadPuzzleState} from './lib/helpers/persistance';
 import { local as localStorage } from './lib/helpers/storage';
 
+import Statistics from './lib/helpers/statistics';
+
 import Answer from './lib/puzzle-parts/Answer';
 import Clue from './lib/puzzle-parts/Clue';
 import Guesses from './lib/puzzle-parts/Guesses';
 import Message from './lib/puzzle-parts/Message';
-import Statistics from './lib/helpers/statistics';
+import StatisticsModal from './lib/puzzle-parts/StatisticsModal';
 
 class Puzzle extends Component {
 
@@ -134,6 +136,7 @@ class Puzzle extends Component {
 
     return (
       <>
+        <StatisticsModal stats={this.stats.stats} />
         <Message {...this.state.message} />
         <Clue
           clue={this.props.puzzle.clues[this.state.currentRow]}
