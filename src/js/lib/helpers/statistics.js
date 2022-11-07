@@ -14,7 +14,7 @@ export default class Statistics {
     return {
       gamesPlayed: 0,
       gamesWon: 0,
-      winSteak: 0,
+      winStreak: 0,
       maxStreak: 0,
       guessDistribution: Array.apply(null, Array(availableGuesses)).map(() => 0),
     };
@@ -60,14 +60,14 @@ export default class Statistics {
 
     if (status === 'PASS') {
       this.stats.gamesWon++;
-      this.stats.winSteak++;
+      this.stats.winStreak++;
       this.stats.guessDistribution[numberOfGuesses - 1]++;
     } else {
-      this.stats.winSteak = 0;
+      this.stats.winStreak = 0;
     }
 
-    if (this.stats.maxStreak < this.stats.winSteak) {
-      this.stats.maxStreak = this.stats.winSteak;
+    if (this.stats.maxStreak < this.stats.winStreak) {
+      this.stats.maxStreak = this.stats.winStreak;
     }
 
     this.localStorage.set(this.localStorageKey, this.stats)
