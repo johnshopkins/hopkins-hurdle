@@ -11,16 +11,12 @@ export default ({ stats }) => {
     role: 'region'
   };
 
-  console.log(stats)
-
   const winPercentage = (stats.gamesPlayed > 0 && stats.gamesWon > 0) ?
-    Math.round((stats.gamesWon / stats.gamesPlayed)) :
+    Math.round((stats.gamesWon / stats.gamesPlayed) * 100) :
     0;
 
   const maxGuessDistribution = Math.max(...stats.guessDistribution);
   const unitWidth = maxGuessDistribution > 0 ? 100 / maxGuessDistribution : 0;
-  console.log('maxGuessDistribution', maxGuessDistribution)
-  console.log('unitWidth', unitWidth)
 
   return (
     <div {...attributes}>
@@ -30,7 +26,7 @@ export default ({ stats }) => {
         <dd>{stats.gamesPlayed}</dd>
 
         <dt>Win percentage</dt>
-        <dd>{winPercentage}</dd>
+        <dd>{winPercentage}%</dd>
 
         <dt>Current streak</dt>
         <dd>{stats.winStreak}</dd>
@@ -44,7 +40,6 @@ export default ({ stats }) => {
         {stats.guessDistribution.map((guessCount, guessNumber) => {
 
           const barWidth = `${unitWidth * guessCount}%`;
-          console.log('barWidth', barWidth);
 
           return (
             <React.Fragment key={guessNumber}>
@@ -56,15 +51,4 @@ export default ({ stats }) => {
       </dl>
     </div>
   );
-  //
-  // const header = `Clue #${currentRow + 1}`;
-  //
-  // return (
-  //   <div {...attributes}>
-  //     <h2>{header}</h2>
-  //     <img src={clue.photo.url} alt={clue.photo.alt_text} />
-  //     <p>{clue.text}</p>
-  //   </div>
-  // );
-
 }

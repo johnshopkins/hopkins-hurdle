@@ -1,7 +1,10 @@
-.guess-distribution {
-  dd {
-    background-color: #ddd;
-    text-align: right;
-    padding-right: 20px;
+.stats {
+  width: 500px;
+
+  .guess-distribution {
+    dd {
+      background-color: #ddd;
+      text-align: right;
+    }
   }
 }
