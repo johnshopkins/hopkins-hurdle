@@ -14,7 +14,7 @@ export default ({ clue, currentRow }) => {
   return (
     <div {...attributes}>
       <h2>{header}</h2>
-      <img src={`images/${clue.photo.url}`} alt={clue.photo.alt_text} />
+      <img src={clue.photo.url} alt={clue.photo.alt_text} />
       <p>{clue.text}</p>
     </div>
   );
