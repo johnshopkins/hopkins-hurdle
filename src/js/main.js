@@ -30,7 +30,6 @@ class Puzzle extends Component {
     const stored = this.loadPuzzle(this.props.id) || {};
 
     this.stats = new Statistics(this.availableGuesses, localStorage, this.props.logger);
-    // console.log('starting stats', this.stats.stats);
 
     // combine stored and default state
     this.state = {
@@ -43,7 +42,6 @@ class Puzzle extends Component {
       }
     };
 
-    // console.log('Puzzle state', this.state);
     this.clearPuzzleData = this.clearPuzzleData.bind(this);
     this.clearStatsData = this.clearStatsData.bind(this);
     this.incrementStats = this.incrementStats.bind(this);
@@ -134,7 +132,6 @@ class Puzzle extends Component {
   onPuzzleEnd(numberOfGuesses) {
 
     this.stats.stats = this.stats.update(this.state.puzzle.status, numberOfGuesses);
-    // console.log('updated stats', this.stats)
     this.onPuzzleComplete(this.state.puzzle.status, numberOfGuesses)
 
     setTimeout(() => {
@@ -148,8 +145,6 @@ class Puzzle extends Component {
   render() {
 
     const remainingGuesses = this.availableGuesses - (this.state.puzzle.guesses.filter(n => n).length);
-
-    console.log(this.state)
 
     return (
       <>
