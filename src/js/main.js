@@ -33,11 +33,13 @@ class Puzzle extends Component {
 
     // combine stored and default state
     this.state = {
-      guesses: Array.apply(null, Array(this.availableGuesses)).map(() => ''),
-      currentRow: 0,
       message: {},
-      status: 'IN_PROGRESS',
-      ...stored,
+      puzzle: {
+        guesses: Array.apply(null, Array(this.availableGuesses)).map(() => ''),
+        currentRow: 0,
+        status: 'IN_PROGRESS',
+        ...stored,
+      }
     };
 
     // console.log('Puzzle state', this.state);
@@ -55,25 +57,24 @@ class Puzzle extends Component {
   onGuessFail(guess, numberOfGuesses) {
     this.setState((state) => {
 
-      // state keys to update
-      const update = {};
+      const puzzle = state.puzzle;
 
       // update guesses
-      state.guesses[state.currentRow] = guess;
-      update.guesses = state.guesses;
+      puzzle.guesses[puzzle.currentRow] = guess;
 
       // ran out of guesses
-      if (state.currentRow + 1 === this.availableGuesses){
-        update.status = 'FAIL';
+      if (puzzle.currentRow + 1 === this.availableGuesses){
+        puzzle.status = 'FAIL';
       } else {
-        update.currentRow = state.currentRow + 1
+        puzzle.currentRow = puzzle.currentRow + 1
       }
 
-      return update;
-    }, () => {
-      this.savePuzzle(this.props.id, this.state);
+      return { puzzle: puzzle};
 
-      if (this.state.status === 'FAIL') {
+    }, () => {
+      this.savePuzzle(this.props.id, this.state.puzzle);
+
+      if (this.state.puzzle.status === 'FAIL') {
         this.onPuzzleEnd(numberOfGuesses);
       } else {
         this.displayMessage({
@@ -87,19 +88,17 @@ class Puzzle extends Component {
   onPuzzlePass(guess, numberOfGuesses) {
     this.setState((state) => {
 
-      // state keys to update
-      const update = {
-        status: 'PASS'
-      };
+      const puzzle = state.puzzle;
+      puzzle.status = 'PASS';
 
       // update guesses
-      state.guesses[state.currentRow] = guess;
-      update.guesses = state.guesses;
+      puzzle.guesses[puzzle.currentRow] = guess;
+      puzzle.guesses = puzzle.guesses;
 
-      return update;
+      return { puzzle: puzzle };
 
     }, () => {
-      this.savePuzzle(this.props.id, this.state);
+      this.savePuzzle(this.props.id, this.state.puzzle);
       this.onPuzzleEnd(numberOfGuesses);
     });
   }
@@ -119,42 +118,44 @@ class Puzzle extends Component {
   
   onPuzzleEnd(numberOfGuesses) {
 
-    this.stats = this.stats.update(this.state.status, numberOfGuesses);
+    this.stats = this.stats.update(this.state.puzzle.status, numberOfGuesses);
     // console.log('updated stats', this.stats)
 
     setTimeout(() => {
       this.displayMessage({
         type: 'error',
-        message: this.state.status === 'PASS' ? 'Great job!' : 'Better luck next time.'
+        message: this.state.puzzle.status === 'PASS' ? 'Great job!' : 'Better luck next time.'
       });
     }, (this.props.puzzle.answer.length * 100) + 750) // 750ms after animation finishes
   }
 
   render() {
 
-    const remainingGuesses = this.availableGuesses - (this.state.guesses.filter(n => n).length);
+    const remainingGuesses = this.availableGuesses - (this.state.puzzle.guesses.filter(n => n).length);
+
+    console.log(this.state)
 
     return (
       <>
         <StatisticsModal stats={this.stats.stats} />
         <Message {...this.state.message} />
         <Clue
-          clue={this.props.puzzle.clues[this.state.currentRow]}
-          currentRow={this.state.currentRow}
+          clue={this.props.puzzle.clues[this.state.puzzle.currentRow]}
+          currentRow={this.state.puzzle.currentRow}
         />
         <Guesses
           answerDescription={this.props.puzzle.answerDescription}
-          guesses={this.state.guesses}
-          currentRow={this.state.currentRow}
+          guesses={this.state.puzzle.guesses}
+          currentRow={this.state.puzzle.currentRow}
           correctAnswer={this.props.puzzle.answer.toUpperCase()}
           displayMessage={this.displayMessage}
           onPuzzlePass={this.onPuzzlePass}
           onGuessFail={this.onGuessFail}
           remainingGuesses={remainingGuesses}
-          status={this.state.status}
+          status={this.state.puzzle.status}
         />
         {this.props.debug && <button onClick={this.clearLocalStorage}>Clear stored data</button>}
-        {this.state.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
+        {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
       </>
     );
   }
