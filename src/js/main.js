@@ -43,15 +43,29 @@ class Puzzle extends Component {
     };
 
     // console.log('Puzzle state', this.state);
+    this.clearPuzzleData = this.clearPuzzleData.bind(this);
+    this.clearStatsData = this.clearStatsData.bind(this);
+    this.incrementStats = this.incrementStats.bind(this);
 
-    this.clearLocalStorage = this.clearLocalStorage.bind(this);
     this.displayMessage = this.displayMessage.bind(this);
     this.onGuessFail = this.onGuessFail.bind(this);
     this.onPuzzlePass = this.onPuzzlePass.bind(this);
   }
 
-  clearLocalStorage() {
+  clearPuzzleData() {
     localStorage.remove('hopkinshurdle.' + this.props.id);
+  }
+
+  clearStatsData() {
+    localStorage.remove('hopkinshurdle.stats');
+  }
+
+  incrementStats() {
+    console.log(this.stats.increment())
+  }
+
+  openStatsModal() {
+
   }
 
   onGuessFail(guess, numberOfGuesses) {
@@ -154,7 +168,10 @@ class Puzzle extends Component {
           remainingGuesses={remainingGuesses}
           status={this.state.puzzle.status}
         />
-        {this.props.debug && <button onClick={this.clearLocalStorage}>Clear stored data</button>}
+        {this.props.debug && <button onClick={this.clearPuzzleData}>Clear stored puzzle data</button>}
+        {this.props.debug && <button onClick={this.clearStatsData}>Clear stored stats data</button>}
+        {this.props.debug && <button onClick={this.incrementStats}>Increment Stats</button>}
+        {this.props.debug && <button onClick={this.openStatsModal}>Open Stats Modal</button>}
         {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
       </>
     );
