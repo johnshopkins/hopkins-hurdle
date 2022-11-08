@@ -165,11 +165,11 @@ class Puzzle extends Component {
           hidden={this.state.statMobileOpen}
           {...this.state.message}
         />
-        <Clue
+        { this.props.puzzle.clues && <Clue
           clue={this.props.puzzle.clues[this.state.puzzle.currentRow]}
           currentRow={this.state.puzzle.currentRow}
           hidden={this.state.statMobileOpen}
-        />
+        /> }
         <Guesses
           answerDescription={this.props.puzzle.answerDescription}
           guesses={this.state.puzzle.guesses}
@@ -182,10 +182,18 @@ class Puzzle extends Component {
           remainingGuesses={remainingGuesses}
           status={this.state.puzzle.status}
         />
-        {this.props.debug && <button onClick={this.clearPuzzleData}>Clear stored puzzle data</button>}
-        {this.props.debug && <button onClick={this.clearStatsData}>Clear stored stats data</button>}
-        {this.props.debug && <button onClick={this.incrementStats}>Increment Stats</button>}
-        {this.props.debug && <button onClick={this.openStatsModal}>Open Stats Modal</button>}
+        {this.props.debug &&
+          <div className={'debug'}>
+            <div>
+              <button onClick={this.clearPuzzleData}>Clear stored puzzle data</button>
+              <button onClick={this.clearStatsData}>Clear stored stats data</button>
+            </div>
+            <div>
+              <button onClick={this.incrementStats}>Increment Stats</button>
+              <button onClick={this.openStatsModal}>Open Stats Modal</button>
+            </div>
+          </div>
+        }
         {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
       </>
     );
