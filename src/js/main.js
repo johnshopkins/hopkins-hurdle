@@ -24,6 +24,7 @@ class Puzzle extends Component {
 
     this.loadPuzzle = id => loadPuzzleState(id);
     this.savePuzzle = (id, puzzle) => savePuzzleState(id, puzzle);
+    this.onPuzzleComplete = props.onPuzzleComplete || function (status, numberOfGuesses) {};
 
     // fetch any stored data from localStorage
     const stored = this.loadPuzzle(this.props.id) || {};
@@ -134,6 +135,7 @@ class Puzzle extends Component {
 
     this.stats.stats = this.stats.update(this.state.puzzle.status, numberOfGuesses);
     // console.log('updated stats', this.stats)
+    this.onPuzzleComplete(this.state.puzzle.status, numberOfGuesses)
 
     setTimeout(() => {
       this.displayMessage({
@@ -186,6 +188,7 @@ Puzzle.defaultProps = {
 Puzzle.propTypes = {
   id: PropTypes.number.isRequired,
   puzzle: PropTypes.object.isRequired,
+  onPuzzleComplete: PropTypes.func,
 };
 
 export default Puzzle;
