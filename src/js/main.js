@@ -53,6 +53,8 @@ class Puzzle extends Component {
     this.displayMessage = this.displayMessage.bind(this);
     this.onGuessFail = this.onGuessFail.bind(this);
     this.onPuzzlePass = this.onPuzzlePass.bind(this);
+
+    this.clearMessage = this.clearMessage.bind(this);
   }
 
   clearPuzzleData() {
@@ -129,12 +131,7 @@ class Puzzle extends Component {
   }
 
   displayMessage(message) {
-
     this.setState({ message: message });
-
-    setTimeout(() => {
-      this.clearMessage();
-    }, message.ttl || 5000)
   }
   
   onPuzzleEnd(numberOfGuesses) {
@@ -163,6 +160,7 @@ class Puzzle extends Component {
         />
         <Message
           hidden={this.state.statMobileOpen}
+          onTtl={this.clearMessage}
           {...this.state.message}
         />
         { this.props.puzzle.clues && <Clue

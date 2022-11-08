@@ -32,11 +32,16 @@
 
     .close {
       float: right;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     .guess-distribution {
 
       dd {
+        color: #000;
         background-color: #ddd;
         text-align: right;
         margin: 0;
