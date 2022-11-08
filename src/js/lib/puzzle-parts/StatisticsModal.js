@@ -56,7 +56,7 @@ export default ({ onClose, open, stats }) => {
 
                 return (
                   <React.Fragment key={guessNumber}>
-                    <dt>Games won with {guessNumber} guesses</dt>
+                    <dt>Games won with {guessNumber + 1} guesses</dt>
                     <dd style={{width: barWidth}}>{guessCount}</dd>
                   </React.Fragment>
                 );
