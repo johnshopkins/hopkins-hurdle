@@ -8,7 +8,7 @@ const defaultStats = (num) => {
   return {
     gamesPlayed: 0,
     gamesWon: 0,
-    winSteak: 0,
+    winStreak: 0,
     maxStreak: 0,
     guessDistribution: Array.apply(null, Array(num)).map(() => 0),
   }
@@ -67,7 +67,7 @@ describe('Statistics', () => {
       const expected = {
         gamesPlayed: 1,
         gamesWon: 1,
-        winSteak: 1,
+        winStreak: 1,
         maxStreak: 1,
         guessDistribution: [0, 0, 1],
       };
@@ -87,7 +87,7 @@ describe('Statistics', () => {
       const expected = {
         gamesPlayed: 1,
         gamesWon: 0,
-        winSteak: 0,
+        winStreak: 0,
         maxStreak: 0,
         guessDistribution: [0, 0, 0],
       };
@@ -107,7 +107,7 @@ describe('Statistics', () => {
       const given = {
         gamesPlayed: 20,
         gamesWon: 10,
-        winSteak: 2,
+        winStreak: 2,
         maxStreak: 5,
         guessDistribution: [1, 3, 6],
       };
@@ -115,7 +115,7 @@ describe('Statistics', () => {
       const expected = {
         gamesPlayed: 21,
         gamesWon: 11,
-        winSteak: 3,
+        winStreak: 3,
         maxStreak: 5,
         guessDistribution: [1, 3, 7],
       };
@@ -136,7 +136,7 @@ describe('Statistics', () => {
       const given = {
         gamesPlayed: 20,
         gamesWon: 10,
-        winSteak: 2,
+        winStreak: 2,
         maxStreak: 5,
         guessDistribution: [1, 3, 6],
       };
@@ -144,7 +144,7 @@ describe('Statistics', () => {
       const expected = {
         gamesPlayed: 21,
         gamesWon: 10,
-        winSteak: 0,
+        winStreak: 0,
         maxStreak: 5,
         guessDistribution: [1, 3, 6],
       };
@@ -165,7 +165,7 @@ describe('Statistics', () => {
       const given = {
         gamesPlayed: 20,
         gamesWon: 10,
-        winSteak: 5,
+        winStreak: 5,
         maxStreak: 5,
         guessDistribution: [1, 3, 6],
       };
@@ -173,7 +173,7 @@ describe('Statistics', () => {
       const expected = {
         gamesPlayed: 21,
         gamesWon: 11,
-        winSteak: 6,
+        winStreak: 6,
         maxStreak: 6,
         guessDistribution: [1, 3, 7],
       };
