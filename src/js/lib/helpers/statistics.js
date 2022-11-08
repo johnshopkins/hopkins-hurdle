@@ -74,4 +74,9 @@ export default class Statistics {
 
     return this.stats;
   }
+
+  // for testing
+  increment() {
+    return this.update('FAIL');
+  }
 }

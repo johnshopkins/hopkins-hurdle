@@ -4,5 +4,4 @@ class LoggerMock {
   }
 }
 
-
 export default new LoggerMock();

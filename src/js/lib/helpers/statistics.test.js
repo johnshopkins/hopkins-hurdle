@@ -1,8 +1,6 @@
-import { assert } from 'chai';
-
-import Statistics from '../src/js/lib/helpers/statistics.js';
-import localStorageMock from './helpers/localStorageMock.js';
-import loggerMock from './helpers/loggerMock.js';
+import Statistics from './statistics';
+import localStorageMock from '../mock-objects/localStorageMock';
+import loggerMock from '../mock-objects/loggerMock';
 
 const defaultStats = (num) => {
   return {
@@ -23,7 +21,7 @@ describe('Statistics', () => {
       const localStorage = new localStorageMock();
       const stats = new Statistics(3, localStorage, loggerMock);
 
-      assert.deepEqual(stats.stats, defaultStats(3));
+      expect(defaultStats(3)).toEqual(stats.stats);
 
     });
 
@@ -34,27 +32,27 @@ describe('Statistics', () => {
 
       localStorage.set('hopkinshurdle.stats', { gamesPlayed: false })
       stats = new Statistics(2, localStorage, loggerMock);
-      assert.deepEqual(stats.stats, defaultStats(2));
+      expect(defaultStats(2)).toEqual(stats.stats);
 
       localStorage.set('hopkinshurdle.stats', { gamesWon: false })
       stats = new Statistics(2, localStorage, loggerMock);
-      assert.deepEqual(stats.stats, defaultStats(2));
+      expect(defaultStats(2)).toEqual(stats.stats);
 
       localStorage.set('hopkinshurdle.stats', { winStreak: false })
       stats = new Statistics(2, localStorage, loggerMock);
-      assert.deepEqual(stats.stats, defaultStats(2));
+      expect(defaultStats(2)).toEqual(stats.stats);
 
       localStorage.set('hopkinshurdle.stats', { maxStreak: false })
       stats = new Statistics(2, localStorage, loggerMock);
-      assert.deepEqual(stats.stats, defaultStats(2));
+      expect(defaultStats(2)).toEqual(stats.stats);
 
       localStorage.set('hopkinshurdle.stats', { guessDistribution: false })
       stats = new Statistics(2, localStorage, loggerMock);
-      assert.deepEqual(stats.stats, defaultStats(2));
+      expect(defaultStats(2)).toEqual(stats.stats);
 
       localStorage.set('hopkinshurdle.stats', { guessDistribution: [0, 1, 2] })
       stats = new Statistics(2, localStorage, loggerMock);
-      assert.deepEqual(stats.stats, defaultStats(2));
+      expect(defaultStats(2)).toEqual(stats.stats);
 
     });
 
@@ -77,8 +75,8 @@ describe('Statistics', () => {
       const stats = new Statistics(3, localStorage, loggerMock);
       const updated = stats.update('PASS', 3);
 
-      assert.deepEqual(updated, expected);
-      assert.deepEqual(localStorage.get('hopkinshurdle.stats'), expected);
+      expect(updated).toEqual(expected);
+      expect(localStorage.get('hopkinshurdle.stats')).toEqual(expected);
 
     });
 
@@ -97,8 +95,8 @@ describe('Statistics', () => {
       const stats = new Statistics(3, localStorage, loggerMock);
       const updated = stats.update('FAIL');
 
-      assert.deepEqual(updated, expected);
-      assert.deepEqual(localStorage.get('hopkinshurdle.stats'), expected);
+      expect(updated).toEqual(expected);
+      expect(localStorage.get('hopkinshurdle.stats')).toEqual(expected);
 
     });
 
@@ -126,8 +124,8 @@ describe('Statistics', () => {
       const stats = new Statistics(3, localStorage, loggerMock);
       const updated = stats.update('PASS', 3);
 
-      assert.deepEqual(updated, expected);
-      assert.deepEqual(localStorage.get('hopkinshurdle.stats'), expected);
+      expect(updated).toEqual(expected);
+      expect(localStorage.get('hopkinshurdle.stats')).toEqual(expected);
 
     });
 
@@ -155,8 +153,8 @@ describe('Statistics', () => {
       const stats = new Statistics(3, localStorage, loggerMock);
       const updated = stats.update('FAIL', 3);
 
-      assert.deepEqual(updated, expected);
-      assert.deepEqual(localStorage.get('hopkinshurdle.stats'), expected);
+      expect(updated).toEqual(expected);
+      expect(localStorage.get('hopkinshurdle.stats')).toEqual(expected);
 
     });
 
@@ -184,8 +182,8 @@ describe('Statistics', () => {
       const stats = new Statistics(3, localStorage, loggerMock);
       const updated = stats.update('PASS', 3);
 
-      assert.deepEqual(updated, expected);
-      assert.deepEqual(localStorage.get('hopkinshurdle.stats'), expected);
+      expect(updated).toEqual(expected);
+      expect(localStorage.get('hopkinshurdle.stats')).toEqual(expected);
 
     });
 
