@@ -17,7 +17,7 @@ class Letter extends Component {
     this.maybeFocus();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     this.maybeFocus();
   }
 
