@@ -155,8 +155,8 @@ class Puzzle extends Component {
       <>
         <StatisticsModal
           onClose={this.closeStatsModal}
-          stats={this.stats.stats}
           open={this.state.statMobileOpen}
+          stats={this.stats.stats}
         />
         <Message
           hidden={this.state.statMobileOpen}
@@ -170,16 +170,17 @@ class Puzzle extends Component {
         /> }
         <Guesses
           answerDescription={this.props.puzzle.answerDescription}
-          guesses={this.state.puzzle.guesses}
           currentRow={this.state.puzzle.currentRow}
           correctAnswer={this.props.puzzle.answer.toUpperCase()}
           displayMessage={this.displayMessage}
+          guesses={this.state.puzzle.guesses}
           hidden={this.state.statMobileOpen}
-          onPuzzlePass={this.onPuzzlePass}
           onGuessFail={this.onGuessFail}
+          onPuzzlePass={this.onPuzzlePass}
           remainingGuesses={remainingGuesses}
           status={this.state.puzzle.status}
         />
+        {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
         {this.props.debug &&
           <div className={'debug'}>
             <div>
@@ -192,7 +193,6 @@ class Puzzle extends Component {
             </div>
           </div>
         }
-        {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
       </>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
-export default ({ clue, currentRow, hidden }) => {
+const Clue = ({ clue, currentRow, hidden }) => {
 
   const attributes = {
     'aria-hidden': hidden,
@@ -20,4 +21,12 @@ export default ({ clue, currentRow, hidden }) => {
     </div>
   );
 
-}
+};
+
+Clue.propTypes = {
+  clue: PropTypes.object.isRequired,
+  currentRow: PropTypes.number.isRequired,
+  hidden: PropTypes.bool.isRequired,
+};
+
+export default Clue;

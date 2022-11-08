@@ -202,16 +202,16 @@ class Phrase extends Component {
           direction={this.state.direction}
           focus={this.props.isCurrentRow && this.state.activeLetter === i}
           isComplete={this.props.isComplete}
+          isCurrentRow={this.props.isCurrentRow}
           isSpace={character.correctLetter === ' '}
           key={i}
           letterNumber={i}
           onBackspace={() => this.onBackspace(i)}
-          isCurrentRow={this.props.isCurrentRow}
           onChange={(letter) => this.onChange(letter, i)}
           onEnter={this.onEnter}
           onRefocusComplete={this.props.onRefocusComplete}
-          triggerFocus={this.props.triggerFocus && this.props.isCurrentRow && this.state.activeLetter === i}
           status={character.status}
+          triggerFocus={this.props.triggerFocus && this.props.isCurrentRow && this.state.activeLetter === i}
           value={character.guessedLetter} />
       )}
     </div>
@@ -220,14 +220,14 @@ class Phrase extends Component {
 
 Phrase.propTypes = {
   correctAnswer: PropTypes.string.isRequired,
+  displayMessage: PropTypes.func.isRequired,
   guess: PropTypes.string.isRequired,
-  phraseNumber: PropTypes.number.isRequired,
   isComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
-  displayMessage: PropTypes.func.isRequired,
   onFail: PropTypes.func.isRequired,
   onPass: PropTypes.func.isRequired,
   onRefocusComplete: PropTypes.func.isRequired,
+  phraseNumber: PropTypes.number.isRequired,
   triggerFocus: PropTypes.bool.isRequired,
 };
 

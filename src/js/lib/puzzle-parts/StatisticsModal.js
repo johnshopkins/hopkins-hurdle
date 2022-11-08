@@ -1,9 +1,10 @@
 import React from 'react';
 
+import PropTypes from "prop-types";
 import FocusTrap from 'focus-trap-react';
 import { class as classUtils } from 'js-utils';
 
-export default ({ onClose, open, stats }) => {
+const StatisticsModal = ({ onClose, open, stats }) => {
 
   const attributes = {
     className: 'stats',
@@ -66,4 +67,12 @@ export default ({ onClose, open, stats }) => {
         </FocusTrap>}
     </div>
   )
-}
+};
+
+StatisticsModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  stats: PropTypes.object.isRequired,
+};
+
+export default StatisticsModal;

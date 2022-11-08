@@ -2,7 +2,8 @@
   "name": "hopkins-hurcle",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
