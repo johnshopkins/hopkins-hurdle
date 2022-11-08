@@ -1,8 +1,9 @@
 import React from 'react';
 
-export default ({ clue, currentRow }) => {
+export default ({ clue, currentRow, hidden }) => {
 
   const attributes = {
+    'aria-hidden': hidden,
     'aria-label': 'Clue',
     'aria-live': 'polite',
     className: 'clue',

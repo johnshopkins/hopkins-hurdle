@@ -32,6 +32,14 @@ export const config = {
 
   },
 
+  move: [
+    {
+      src: './src/images/**/*',
+      build: './build/images',
+      dist: './dist/images'
+    }
+  ],
+
   scss: {
 
     lint: {

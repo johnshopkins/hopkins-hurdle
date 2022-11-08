@@ -1,8 +1,9 @@
 import React from 'react';
 
-const Message = ({ type, message }) => {
+const Message = ({ hidden, type, message }) => {
 
   const attributes = {
+    'aria-hidden': hidden,
     'aria-label': 'Messages',
     'aria-live': 'polite',
     className: `message ${type}`,
@@ -13,7 +14,8 @@ const Message = ({ type, message }) => {
 };
 
 Message.defaultProps = {
-  type: 'info'
+  hidden: false,
+  type: 'info',
 };
 
 export default Message;

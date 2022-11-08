@@ -1,10 +1,46 @@
 .stats {
-  width: 500px;
+  display: none;
+  height: 100%;
+  left: 0;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
 
-  .guess-distribution {
-    dd {
-      background-color: #ddd;
-      text-align: right;
+  &.open {
+    display: block;
+  }
+
+  .overlay {
+    background-color: #000;
+    height: 100%;
+    opacity: 0.5;
+    position: absolute;
+    width: 100%;
+    z-index: 0;
+  }
+
+  .stats-container {
+    background-color: #000;
+    color: #fff;
+    margin: auto;
+    text-align: left;
+    padding: 25px;
+    position: relative;
+    width: 500px;
+    z-index: 1;
+
+    .close {
+      float: right;
+    }
+
+    .guess-distribution {
+
+      dd {
+        background-color: #ddd;
+        text-align: right;
+        margin: 0;
+      }
     }
   }
 }

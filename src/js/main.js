@@ -39,12 +39,16 @@ class Puzzle extends Component {
         currentRow: 0,
         status: 'IN_PROGRESS',
         ...stored,
-      }
+      },
+      statMobileOpen: false
     };
 
     this.clearPuzzleData = this.clearPuzzleData.bind(this);
     this.clearStatsData = this.clearStatsData.bind(this);
     this.incrementStats = this.incrementStats.bind(this);
+
+    this.openStatsModal = this.openStatsModal.bind(this);
+    this.closeStatsModal = this.closeStatsModal.bind(this);
 
     this.displayMessage = this.displayMessage.bind(this);
     this.onGuessFail = this.onGuessFail.bind(this);
@@ -64,7 +68,11 @@ class Puzzle extends Component {
   }
 
   openStatsModal() {
+    this.setState({ statMobileOpen: true });
+  }
 
+  closeStatsModal() {
+    this.setState({ statMobileOpen: false });
   }
 
   onGuessFail(guess, numberOfGuesses) {
@@ -148,11 +156,19 @@ class Puzzle extends Component {
 
     return (
       <>
-        <StatisticsModal stats={this.stats.stats} />
-        <Message {...this.state.message} />
+        <StatisticsModal
+          onClose={this.closeStatsModal}
+          stats={this.stats.stats}
+          open={this.state.statMobileOpen}
+        />
+        <Message
+          hidden={this.state.statMobileOpen}
+          {...this.state.message}
+        />
         <Clue
           clue={this.props.puzzle.clues[this.state.puzzle.currentRow]}
           currentRow={this.state.puzzle.currentRow}
+          hidden={this.state.statMobileOpen}
         />
         <Guesses
           answerDescription={this.props.puzzle.answerDescription}
@@ -160,6 +176,7 @@ class Puzzle extends Component {
           currentRow={this.state.puzzle.currentRow}
           correctAnswer={this.props.puzzle.answer.toUpperCase()}
           displayMessage={this.displayMessage}
+          hidden={this.state.statMobileOpen}
           onPuzzlePass={this.onPuzzlePass}
           onGuessFail={this.onGuessFail}
           remainingGuesses={remainingGuesses}
