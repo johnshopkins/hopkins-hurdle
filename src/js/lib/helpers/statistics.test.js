@@ -2,13 +2,14 @@ import Statistics from './statistics';
 import localStorageMock from '../mock-objects/localStorageMock';
 import loggerMock from '../mock-objects/loggerMock';
 
-const defaultStats = (num) => {
+const defaultStats = (num, overrides) => {
   return {
     gamesPlayed: 0,
     gamesWon: 0,
     winStreak: 0,
     maxStreak: 0,
     guessDistribution: Array.apply(null, Array(num)).map(() => 0),
+    ...overrides
   }
 };
 
@@ -16,43 +17,58 @@ describe('Statistics', () => {
 
   describe('Constructor', () => {
 
-    it('gets the default stats when local storage is empty', () => {
+    test('gets the default stats when local storage is empty', () => {
 
       const localStorage = new localStorageMock();
-      const stats = new Statistics(3, localStorage, loggerMock);
+      const stats = new Statistics(3, localStorage, new loggerMock());
 
       expect(defaultStats(3)).toEqual(stats.stats);
 
     });
 
-    it('gets the default stats when local storage is invalid', () => {
+    ['gamesPlayed', 'gamesWon', 'winStreak', 'maxStreak'].map(key => {
+      test(`gets the default stats when stored integer stat, ${key}, is invalid`, () => {
 
-      let stats;
+        const logger = new loggerMock();
+
+        const localStorage = new localStorageMock();
+        const stored = {};
+        stored[key] = false;
+        localStorage.set('hopkinshurdle.stats', defaultStats(2, stored));
+
+        const stats = new Statistics(2, localStorage, logger);
+
+        expect(defaultStats(2)).toEqual(stats.stats);
+        expect(logger.logged[0].data.data.message).toBe(`Invalid stat: ${key}`);
+
+      });
+    });
+
+    test(`gets the default stats when stored array stat, guessDistribution, is not an array`, () => {
+
+      const logger = new loggerMock();
+
       const localStorage = new localStorageMock();
+      localStorage.set('hopkinshurdle.stats', defaultStats(2, { guessDistribution: false }));
 
-      localStorage.set('hopkinshurdle.stats', { gamesPlayed: false })
-      stats = new Statistics(2, localStorage, loggerMock);
-      expect(defaultStats(2)).toEqual(stats.stats);
+      const stats = new Statistics(2, localStorage, logger);
 
-      localStorage.set('hopkinshurdle.stats', { gamesWon: false })
-      stats = new Statistics(2, localStorage, loggerMock);
       expect(defaultStats(2)).toEqual(stats.stats);
+      expect(logger.logged[0].data.data.message).toBe('Invalid stat: guessDistribution');
 
-      localStorage.set('hopkinshurdle.stats', { winStreak: false })
-      stats = new Statistics(2, localStorage, loggerMock);
-      expect(defaultStats(2)).toEqual(stats.stats);
+    });
 
-      localStorage.set('hopkinshurdle.stats', { maxStreak: false })
-      stats = new Statistics(2, localStorage, loggerMock);
-      expect(defaultStats(2)).toEqual(stats.stats);
+    test(`gets the default stats when stored array stat, guessDistribution, has an invalid number of values`, () => {
 
-      localStorage.set('hopkinshurdle.stats', { guessDistribution: false })
-      stats = new Statistics(2, localStorage, loggerMock);
-      expect(defaultStats(2)).toEqual(stats.stats);
+      const logger = new loggerMock();
 
-      localStorage.set('hopkinshurdle.stats', { guessDistribution: [0, 1, 2] })
-      stats = new Statistics(2, localStorage, loggerMock);
+      const localStorage = new localStorageMock();
+      localStorage.set('hopkinshurdle.stats', defaultStats(2, { guessDistribution: [0, 1, 2] }));
+
+      const stats = new Statistics(2, localStorage, logger);
+
       expect(defaultStats(2)).toEqual(stats.stats);
+      expect(logger.logged[0].data.data.message).toBe('Invalid stat: guessDistribution');
 
     });
 
@@ -60,7 +76,7 @@ describe('Statistics', () => {
 
   describe('Update', () => {
 
-    it('updates default stats correctly after a win', () => {
+    test('updates default stats correctly after a win', () => {
 
       const expected = {
         gamesPlayed: 1,
@@ -72,7 +88,7 @@ describe('Statistics', () => {
 
       const localStorage = new localStorageMock();
 
-      const stats = new Statistics(3, localStorage, loggerMock);
+      const stats = new Statistics(3, localStorage, new loggerMock());
       const updated = stats.update('PASS', 3);
 
       expect(updated).toEqual(expected);
@@ -80,7 +96,7 @@ describe('Statistics', () => {
 
     });
 
-    it('updates default stats correctly after a loss', () => {
+    test('updates default stats correctly after a loss', () => {
 
       const expected = {
         gamesPlayed: 1,
@@ -92,7 +108,7 @@ describe('Statistics', () => {
 
       const localStorage = new localStorageMock();
 
-      const stats = new Statistics(3, localStorage, loggerMock);
+      const stats = new Statistics(3, localStorage, new loggerMock());
       const updated = stats.update('FAIL');
 
       expect(updated).toEqual(expected);
@@ -100,7 +116,7 @@ describe('Statistics', () => {
 
     });
 
-    it('updates existing stats correctly after a win', () => {
+    test('updates existing stats correctly after a win', () => {
 
       const given = {
         gamesPlayed: 20,
@@ -121,7 +137,7 @@ describe('Statistics', () => {
       const localStorage = new localStorageMock();
       localStorage.set('hopkinshurdle.stats', given);
 
-      const stats = new Statistics(3, localStorage, loggerMock);
+      const stats = new Statistics(3, localStorage, new loggerMock());
       const updated = stats.update('PASS', 3);
 
       expect(updated).toEqual(expected);
@@ -129,7 +145,7 @@ describe('Statistics', () => {
 
     });
 
-    it('updates existing stats correctly after a loss', () => {
+    test('updates existing stats correctly after a loss', () => {
 
       const given = {
         gamesPlayed: 20,
@@ -150,7 +166,7 @@ describe('Statistics', () => {
       const localStorage = new localStorageMock();
       localStorage.set('hopkinshurdle.stats', given);
 
-      const stats = new Statistics(3, localStorage, loggerMock);
+      const stats = new Statistics(3, localStorage, new loggerMock());
       const updated = stats.update('FAIL', 3);
 
       expect(updated).toEqual(expected);
@@ -158,7 +174,7 @@ describe('Statistics', () => {
 
     });
 
-    it('updates max streak', () => {
+    test('updates max streak', () => {
 
       const given = {
         gamesPlayed: 20,
@@ -179,7 +195,7 @@ describe('Statistics', () => {
       const localStorage = new localStorageMock();
       localStorage.set('hopkinshurdle.stats', given);
 
-      const stats = new Statistics(3, localStorage, loggerMock);
+      const stats = new Statistics(3, localStorage, new loggerMock());
       const updated = stats.update('PASS', 3);
 
       expect(updated).toEqual(expected);

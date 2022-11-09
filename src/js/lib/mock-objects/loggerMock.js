@@ -1,7 +1,14 @@
-class LoggerMock {
-  log() {
-    return null;
-  }
-}
+export default class LoggerMock {
 
-export default new LoggerMock();
+  constructor() {
+    this.logged = [];
+  }
+
+  log(message, data) {
+    this.logged.push({
+      message: message,
+      data: data
+    })
+  }
+  
+}
