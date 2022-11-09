@@ -30,7 +30,7 @@ export default class Statistics {
     try {
 
       ['gamesPlayed', 'gamesWon', 'winStreak', 'maxStreak'].map(key => {
-        if (!Number.isInteger(storedStats.gamesPlayed)) {
+        if (!Number.isInteger(storedStats[key])) {
           throw new Error('Invalid stat: ' + key);
         }
       });
