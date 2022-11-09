@@ -80,12 +80,15 @@ class Phrase extends Component {
 
       // update guess
 
+      // check each letter for correctness. if correct; remove that letter from the letter pool
       state.guess = state.guess.map(g => {
         g.status = this.evaluateGuessForCorrectness(g.guessedLetter, g.correctLetter, g.i);
         if (g.status !== 'pass') success = false;
         return g;
       })
 
+      // now that we know which letters are correct, let's evaluate the wrong letters
+      // need to do this separately because Array.map() can't do a lookahead check
       this.incorrect.map(i => {
         state.guess[i].status = this.evaluateWrongGuesses(state.guess[i].guessedLetter);
         if (state.guess[i].status !== 'pass') success = false;
