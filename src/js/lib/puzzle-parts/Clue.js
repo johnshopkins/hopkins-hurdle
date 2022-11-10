@@ -16,8 +16,8 @@ const Clue = ({ clue, currentRow, hidden }) => {
   return (
     <div {...attributes}>
       <h2>{header}</h2>
-      <img src={clue.photo.url} alt={clue.photo.alt_text} />
-      <p>{clue.text}</p>
+      {clue.photo && clue.photo.url && clue.photo.alt_text && <img src={clue.photo.url} alt={clue.photo.alt_text} />}
+      {clue.text && <p>{clue.text}</p>}
     </div>
   );
 
