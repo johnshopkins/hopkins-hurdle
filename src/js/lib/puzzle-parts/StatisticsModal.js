@@ -4,9 +4,10 @@ import PropTypes from "prop-types";
 import FocusTrap from 'focus-trap-react';
 import { class as classUtils } from 'js-utils';
 
-const StatisticsModal = ({ onClose, open, stats }) => {
+const StatisticsModal = ({ onClose, open, stats, testing }) => {
 
   const attributes = {
+    'aria-label': 'Statistics',
     className: 'stats',
     role: 'region'
   };
@@ -25,11 +26,18 @@ const StatisticsModal = ({ onClose, open, stats }) => {
   const maxGuessDistribution = Math.max(...stats.guessDistribution);
   const unitWidth = maxGuessDistribution > 0 ? 100 / maxGuessDistribution : 0;
 
+  // see: https://github.com/focus-trap/focus-trap#testing-in-jsdom
+  const focusTrapOptions = testing ? {
+    tabbableOptions: {
+      displayCheck: 'none'
+    }
+  } : {};
+
   return (
     <div {...attributes}>
       <div className={'overlay'}></div>
       {open &&
-        <FocusTrap>
+        <FocusTrap focusTrapOptions={focusTrapOptions}>
           <div className={'stats-container'}>
             <button className={'close'} onClick={onClose}>
               <img src={'../../../build/images/close.svg'} alt={'Close modal'} />
@@ -37,16 +45,16 @@ const StatisticsModal = ({ onClose, open, stats }) => {
             <h2>Statistics</h2>
             <dl className={'overall-stats'}>
               <dt>Games played</dt>
-              <dd>{stats.gamesPlayed}</dd>
+              <dd data-testid={'gamesPlayed'}>{stats.gamesPlayed}</dd>
 
               <dt>Win percentage</dt>
-              <dd>{winPercentage}%</dd>
+              <dd data-testid={'winPercentage'}>{winPercentage}%</dd>
 
               <dt>Current streak</dt>
-              <dd>{stats.winStreak}</dd>
+              <dd data-testid={'winStreak'}>{stats.winStreak}</dd>
 
               <dt>Max streak</dt>
-              <dd>{stats.maxStreak}</dd>
+              <dd data-testid={'maxStreak'}>{stats.maxStreak}</dd>
             </dl>
 
             <h3>Guess distribution</h3>
@@ -57,8 +65,8 @@ const StatisticsModal = ({ onClose, open, stats }) => {
 
                 return (
                   <React.Fragment key={guessNumber}>
-                    <dt>Games won with {guessNumber + 1} guesses</dt>
-                    <dd style={{width: barWidth}}>{guessCount}</dd>
+                    <dt data-testid={`guessDistribution-label-${guessNumber}`}>Games won with {guessNumber + 1} guesses</dt>
+                    <dd data-testid={`guessDistribution-count-${guessNumber}`}  style={{width: barWidth}}>{guessCount}</dd>
                   </React.Fragment>
                 );
               })}
@@ -69,10 +77,15 @@ const StatisticsModal = ({ onClose, open, stats }) => {
   )
 };
 
+StatisticsModal.defaultProps = {
+  testing: false,
+};
+
 StatisticsModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   stats: PropTypes.object.isRequired,
+  testing: PropTypes.bool,
 };
 
 export default StatisticsModal;
