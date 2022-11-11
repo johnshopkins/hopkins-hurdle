@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
 import { class as classUtils } from 'js-utils';
 

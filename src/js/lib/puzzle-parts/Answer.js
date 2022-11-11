@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 const Answer = ({ answer }) =>
   <p>Sorry, the correct answer is <strong>{answer}</strong></p>
