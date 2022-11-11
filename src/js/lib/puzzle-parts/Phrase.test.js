@@ -3,7 +3,8 @@
  */
 
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 
 import Phrase from './Phrase';
@@ -33,7 +34,7 @@ describe('Phrase', () => {
       const props = getProps({ isComplete: true });
       const { getByLabelText } = render(<Phrase {...props} />);
 
-      expect(getByLabelText('Guess 2: complete')).toBeInTheDocument()
+      expect(getByLabelText('Guess #2: complete')).toBeInTheDocument()
 
     });
 
@@ -42,7 +43,7 @@ describe('Phrase', () => {
       const props = getProps({ isCurrentRow: true });
       const { getByLabelText } = render(<Phrase {...props} />);
 
-      expect(getByLabelText('Guess 2: in progress')).toBeInTheDocument()
+      expect(getByLabelText('Guess #2: in progress')).toBeInTheDocument()
 
     });
 
@@ -129,7 +130,7 @@ describe('Phrase', () => {
         guess: 'sejtaaa'
       });
 
-      const { getAllByLabelText, rerender } = render(<Phrase {...props} />);
+      const { getAllByLabelText } = render(<Phrase {...props} />);
 
       const inputs = getAllByLabelText(/Letter #[0-9]+/);
 
@@ -145,7 +146,9 @@ describe('Phrase', () => {
 
   describe('onEnter', () => {
 
-    test('when not enough letters is submitted, display error message', () => {
+    test('when not enough letters is submitted, display error message', async () => {
+
+      // const user = userEvent.setup();
 
       const displayMessage = jest.fn();
 
@@ -157,18 +160,13 @@ describe('Phrase', () => {
 
       const { getByLabelText } = render(<Phrase {...props} />);
 
-      // fire Enter key press on last input
-      fireEvent.keyDown(getByLabelText('Letter #7'), {
-        key: 'Enter',
-        code: 13,
-        charCode: 13
-      });
+      await userEvent.type(getByLabelText('Letter #7'), '{enter}');
 
       expect(displayMessage).toHaveBeenCalledTimes(1);
 
     });
 
-    test('when an incorrect guess is submitted, run onFail callback', () => {
+    test('when an incorrect guess is submitted, run onFail callback', async () => {
 
       const onFail = jest.fn();
 
@@ -180,18 +178,13 @@ describe('Phrase', () => {
 
       const { getByLabelText } = render(<Phrase {...props} />);
 
-      // fire Enter key press on last input
-      fireEvent.keyDown(getByLabelText('Letter #7'), {
-        key: 'Enter',
-        code: 13,
-        charCode: 13
-      });
+      await userEvent.type(getByLabelText('Letter #7'), '{enter}');
 
       expect(onFail).toHaveBeenCalledTimes(1);
 
     });
 
-    test('when a correct guess is submitted, run onPass callback', () => {
+    test('when a correct guess is submitted, run onPass callback', async () => {
 
       const onPass = jest.fn();
 
@@ -203,12 +196,7 @@ describe('Phrase', () => {
 
       const { getByLabelText } = render(<Phrase {...props} />);
 
-      // fire Enter key press on last input
-      fireEvent.keyDown(getByLabelText('Letter #7'), {
-        key: 'Enter',
-        code: 13,
-        charCode: 13
-      });
+      await userEvent.type(getByLabelText('Letter #7'), '{enter}');
 
       expect(onPass).toHaveBeenCalledTimes(1);
 
@@ -218,7 +206,7 @@ describe('Phrase', () => {
 
   describe('onChange and onBackspace', () => {
 
-    test('onChange updates value of inputs', () => {
+    test('onChange updates value of inputs', async () => {
 
       const props = getProps({
         correctAnswer: 'a test',
@@ -233,7 +221,7 @@ describe('Phrase', () => {
       expect(inputs[0]).not.toHaveAttribute('readonly');
 
       // A is entered
-      fireEvent.change(inputs[0], { target: { value: 'a' } });
+      await userEvent.type(inputs[0], 'a');
       expect(inputs[0]).toHaveValue('A');
 
       // space is automatically entered
@@ -246,7 +234,7 @@ describe('Phrase', () => {
 
     });
 
-    test('onBackspace updates value of inputs', () => {
+    test('onBackspace updates value of inputs', async () => {
 
       const props = getProps({
         correctAnswer: 'test',
@@ -260,14 +248,14 @@ describe('Phrase', () => {
       // first input is active
       expect(inputs[0]).not.toHaveAttribute('readonly');
 
-      fireEvent.change(inputs[0], { target: { value: 't' } });
+      await userEvent.type(inputs[0], 't');
       expect(inputs[0]).toHaveValue('T');
 
       // second input is now active
       expect(inputs[0]).toHaveAttribute('readonly');
       expect(inputs[1]).not.toHaveAttribute('readonly');
 
-      fireEvent.change(inputs[1], { target: { value: 'e' } });
+      await userEvent.type(inputs[0], 'e');
       expect(inputs[1]).toHaveValue('E');
 
       // third input is now active
@@ -275,11 +263,7 @@ describe('Phrase', () => {
       expect(inputs[1]).toHaveAttribute('readonly');
       expect(inputs[2]).not.toHaveAttribute('readonly');
 
-      fireEvent.keyDown(inputs[2], {
-        key: 'Backspace',
-        code: 8,
-        charCode: 8
-      });
+      await userEvent.type(inputs[2], '{backspace}');
 
       // second input is now active
       expect(inputs[1]).not.toHaveAttribute('readonly');
@@ -290,7 +274,7 @@ describe('Phrase', () => {
 
   });
 
-  test('backspace on last input does not move focus', () => {
+  test('backspace on last input does not move focus', async () => {
 
     const props = getProps({
       correctAnswer: 'ok',
@@ -302,14 +286,10 @@ describe('Phrase', () => {
     const inputs = getAllByLabelText(/Letter #[0-9]+/);
 
     // enter letter in each input
-    fireEvent.change(inputs[0], { target: { value: 'o' } });
-    fireEvent.change(inputs[1], { target: { value: 'k' } });
+    await userEvent.type(inputs[0], 'o');
+    await userEvent.type(inputs[1], 'k');
 
-    fireEvent.keyDown(inputs[1], {
-      key: 'Backspace',
-      code: 8,
-      charCode: 8
-    });
+    await userEvent.type(inputs[1], '{backspace}');
 
     // second input is still active
     expect(inputs[1]).not.toHaveAttribute('readonly');
@@ -319,7 +299,7 @@ describe('Phrase', () => {
 
   });
 
-  test('backspace on first input does nothing', () => {
+  test('backspace on first input does nothing', async () => {
 
     const props = getProps({
       correctAnswer: 'ok',
@@ -333,11 +313,7 @@ describe('Phrase', () => {
     // first input is active
     expect(inputs[0]).not.toHaveAttribute('readonly');
 
-    fireEvent.keyDown(inputs[1], {
-      key: 'Backspace',
-      code: 8,
-      charCode: 8
-    });
+    await userEvent.type(inputs[1], '{backspace}');
 
     // first input is still active
     expect(inputs[0]).not.toHaveAttribute('readonly');
