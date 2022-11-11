@@ -148,8 +148,6 @@ describe('Phrase', () => {
 
     test('when not enough letters is submitted, display error message', async () => {
 
-      // const user = userEvent.setup();
-
       const displayMessage = jest.fn();
 
       const props = getProps({
