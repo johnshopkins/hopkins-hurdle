@@ -184,7 +184,7 @@ class Phrase extends Component {
 
   render() {
 
-    let label = `Guess ${this.props.phraseNumber + 1}`;
+    let label = `Guess #${this.props.phraseNumber + 1}`;
 
     if (this.props.isComplete) {
       label += ': complete'
