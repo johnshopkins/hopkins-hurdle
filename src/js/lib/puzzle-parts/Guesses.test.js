@@ -107,4 +107,19 @@ describe('Guesses', () => {
 
   });
 
+  describe('Hidden', () => {
+
+    test('Component is hidden when hidden=true', () => {
+
+      const props = getProps({
+        hidden: true
+      });
+      const { getByLabelText } = render(<Guesses {...props} />);
+
+      expect(getByLabelText('Guesses')).toHaveAttribute('aria-hidden', 'true');
+
+    });
+
+  });
+
 });
