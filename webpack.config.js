@@ -13,7 +13,7 @@ module.exports = {
   externals: {
     react: 'react',
     'react-dom': 'react-dom',
-    'prop-types': 'prop-types'
+    // 'prop-types': 'prop-types'
   },
   output: {
     filename: 'index.js',
@@ -58,7 +58,7 @@ module.exports = {
     ],
   },
   optimization: {
-    minimize: true,
+    minimize: false,
     minimizer: [new TerserPlugin()],
   },
 };
