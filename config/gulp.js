@@ -8,6 +8,7 @@ export const config = {
       {
         src: ['./src/js/*.js'],
         transform: [
+          ['browserify-shim', { global: true }],
           [babelify, {
             presets: [
               '@babel/preset-env',

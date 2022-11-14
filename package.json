@@ -5,6 +5,9 @@
     "test": "jest",
     "coverage": "jest --coverage"
   },
+  "dependencies": {
+    "focus-trap-react": "^10.0.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
@@ -18,6 +21,7 @@
     "@testing-library/user-event": "^14.4.3",
     "babel-plugin-add-module-exports": "^1.0.0",
     "babelify": "^10.0.0",
+    "browserify-shim": "^3.8.16",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.12.4",
     "gulp-tasks": "git+https://github.com/johnshopkins/gulp-tasks#v1.0.0",
@@ -40,7 +44,8 @@
       "@babel/plugin-proposal-class-properties"
     ]
   },
-  "dependencies": {
-    "focus-trap-react": "^10.0.0"
+  "browserify-shim": {
+    "react": "global:React",
+    "prop-types": "global:PropTypes"
   }
 }
