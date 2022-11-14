@@ -38,6 +38,17 @@ describe('Message', () => {
 
     });
 
+    test('Component is not hidden when hidden=false', () => {
+
+      const props = getProps({
+        hidden: false
+      });
+      const { getByLabelText } = render(<Message {...props} />);
+
+      expect(getByLabelText('Messages')).toHaveAttribute('aria-hidden', 'false');
+
+    });
+
   });
 
   describe('Renders correctly', () => {

@@ -82,15 +82,31 @@ describe('Clue', () => {
 
   });
 
-  test('Hidden clue is hidden', () => {
+  describe('Hidden', () => {
 
-    const props = getProps({
-      hidden: true
+    test('Component is hidden when hidden=true', () => {
+
+      const props = getProps({
+        hidden: true
+      });
+
+      const { getByLabelText } = render(<Clue {...props} />);
+
+      expect(getByLabelText('Clue')).toHaveAttribute('aria-hidden', 'true');
+
     });
 
-    const { getByLabelText } = render(<Clue {...props} />);
+    test('Component is not hidden when hidden=false', () => {
 
-    expect(getByLabelText('Clue')).toHaveAttribute('aria-hidden');
+      const props = getProps({
+        hidden: false
+      });
+
+      const { getByLabelText } = render(<Clue {...props} />);
+
+      expect(getByLabelText('Clue')).toHaveAttribute('aria-hidden', 'false');
+
+    });
 
   });
 
