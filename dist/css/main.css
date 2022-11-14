@@ -1,1 +1,156 @@
-@keyframes flip-pass{0%{transform:scaleY(1)}50%{transform:scaleY(0)}100%{transform:scaleY(1);border-color:green}}@keyframes flip-shuffle{0%{transform:scaleY(1)}50%{transform:scaleY(0)}100%{transform:scaleY(1);border-color:#ff0}}@keyframes flip-fail{0%{transform:scaleY(1)}50%{transform:scaleY(0)}100%{transform:scaleY(1);border-color:#a1a1a1}}.visuallyhidden{border:0;clip:rect(0 0 0 0)!important;height:1px!important;margin:-1px!important;overflow:hidden!important;padding:0;position:absolute!important;width:1px!important}.visuallyhidden.focusable:active,.visuallyhidden.focusable:focus{clip:auto!important;height:auto!important;margin:0!important;overflow:visible!important;position:static!important;width:auto!important}.clue{width:500px}.clue img{max-width:100%}.debug{margin-top:20px}.debug div{margin-bottom:10px}.debug button{margin-right:5px}.guess input{border:4px #ddd solid;caret-color:transparent;font-size:20px;height:30px;margin:2px;text-align:center;outline:0;width:30px}.guess input:focus{border:4px #000 solid}.guess input.space{height:30px;width:5px;opacity:0}.guess input:not(.animate).pass{border-color:green}.guess input:not(.animate).fail{border-color:#a1a1a1}.guess input:not(.animate).shuffle{border-color:#ff0}.guess input.animate.pass{animation:flip-pass .5s ease forwards}.guess input.animate.shuffle{animation:flip-shuffle .5s ease forwards}.guess input.animate.fail{animation:flip-fail .5s ease forwards}.stats{display:none;height:100%;left:0;text-align:center;position:absolute;top:0;width:100%}.stats.open{display:block}.stats .overlay{background-color:#000;height:100%;opacity:.5;position:absolute;width:100%;z-index:0}.stats .stats-container{background-color:#000;color:#fff;margin:auto;text-align:left;padding:25px;position:relative;width:500px;z-index:1}.stats .stats-container .close{float:right}.stats .stats-container .close:hover{cursor:pointer}.stats .stats-container .guess-distribution dd{color:#000;background-color:#ddd;text-align:right;margin:0}body.modal-open{overflow:hidden}
+@keyframes flip-pass {
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+    border-color: green;
+  }
+}
+@keyframes flip-shuffle {
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+    border-color: yellow;
+  }
+}
+@keyframes flip-fail {
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+    border-color: #a1a1a1;
+  }
+}
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0;
+  position: absolute !important;
+  width: 1px !important;
+}
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {
+  clip: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  position: static !important;
+  width: auto !important;
+}
+
+.clue {
+  width: 500px;
+}
+.clue img {
+  max-width: 100%;
+}
+
+.debug {
+  margin-top: 20px;
+}
+.debug div {
+  margin-bottom: 10px;
+}
+.debug button {
+  margin-right: 5px;
+}
+
+.guess input {
+  border: 4px #ddd solid;
+  caret-color: transparent;
+  font-size: 20px;
+  height: 30px;
+  margin: 2px;
+  text-align: center;
+  outline: none;
+  width: 30px;
+}
+.guess input:focus {
+  border: 4px #000 solid;
+}
+.guess input.space {
+  height: 30px;
+  width: 5px;
+  opacity: 0;
+}
+.guess input:not(.animate).pass {
+  border-color: green;
+}
+.guess input:not(.animate).fail {
+  border-color: #a1a1a1;
+}
+.guess input:not(.animate).shuffle {
+  border-color: yellow;
+}
+.guess input.animate.pass {
+  animation: flip-pass 500ms ease forwards;
+}
+.guess input.animate.shuffle {
+  animation: flip-shuffle 500ms ease forwards;
+}
+.guess input.animate.fail {
+  animation: flip-fail 500ms ease forwards;
+}
+
+.stats {
+  display: none;
+  height: 100%;
+  left: 0;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.stats.open {
+  display: block;
+}
+.stats .overlay {
+  background-color: #000;
+  height: 100%;
+  opacity: 0.5;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+.stats .stats-container {
+  background-color: #000;
+  color: #fff;
+  margin: auto;
+  text-align: left;
+  padding: 25px;
+  position: relative;
+  width: 500px;
+  z-index: 1;
+}
+.stats .stats-container .close {
+  float: right;
+}
+.stats .stats-container .close:hover {
+  cursor: pointer;
+}
+.stats .stats-container .guess-distribution dd {
+  color: #000;
+  background-color: #ddd;
+  text-align: right;
+  margin: 0;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInV0aWxzL21peGlucy5zY3NzIiwicGFydGlhbHMvZGVmYXVsdHMuc2NzcyIsIm1vZHVsZXMvY2x1ZS5zY3NzIiwibW9kdWxlcy9kZWJ1Zy5zY3NzIiwibW9kdWxlcy9nYW1lLnNjc3MiLCJtb2R1bGVzL3N0YXRzLnNjc3MiLCJtYWluLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0U7RUFDRTtJQUFLOztFQUVMO0lBQ0U7O0VBR0Y7SUFDRTtJQUNBLGNBS21COzs7QUFkdkI7RUFDRTtJQUFLOztFQUVMO0lBQ0U7O0VBR0Y7SUFDRTtJQUNBLGNBTXNCOzs7QUFmMUI7RUFDRTtJQUFLOztFQUVMO0lBQ0U7O0VBR0Y7SUFDRTtJQUNBLGNBT21COzs7QUNqQnpCO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFPRTtFQUVFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7O0FDdEJOO0VBQ0U7O0FBRUE7RUFDRTs7O0FDSko7RUFDRTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7OztBQ05GO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7RUFDQTtFQUNBOztBQUlBO0VBQ0U7O0FBR0Y7RUFDRTs7QUFHRjtFQUNFOztBQUtGO0VBQ0U7O0FBR0Y7RUFDRTs7QUFHRjtFQUNFOzs7QUM5Q1I7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUdGO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUVBO0VBQ0U7O0FBTUY7RUFDRTtFQUNBO0VBQ0E7RUFDQTs7O0FDekNOO0VBQ0UiLCJmaWxlIjoibWFpbi5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAbWl4aW4gZmxpcCgkbmFtZSwgJHRvLWNvbG9yKSB7XG4gIEBrZXlmcmFtZXMgI3skbmFtZX0ge1xuICAgIDAlIHsgdHJhbnNmb3JtOiBzY2FsZVkoMSk7IH1cblxuICAgIDUwJSB7XG4gICAgICB0cmFuc2Zvcm06IHNjYWxlWSgwKTtcbiAgICB9XG5cbiAgICAxMDAlIHtcbiAgICAgIHRyYW5zZm9ybTogc2NhbGVZKDEpO1xuICAgICAgYm9yZGVyLWNvbG9yOiAkdG8tY29sb3I7XG4gICAgfVxuICB9XG59XG5cbkBpbmNsdWRlIGZsaXAoZmxpcC1wYXNzLCBncmVlbik7XG5AaW5jbHVkZSBmbGlwKGZsaXAtc2h1ZmZsZSwgeWVsbG93KTtcbkBpbmNsdWRlIGZsaXAoZmxpcC1mYWlsLCAjYTFhMWExKTtcbiIsIi52aXN1YWxseWhpZGRlbiB7XG4gIGJvcmRlcjogMDtcbiAgY2xpcDogcmVjdCgwIDAgMCAwKSAhaW1wb3J0YW50O1xuICBoZWlnaHQ6IDFweCAhaW1wb3J0YW50O1xuICBtYXJnaW46IC0xcHggIWltcG9ydGFudDtcbiAgb3ZlcmZsb3c6IGhpZGRlbiAhaW1wb3J0YW50O1xuICBwYWRkaW5nOiAwO1xuICBwb3NpdGlvbjogYWJzb2x1dGUgIWltcG9ydGFudDtcbiAgd2lkdGg6IDFweCAhaW1wb3J0YW50O1xuXG4gIC8vIEV4dGVuZHMgdGhlIC52aXN1YWxseWhpZGRlbiBjbGFzcyB0byBhbGxvdyB0aGUgZWxlbWVudFxuICAvLyB0byBiZSBmb2N1c2FibGUgd2hlbiBuYXZpZ2F0ZWQgdG8gdmlhIHRoZSBrZXlib2FyZDpcbiAgLy8gaHR0cHM6Ly93d3cuZHJ1cGFsLm9yZy9ub2RlLzg5NzYzOFxuICAmLmZvY3VzYWJsZSB7XG5cbiAgICAmOmFjdGl2ZSxcbiAgICAmOmZvY3VzIHtcbiAgICAgIGNsaXA6IGF1dG8gIWltcG9ydGFudDtcbiAgICAgIGhlaWdodDogYXV0byAhaW1wb3J0YW50O1xuICAgICAgbWFyZ2luOiAwICFpbXBvcnRhbnQ7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZSAhaW1wb3J0YW50O1xuICAgICAgcG9zaXRpb246IHN0YXRpYyAhaW1wb3J0YW50O1xuICAgICAgd2lkdGg6IGF1dG8gIWltcG9ydGFudDtcbiAgICB9XG4gIH1cbn1cbiIsIi5jbHVlIHtcbiAgd2lkdGg6IDUwMHB4O1xuXG4gIGltZyB7XG4gICAgbWF4LXdpZHRoOiAxMDAlO1xuICB9XG59XG4iLCIuZGVidWcge1xuICBtYXJnaW4tdG9wOiAyMHB4O1xuXG4gIGRpdiB7XG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgfVxuXG4gIGJ1dHRvbiB7XG4gICAgbWFyZ2luLXJpZ2h0OiA1cHg7XG4gIH1cbn1cbiIsIi5ndWVzcyB7XG5cbiAgaW5wdXQge1xuICAgIGJvcmRlcjogNHB4ICNkZGQgc29saWQ7XG4gICAgY2FyZXQtY29sb3I6IHRyYW5zcGFyZW50O1xuICAgIGZvbnQtc2l6ZTogMjBweDtcbiAgICBoZWlnaHQ6IDMwcHg7XG4gICAgbWFyZ2luOiAycHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG91dGxpbmU6IG5vbmU7XG4gICAgd2lkdGg6IDMwcHg7XG5cbiAgICAmOmZvY3VzIHtcbiAgICAgIGJvcmRlcjogNHB4ICMwMDAgc29saWQ7XG4gICAgfVxuXG4gICAgJi5zcGFjZSB7XG4gICAgICBoZWlnaHQ6IDMwcHg7XG4gICAgICB3aWR0aDogNXB4O1xuICAgICAgb3BhY2l0eTogMDsgLy8gc2NyZWVuIHJlYWRlcnMgd2lsbCBiZSBhYmxlIHRvIHJlYWQgdGhpc1xuICAgIH1cblxuICAgICY6bm90KC5hbmltYXRlKSB7XG4gICAgICAmLnBhc3Mge1xuICAgICAgICBib3JkZXItY29sb3I6IGdyZWVuO1xuICAgICAgfVxuXG4gICAgICAmLmZhaWwge1xuICAgICAgICBib3JkZXItY29sb3I6ICNhMWExYTE7XG4gICAgICB9XG5cbiAgICAgICYuc2h1ZmZsZSB7XG4gICAgICAgIGJvcmRlci1jb2xvcjogeWVsbG93O1xuICAgICAgfVxuICAgIH1cblxuICAgICYuYW5pbWF0ZSB7XG4gICAgICAmLnBhc3Mge1xuICAgICAgICBhbmltYXRpb246IGZsaXAtcGFzcyA1MDBtcyBlYXNlIGZvcndhcmRzO1xuICAgICAgfVxuXG4gICAgICAmLnNodWZmbGUge1xuICAgICAgICBhbmltYXRpb246IGZsaXAtc2h1ZmZsZSA1MDBtcyBlYXNlIGZvcndhcmRzO1xuICAgICAgfVxuXG4gICAgICAmLmZhaWwge1xuICAgICAgICBhbmltYXRpb246IGZsaXAtZmFpbCA1MDBtcyBlYXNlIGZvcndhcmRzO1xuICAgICAgfVxuXG4gICAgfVxuICB9XG59XG4iLCIuc3RhdHMge1xuICBkaXNwbGF5OiBub25lO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGxlZnQ6IDA7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDAlO1xuXG4gICYub3BlbiB7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gIH1cblxuICAub3ZlcmxheSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwMDtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgb3BhY2l0eTogMC41O1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB3aWR0aDogMTAwJTtcbiAgICB6LWluZGV4OiAwO1xuICB9XG5cbiAgLnN0YXRzLWNvbnRhaW5lciB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwMDtcbiAgICBjb2xvcjogI2ZmZjtcbiAgICBtYXJnaW46IGF1dG87XG4gICAgdGV4dC1hbGlnbjogbGVmdDtcbiAgICBwYWRkaW5nOiAyNXB4O1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICB3aWR0aDogNTAwcHg7XG4gICAgei1pbmRleDogMTtcblxuICAgIC5jbG9zZSB7XG4gICAgICBmbG9hdDogcmlnaHQ7XG5cbiAgICAgICY6aG92ZXIge1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgICB9XG4gICAgfVxuXG4gICAgLmd1ZXNzLWRpc3RyaWJ1dGlvbiB7XG5cbiAgICAgIGRkIHtcbiAgICAgICAgY29sb3I6ICMwMDA7XG4gICAgICAgIGJhY2tncm91bmQtY29sb3I6ICNkZGQ7XG4gICAgICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuICAgICAgICBtYXJnaW46IDA7XG4gICAgICB9XG4gICAgfVxuICB9XG59XG4iLCJAdXNlICd1dGlscy9tYWluJyBhcyB1dGlscztcbkB1c2UgJ3BhcnRpYWxzL21haW4nIGFzIHBhcnRpYWxzO1xuQHVzZSAnbW9kdWxlcy9tYWluJyBhcyBtb2R1bGVzO1xuXG5ib2R5IHtcbiAgJi5tb2RhbC1vcGVuIHtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICB9XG59XG4iXX0= */
