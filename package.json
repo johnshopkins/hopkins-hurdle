@@ -37,7 +37,7 @@
     "webpack": "^5.75.0",
     "webpack-cli": "^4.10.0"
   },
-  "main": "lib/js/main.js",
+  "main": "lib/index.js",
   "babel": {
     "presets": [
       "@babel/preset-env",
