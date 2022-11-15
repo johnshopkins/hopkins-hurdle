@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
 import { class as classUtils } from 'js-utils';
+import CloseIcon from '../../../images/close.svg';
 
 const StatisticsModal = ({ onClose, open, stats, testing }) => {
 
@@ -40,7 +41,7 @@ const StatisticsModal = ({ onClose, open, stats, testing }) => {
         <FocusTrap focusTrapOptions={focusTrapOptions}>
           <div className={'stats-container'}>
             <button className={'close'} onClick={onClose}>
-              <img src={'../../../build/images/close.svg'} alt={'Close modal'} />
+              <img src={CloseIcon} alt={'Close modal'} />
             </button>
             <h2>Statistics</h2>
             <dl className={'overall-stats'}>
