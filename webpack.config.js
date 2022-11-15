@@ -1,64 +1,30 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: path.join(
-    __dirname,
-    'src',
-    'js',
-    'main.js',
-  ),
+  entry: './src/js/main.js',
+  output: {
+    clean: true,
+    path: path.resolve(__dirname, 'dist'),
+  },
   externals: {
     react: 'react',
     'react-dom': 'react-dom',
-    // 'prop-types': 'prop-types'
-  },
-  output: {
-    filename: 'index.js',
-    path: path.join(__dirname, 'lib'),
-    libraryTarget: 'commonjs2',
-  },
-  resolve: {
-    modules: [
-      path.join(__dirname, 'src', 'js'),
-      path.join(__dirname, 'src', 'css'),
-      'node_modules', // default location, but we're overiding above, so it needs to be explicit
-    ],
-    // alias: {
-    //   svgs: path.join(__dirname, 'src', 'svgs'),
-    // },
-  },
-  resolveLoader: {
-    modules: [
-      'node_modules',
-    ],
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
+        test: /\.(js|jsx)$/i,
         loader: 'babel-loader',
       },
-      // {
-      //   test: /\.svg$/,
-      //   exclude: /node_modules/,
-      //   loader: 'svg-inline-loader',
-      // },
       {
         test: /\.scss$/,
-        use: [
-          'style-loader', // creates style nodes from JS strings
-          'css-loader', // translates CSS into CommonJS
-          'sass-loader', // compiles Sass to CSS, using Node Sass by default
-        ],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      }
     ],
-  },
-  optimization: {
-    minimize: false,
-    minimizer: [new TerserPlugin()],
   },
 };
