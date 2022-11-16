@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { savePuzzleState, loadPuzzleState} from './lib/helpers/persistance';
-import { local as localStorage } from './lib/helpers/storage';
+import { savePuzzleState, loadPuzzleState} from './helpers/persistance';
+import { local as localStorage } from './helpers/storage';
 
-import Statistics from './lib/helpers/statistics';
+import Statistics from './helpers/statistics';
 
-import Answer from './lib/puzzle-parts/Answer';
-import Clue from './lib/puzzle-parts/Clue';
-import Guesses from './lib/puzzle-parts/Guesses';
-import Message from './lib/puzzle-parts/Message';
-import StatisticsModal from './lib/puzzle-parts/StatisticsModal';
+import Answer from './puzzle-parts/Answer';
+import Clue from './puzzle-parts/Clue';
+import Guesses from './puzzle-parts/Guesses';
+import Message from './puzzle-parts/Message';
+import StatisticsModal from './puzzle-parts/StatisticsModal';
 
 class Puzzle extends Component {
 
@@ -24,7 +24,8 @@ class Puzzle extends Component {
 
     this.loadPuzzle = id => loadPuzzleState(id);
     this.savePuzzle = (id, puzzle) => savePuzzleState(id, puzzle);
-    this.onPuzzleComplete = props.onPuzzleComplete || function (status, numberOfGuesses) {};
+    this.onPuzzleComplete = props.onPuzzleComplete || function (status, numberOfGuesses) { };
+    this.fetchSupportingContent = props.fetchSupportingContent || function (endpoint) { };
 
     // fetch any stored data from localStorage
     const stored = this.loadPuzzle(this.props.id) || {};
