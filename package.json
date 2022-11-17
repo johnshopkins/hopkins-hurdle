@@ -4,7 +4,9 @@
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
-    "build": "webpack build"
+    "build": "webpack build",
+    "stats": "webpack --json > stats.json",
+    "watch": "webpack watch"
   },
   "dependencies": {
     "focus-trap-react": "^10.0.0",
