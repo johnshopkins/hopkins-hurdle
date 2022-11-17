@@ -11,6 +11,7 @@ import Clue from './puzzle-parts/Clue';
 import Guesses from './puzzle-parts/Guesses';
 import Message from './puzzle-parts/Message';
 import StatisticsModal from './puzzle-parts/StatisticsModal';
+import SupportingContent from './puzzle-parts/SupportingContent';
 
 class Puzzle extends Component {
 
@@ -21,11 +22,12 @@ class Puzzle extends Component {
     super(props);
 
     this.availableGuesses = 6;
+    this.supportingContent = null;
 
     this.loadPuzzle = id => loadPuzzleState(id);
     this.savePuzzle = (id, puzzle) => savePuzzleState(id, puzzle);
     this.onPuzzleComplete = props.onPuzzleComplete || function (status, numberOfGuesses) { };
-    this.fetchSupportingContent = props.fetchSupportingContent || function (endpoint) { };
+    this.fetchSupportingContent = props.fetchSupportingContent || function (endpoint, callback) { };
 
     // fetch any stored data from localStorage
     const stored = this.loadPuzzle(this.props.id) || {};
@@ -41,7 +43,8 @@ class Puzzle extends Component {
         status: 'IN_PROGRESS',
         ...stored,
       },
-      statMobileOpen: false
+      statMobileOpen: false,
+      supportingContent: null
     };
 
     this.clearPuzzleData = this.clearPuzzleData.bind(this);
@@ -56,6 +59,15 @@ class Puzzle extends Component {
     this.onPuzzlePass = this.onPuzzlePass.bind(this);
 
     this.clearMessage = this.clearMessage.bind(this);
+  }
+
+  componentDidMount() {
+    if (typeof this.props.puzzle.supportingContent === 'string') {
+      // this.fetchSupportingContent should return an object with the following keys: headline, link, summary, thumbnail
+       this.fetchSupportingContent(this.props.puzzle.supportingContent, (data) => {
+         this.setState({ supportingContent: data });
+      });
+    }
   }
 
   clearPuzzleData() {
@@ -182,6 +194,7 @@ class Puzzle extends Component {
           status={this.state.puzzle.status}
         />
         {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
+        {this.state.puzzle.status !== 'IN_PROGRESS' && this.state.supportingContent && <SupportingContent hidden={this.state.statMobileOpen} {...this.state.supportingContent} />}
         {this.props.debug &&
           <div className={'debug'}>
             <div>
@@ -205,6 +218,7 @@ Puzzle.defaultProps = {
 };
 
 Puzzle.propTypes = {
+  fetchSupportingContent: PropTypes.func,
   id: PropTypes.number.isRequired,
   puzzle: PropTypes.object.isRequired,
   onPuzzleComplete: PropTypes.func,
