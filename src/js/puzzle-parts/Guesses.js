@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Phrase from './Phrase';
 
+import '../../css/Guesses.scss';
+
 class Guesses extends Component {
 
   constructor(props) {
@@ -41,7 +43,7 @@ class Guesses extends Component {
 
     return <div {...attributes}>
       <h2>Guesses</h2>
-      <p className={'visuallyhidden'}>{answerDescription}</p>
+      <p className={'answer-description'}>{answerDescription}</p>
       {this.props.guesses.map((guess, i) =>
         <Phrase
           correctAnswer={this.props.correctAnswer}

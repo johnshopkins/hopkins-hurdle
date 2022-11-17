@@ -1,7 +1,34 @@
+$black: #000000;
+$gray: #a1a1a1;
+$green: #286140;
+$light_gray: #dddddd;
+$yellow: #f1c400;
+
+@mixin flip($name, $to-color) {
+  @keyframes #{$name} {
+    0% {
+      transform: scaleY(1);
+    }
+
+    50% {
+      transform: scaleY(0);
+    }
+
+    100% {
+      transform: scaleY(1);
+      border-color: $to-color;
+    }
+  }
+}
+
+@include flip(flip-pass, $green);
+@include flip(flip-shuffle, $yellow);
+@include flip(flip-fail, $gray);
+
 .guess {
 
   input {
-    border: 4px #ddd solid;
+    border: 4px $light_gray solid;
     caret-color: transparent;
     font-size: 20px;
     height: 30px;
@@ -11,7 +38,7 @@
     width: 30px;
 
     &:focus {
-      border: 4px #000 solid;
+      border: 4px $black solid;
     }
 
     &.space {
@@ -22,15 +49,15 @@
 
     &:not(.animate) {
       &.pass {
-        border-color: green;
+        border-color: $green;
       }
 
       &.fail {
-        border-color: #a1a1a1;
+        border-color: $gray;
       }
 
       &.shuffle {
-        border-color: yellow;
+        border-color: $yellow;
       }
     }
 

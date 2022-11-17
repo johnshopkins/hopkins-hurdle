@@ -11,13 +11,20 @@ module.exports = {
   externals: {
     react: 'react',
     'react-dom': 'react-dom',
-    'prop-types': 'prop-types'
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/i,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       }
     ]
   }

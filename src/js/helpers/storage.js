@@ -1,5 +1,3 @@
-/* eslint consistent-return: 0 */
-
 class Storage {
   constructor(type) {
     this.storage = window[type];

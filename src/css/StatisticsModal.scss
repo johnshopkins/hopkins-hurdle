@@ -21,30 +21,15 @@
   }
 
   .stats-container {
-    background-color: #000;
-    color: #fff;
     margin: auto;
     text-align: left;
-    padding: 25px;
     position: relative;
-    width: 500px;
-    z-index: 1;
 
     .close {
       float: right;
 
       &:hover {
         cursor: pointer;
-      }
-    }
-
-    .guess-distribution {
-
-      dd {
-        color: #000;
-        background-color: #ddd;
-        text-align: right;
-        margin: 0;
       }
     }
   }

@@ -1,9 +1,0 @@
-@use 'utils/main' as utils;
-@use 'partials/main' as partials;
-@use 'modules/main' as modules;
-
-body {
-  &.modal-open {
-    overflow: hidden;
-  }
-}

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
 import { class as classUtils } from 'js-utils';
 
+import '../../css/StatisticsModal.scss';
+
 const StatisticsModal = ({ onClose, open, stats, testing }) => {
 
   const attributes = {
