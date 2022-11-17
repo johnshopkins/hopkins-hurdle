@@ -43,7 +43,7 @@ class Guesses extends Component {
 
     return <div {...attributes}>
       <h2>Guesses</h2>
-      <p className={'answer-description'}>{answerDescription}</p>
+      <p className={'visuallyhidden'}>{answerDescription}</p>
       {this.props.guesses.map((guess, i) =>
         <Phrase
           correctAnswer={this.props.correctAnswer}
