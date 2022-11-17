@@ -7,7 +7,7 @@ import { render, fireEvent, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 
-import Guesses from './Guesses';
+import Guesses from '../../src/js/puzzle-parts/Guesses';
 
 const getProps = (override) => {
   return {

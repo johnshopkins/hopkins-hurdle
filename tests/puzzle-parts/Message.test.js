@@ -6,7 +6,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 
-import Message from './Message';
+import Message from '../../src/js/puzzle-parts/Message';
 
 const getProps = (override) => {
   return {

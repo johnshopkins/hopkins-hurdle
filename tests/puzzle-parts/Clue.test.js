@@ -6,7 +6,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 
-import Clue from './Clue';
+import Clue from '../../src/js/puzzle-parts/Clue';
 
 const getProps = (override) => {
   return {

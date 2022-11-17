@@ -1,4 +1,4 @@
-import Statistics from './statistics';
+import Statistics from '../../src/js/helpers/statistics';
 import localStorageMock from '../mock-objects/localStorageMock';
 import loggerMock from '../mock-objects/loggerMock';
 

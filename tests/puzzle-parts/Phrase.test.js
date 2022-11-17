@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 
-import Phrase from './Phrase';
+import Phrase from '../../src/js/puzzle-parts/Phrase';
 
 const getProps = (override) => {
   return {

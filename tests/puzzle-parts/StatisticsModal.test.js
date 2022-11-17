@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 
-import StatisticsModal from './StatisticsModal';
+import StatisticsModal from '../../src/js/puzzle-parts/StatisticsModal';
 
 const getProps = (override) => {
 
