@@ -41,8 +41,8 @@ describe('Clue', () => {
     const props = getProps({
       clue: {
         photo: {
-          url: 'image.jpg',
-          alt_text: 'alt text'
+          src: 'image.jpg',
+          alt: 'alt text'
         }
       },
       currentRow: 1
@@ -63,8 +63,8 @@ describe('Clue', () => {
     const props = getProps({
       clue: {
         photo: {
-          url: 'image1.jpg',
-          alt_text: 'alt text1'
+          src: 'image1.jpg',
+          alt: 'alt text1'
         },
         text: 'this is the clue1'
       },

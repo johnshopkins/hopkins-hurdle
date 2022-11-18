@@ -76,7 +76,9 @@ describe('SupportingContent', () => {
       test('Teaser with thumbnail has `.thumbnail` div', () => {
 
         const props = getProps({
-          thumbnail: {}
+          thumbnail: {
+            src: 'aurl'
+          }
         });
         const { container } = render(<SupportingContent {...props} />);
         const teaser = container.querySelector('.teaser');
@@ -92,8 +94,8 @@ describe('SupportingContent', () => {
           thumbnail: {
             srcset: 'thesrcset',
             sizes: 'thesizes',
-            url: 'theurl',
-            alt_text: 'thealttext',
+            src: 'theurl',
+            alt: 'thealttext',
           }
         });
         const { container, getByRole } = render(<SupportingContent {...props} />);

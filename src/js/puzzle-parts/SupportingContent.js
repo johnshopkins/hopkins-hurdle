@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Image from './Image';
+
 const SupportingContent = ({ hidden, headline, kicker, published, summary, thumbnail, url }) => {
   
   const attributes = {
@@ -25,13 +27,7 @@ const SupportingContent = ({ hidden, headline, kicker, published, summary, thumb
             <a className={'force'} href={url} data-label={headline}>
               <div className={'image column force image-landscape'}>
                 <div className={'image-container'}>
-                  <img
-                    alt={thumbnail.alt_text}
-                    className={'column'}
-                    src={thumbnail.url}
-                    sizes={thumbnail.sizes}
-                    srcSet={thumbnail.srcset}
-                  />
+                  <Image classes={'column'} {...thumbnail} />
                 </div>
               </div>
             </a>

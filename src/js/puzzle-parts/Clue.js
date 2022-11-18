@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Image from './Image';
+
 const Clue = ({ clue, currentRow, hidden }) => {
 
   const attributes = {
@@ -16,7 +18,7 @@ const Clue = ({ clue, currentRow, hidden }) => {
   return (
     <div {...attributes}>
       <h2>{header}</h2>
-      {clue.photo && clue.photo.url && clue.photo.alt_text && <img src={clue.photo.url} alt={clue.photo.alt_text} />}
+      {clue.photo && <Image {...clue.photo} />}
       {clue.text && <p>{clue.text}</p>}
     </div>
   );
