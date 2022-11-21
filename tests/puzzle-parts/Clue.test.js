@@ -40,7 +40,7 @@ describe('Clue', () => {
 
     const props = getProps({
       clue: {
-        photo: {
+        image: {
           src: 'image.jpg',
           alt: 'alt text'
         }
@@ -62,7 +62,7 @@ describe('Clue', () => {
 
     const props = getProps({
       clue: {
-        photo: {
+        image: {
           src: 'image1.jpg',
           alt: 'alt text1'
         },

@@ -18,7 +18,7 @@ const Clue = ({ clue, currentRow, hidden }) => {
   return (
     <div {...attributes}>
       <h2>{header}</h2>
-      {clue.photo && <Image {...clue.photo} />}
+      {clue.image && <Image {...clue.image} />}
       {clue.text && <p>{clue.text}</p>}
     </div>
   );
