@@ -11,7 +11,7 @@ import Guesses from '../../src/js/puzzle-parts/Guesses';
 
 const getProps = (override) => {
   return {
-    answerDescription: '2 letters, followed by a space, followed by 4 letters',
+    answerDescription: 'The answer consists of 2 letters, followed by a space, followed by 4 letters.',
     currentRow: 0,
     correctAnswer: 'ok cool',
     displayMessage: () => { },
