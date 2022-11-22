@@ -176,7 +176,7 @@ class Puzzle extends Component {
           onTtl={this.clearMessage}
           {...this.state.message}
         />
-        { this.props.puzzle.clues && <Clue
+        {this.state.puzzle.status === 'IN_PROGRESS' && this.props.puzzle.clues && <Clue
           clue={this.props.puzzle.clues[this.state.puzzle.currentRow]}
           currentRow={this.state.puzzle.currentRow}
           hidden={this.state.statMobileOpen}
