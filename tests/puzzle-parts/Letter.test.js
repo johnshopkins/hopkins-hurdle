@@ -90,7 +90,7 @@ describe('Letter', () => {
       fireEvent.change(input, { target: { value: ' ' } });
 
       expect(onChange).toHaveBeenCalledTimes(1);
-
+      
     });
 
   });
