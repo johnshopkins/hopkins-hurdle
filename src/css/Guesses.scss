@@ -1,8 +1,4 @@
-$black: #000000;
-$gray: #a1a1a1;
-$green: #286140;
-$light_gray: #dddddd;
-$yellow: #f1c400;
+@use 'utils/colors' as *;
 
 @mixin flip($name, $to-color) {
   @keyframes #{$name} {
