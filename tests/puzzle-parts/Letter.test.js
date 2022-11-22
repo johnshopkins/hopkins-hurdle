@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 
 import Letter from '../../src/js/puzzle-parts/Letter';
@@ -32,11 +33,12 @@ describe('Letter', () => {
 
   describe('onChange', () => {
 
-    test('onChange fires when value of input changes', () => {
+    test('onChange fires when value of input changes', async () => {
 
       const onChange = jest.fn();
 
       const props = getProps({
+        focus: true,
         onChange: onChange,
       });
 
@@ -44,18 +46,19 @@ describe('Letter', () => {
 
       const input = getByRole('textbox');
 
-      fireEvent.change(input, { target: { value: 'a' } });
+      await userEvent.type(input, 'a');
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith('A');
 
     });
 
-    test('onChange does not fire when value is not alpha', () => {
+    test('onChange does not fire when value is not alpha', async () => {
 
       const onChange = jest.fn();
 
       const props = getProps({
+        focus: true,
         onChange: onChange,
       });
 
@@ -63,9 +66,9 @@ describe('Letter', () => {
 
       const input = getByRole('textbox');
 
-      fireEvent.change(input, { target: { value: '1' } });
-      fireEvent.change(input, { target: { value: '!' } });
-      fireEvent.change(input, { target: { value: ' ' } });
+      await userEvent.type(input, '1');
+      await userEvent.type(input, '!');
+      await userEvent.type(input, ' ');
 
       expect(onChange).toHaveBeenCalledTimes(0);
 
@@ -94,41 +97,18 @@ describe('Letter', () => {
 
   describe('onKeyDown', () => {
 
-    test('when enter is pressed, onEnter callback is called', () => {
-
-      const onEnter = jest.fn();
-
-      const props = getProps({
-        onEnter: onEnter,
-      });
-
-      const { getByRole } = render(<Letter {...props} />);
-
-      fireEvent.keyDown(getByRole('textbox'), {
-        key: 'Enter',
-        code: 13,
-        charCode: 13
-      });
-
-      expect(onEnter).toHaveBeenCalledTimes(1);
-
-    });
-
-    test('when delete is pressed, onBackspace callback is called', () => {
+    test('when delete is pressed, onBackspace callback is called', async () => {
 
       const onBackspace = jest.fn();
 
       const props = getProps({
+        focus: true,
         onBackspace: onBackspace,
       });
 
       const { getByRole } = render(<Letter {...props} />);
 
-      fireEvent.keyDown(getByRole('textbox'), {
-        key: 'Backspace',
-        code: 8,
-        charCode: 8
-      });
+      await userEvent.type(getByRole('textbox'), '{backspace}');
 
       expect(onBackspace).toHaveBeenCalledTimes(1);
 
