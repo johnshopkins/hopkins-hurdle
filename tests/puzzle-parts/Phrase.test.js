@@ -19,6 +19,7 @@ const getProps = (override) => {
     onFail: () => {},
     onPass: () => {},
     onRefocusComplete: () => {},
+    submitButtonActive: false,
     phraseNumber: 1,
     triggerFocus: true,
     ...override
@@ -107,7 +108,7 @@ describe('Phrase', () => {
     test('completed row cannot be altered', () => {
 
       const props = getProps({
-        correctAnswer: 'testing',
+        correctAnswer: 'TESTING',
         isComplete: true,
         guess: 'sejtaaa'
       });
@@ -125,7 +126,7 @@ describe('Phrase', () => {
     test('in progress row can be altered, starting with the first letter', () => {
 
       const props = getProps({
-        correctAnswer: 'testing',
+        correctAnswer: 'TESTING',
         isComplete: true,
         guess: 'sejtaaa'
       });
@@ -144,39 +145,31 @@ describe('Phrase', () => {
 
   });
 
-  describe('onEnter', () => {
-
-    test('when not enough letters is submitted, display error message', async () => {
-
-      const displayMessage = jest.fn();
-
-      const props = getProps({
-        correctAnswer: 'testing',
-        displayMessage: displayMessage,
-        guess: 'test',
-      });
-
-      const { getByLabelText } = render(<Phrase {...props} />);
-
-      await userEvent.type(getByLabelText('Letter #7'), '{enter}');
-
-      expect(displayMessage).toHaveBeenCalledTimes(1);
-
-    });
+  describe('onSubmit', () => {
 
     test('when an incorrect guess is submitted, run onFail callback', async () => {
 
       const onFail = jest.fn();
 
       const props = getProps({
-        correctAnswer: 'testing',
-        guess: 'sejtaaa',
+        correctAnswer: 'TESTING',
+        guess: '',
         onFail: onFail,
       });
 
-      const { getByLabelText } = render(<Phrase {...props} />);
+      const { getAllByLabelText, getByRole } = render(<Phrase {...props} />);
 
-      await userEvent.type(getByLabelText('Letter #7'), '{enter}');
+      const inputs = getAllByLabelText(/Letter #[0-9]+/);
+
+      await userEvent.type(inputs[0], 's');
+      await userEvent.type(inputs[1], 'e');
+      await userEvent.type(inputs[2], 'j');
+      await userEvent.type(inputs[3], 't');
+      await userEvent.type(inputs[4], 'a');
+      await userEvent.type(inputs[5], 'a');
+      await userEvent.type(inputs[6], 'a');
+
+      await userEvent.click(getByRole('button'));
 
       expect(onFail).toHaveBeenCalledTimes(1);
 
@@ -187,14 +180,24 @@ describe('Phrase', () => {
       const onPass = jest.fn();
 
       const props = getProps({
-        correctAnswer: 'testing',
-        guess: 'testing',
+        correctAnswer: 'TESTING',
+        guess: '',
         onPass: onPass,
       });
 
-      const { getByLabelText } = render(<Phrase {...props} />);
+      const { getAllByLabelText, getByRole } = render(<Phrase {...props} />);
 
-      await userEvent.type(getByLabelText('Letter #7'), '{enter}');
+      const inputs = getAllByLabelText(/Letter #[0-9]+/);
+
+      await userEvent.type(inputs[0], 't');
+      await userEvent.type(inputs[1], 'e');
+      await userEvent.type(inputs[2], 's');
+      await userEvent.type(inputs[3], 't');
+      await userEvent.type(inputs[4], 'i');
+      await userEvent.type(inputs[5], 'n');
+      await userEvent.type(inputs[6], 'g');
+
+      await userEvent.click(getByRole('button'));
 
       expect(onPass).toHaveBeenCalledTimes(1);
 
@@ -207,7 +210,7 @@ describe('Phrase', () => {
     test('onChange updates value of inputs', async () => {
 
       const props = getProps({
-        correctAnswer: 'a test',
+        correctAnswer: 'A TEST',
         guess: ''
       });
 
@@ -235,7 +238,7 @@ describe('Phrase', () => {
     test('onBackspace updates value of inputs', async () => {
 
       const props = getProps({
-        correctAnswer: 'test',
+        correctAnswer: 'TEST',
         guess: ''
       });
 
@@ -272,29 +275,48 @@ describe('Phrase', () => {
 
   });
 
-  test('backspace on last input does not move focus', async () => {
+  test('focus goes to submit button after all letters are filled out', async () => {
 
     const props = getProps({
-      correctAnswer: 'ok',
+      correctAnswer: 'OK',
       guess: ''
     });
 
-    const { getAllByLabelText } = render(<Phrase {...props} />);
+    const { getAllByLabelText, getByRole } = render(<Phrase {...props} />);
 
     const inputs = getAllByLabelText(/Letter #[0-9]+/);
+    const button = getByRole('button');
 
-    // enter letter in each input
+    // first input can accept input
+    expect(inputs[0]).not.toHaveAttribute('readonly');
+    expect(inputs[1]).toHaveAttribute('readonly');
+    expect(button).toHaveAttribute('disabled');
+
+    // enter letter in first input
     await userEvent.type(inputs[0], 'o');
+
+    // second input can accept input
+    expect(inputs[0]).toHaveAttribute('readonly');
+    expect(inputs[1]).not.toHaveAttribute('readonly');
+    expect(button).toHaveAttribute('disabled');
+
+    // enter letter in second input
     await userEvent.type(inputs[1], 'k');
 
+    // submit button gets focus
+    expect(button).toHaveFocus();
+    expect(inputs[0]).toHaveAttribute('readonly');
+    expect(inputs[1]).toHaveAttribute('readonly');
+    expect(button).toHaveFocus();
+    expect(button).not.toHaveAttribute('disabled');
+
+    // backspace
     await userEvent.type(inputs[1], '{backspace}');
 
-    // second input is still active
+    // second input gets focus and value is removed
     expect(inputs[1]).not.toHaveAttribute('readonly');
-
-    // second input value has been removed
+    expect(inputs[1]).toHaveFocus();
     expect(inputs[1]).toHaveValue('');
-
   });
 
   test('backspace on first input does nothing', async () => {

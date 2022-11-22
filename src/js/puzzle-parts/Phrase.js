@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Letter from './Letter';
+import SubmitButton from './SubmitButton';
 
 class Phrase extends Component {
 
@@ -38,13 +39,14 @@ class Phrase extends Component {
     this.state = {
       activeLetter: 0,
       direction: 'forward', // forward (new latter) OR backward (backspace)
+      submitButtonActive: false,
       guess: guess,
       animate: false,
     };
 
     this.onBackspace = this.onBackspace.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onEnter = this.onEnter.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
 
   }
 
@@ -126,6 +128,10 @@ class Phrase extends Component {
       if (state.activeLetter !== guess.length - 1) {
         // only increase the activeLetter if we're NOT on the last letter
         update.activeLetter = state.activeLetter + 1
+      } else {
+        // focus on submit button
+        update.submitButtonActive = true;
+        update.activeLetter = false;
       }
 
       // update guess
@@ -151,15 +157,13 @@ class Phrase extends Component {
 
       const guess = state.guess;
 
-      if (state.activeLetter === state.guess.length - 1 && guess[i].guessedLetter.match(/[A-Za-z]/)) {
-
-        // last letter and NOT EMPTY. remove the letter, but do not move the cursor
-        guess[i].guessedLetter = '';
-
-      } else {
-        // not the last letter. go back a letter and remove its value
+      if (!state.submitButtonActive) {
         update.activeLetter = state.activeLetter - 1;
         guess[i - 1].guessedLetter = '';
+      } else {
+        update.submitButtonActive = false;
+        update.activeLetter = guess.length - 1;
+        guess[guess.length - 1].guessedLetter = '';
       }
 
       update.guess = guess;
@@ -168,18 +172,19 @@ class Phrase extends Component {
     });
   }
 
-  onEnter() {
+  onSubmit() {
 
-    const guess = this.state.guess.map(guess => guess.guessedLetter).join('');
+    // const guess = this.state.guess.map(guess => guess.guessedLetter).join('');
 
-    if (guess.length < this.props.correctAnswer.length) {
-      this.props.displayMessage({
-        type: 'error',
-        message: 'Not enough letters'
-      });
-    } else {
+    // if (guess.length < this.props.correctAnswer.length) {
+    //   console.log('this should never happen');
+    //   this.props.displayMessage({
+    //     type: 'error',
+    //     message: 'Not enough letters'
+    //   });
+    // } else {
       this.evaluateGuess();
-    }
+    // }
   }
 
   render() {
@@ -211,12 +216,21 @@ class Phrase extends Component {
           letterNumber={i}
           onBackspace={() => this.onBackspace(i)}
           onChange={(letter) => this.onChange(letter, i)}
-          onEnter={this.onEnter}
           onRefocusComplete={this.props.onRefocusComplete}
           status={character.status}
           triggerFocus={this.props.triggerFocus && this.props.isCurrentRow && this.state.activeLetter === i}
-          value={character.guessedLetter} />
+          value={character.guessedLetter}
+          />
       )}
+      {this.props.isCurrentRow &&
+        <SubmitButton
+          focus={this.state.submitButtonActive}
+          onBackspace={() => this.onBackspace(null)}
+          onSubmit={this.onSubmit}
+          onRefocusComplete={this.props.onRefocusComplete}
+          triggerFocus={this.props.triggerFocus && this.state.submitButtonActive}
+        />
+      }
     </div>
   }
 }
