@@ -8,6 +8,7 @@ import Statistics from './helpers/statistics';
 
 import Answer from './puzzle-parts/Answer';
 import Clue from './puzzle-parts/Clue';
+import Debug from './puzzle-parts/Debug';
 import Guesses from './puzzle-parts/Guesses';
 import Message from './puzzle-parts/Message';
 import StatisticsModal from './puzzle-parts/StatisticsModal';
@@ -47,8 +48,6 @@ class Puzzle extends Component {
       supportingContent: null
     };
 
-    this.clearPuzzleData = this.clearPuzzleData.bind(this);
-    this.clearStatsData = this.clearStatsData.bind(this);
     this.incrementStats = this.incrementStats.bind(this);
 
     this.openStatsModal = this.openStatsModal.bind(this);
@@ -68,14 +67,6 @@ class Puzzle extends Component {
          this.setState({ supportingContent: data });
       });
     }
-  }
-
-  clearPuzzleData() {
-    localStorage.remove('hopkinshurdle.' + this.props.id);
-  }
-
-  clearStatsData() {
-    localStorage.remove('hopkinshurdle.stats');
   }
 
   incrementStats() {
@@ -196,16 +187,10 @@ class Puzzle extends Component {
         {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
         {this.state.puzzle.status !== 'IN_PROGRESS' && this.state.supportingContent && <SupportingContent hidden={this.state.statMobileOpen} {...this.state.supportingContent} />}
         {this.props.debug &&
-          <div className={'debug'}>
-            <div>
-              <button onClick={this.clearPuzzleData}>Clear stored puzzle data</button>
-              <button onClick={this.clearStatsData}>Clear stored stats data</button>
-            </div>
-            <div>
-              <button onClick={this.incrementStats}>Increment Stats</button>
-              <button onClick={this.openStatsModal}>Open Stats Modal</button>
-            </div>
-          </div>
+          <Debug
+            id={this.props.id}
+            incrementStats={this.incrementStats}
+          />
         }
       </>
     );
