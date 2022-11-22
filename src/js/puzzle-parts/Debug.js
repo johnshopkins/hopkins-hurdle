@@ -19,7 +19,6 @@ const Debug = ({ id, incrementStats }) => {
     <div className={'debug'}>
       <button onClick={clearPuzzleData}>Clear stored puzzle data</button>
       <button onClick={clearStatsData}>Clear stored stats data</button>
-      <button onClick={incrementStats}>Increment Stats</button>
     </div>
   );
 }

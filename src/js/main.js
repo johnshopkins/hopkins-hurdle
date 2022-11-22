@@ -48,8 +48,6 @@ class Puzzle extends Component {
       supportingContent: null
     };
 
-    this.incrementStats = this.incrementStats.bind(this);
-
     this.openStatsModal = this.openStatsModal.bind(this);
     this.closeStatsModal = this.closeStatsModal.bind(this);
 
@@ -67,10 +65,6 @@ class Puzzle extends Component {
          this.setState({ supportingContent: data });
       });
     }
-  }
-
-  incrementStats() {
-    console.log(this.stats.increment())
   }
 
   openStatsModal() {
