@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Letter extends Component {
+import '../../css/SubmitButton.scss';
+
+class SubmitButton extends Component {
 
   constructor(props) {
     super(props);
@@ -48,7 +50,7 @@ class Letter extends Component {
 
 }
 
-Letter.propTypes = {
+SubmitButton.propTypes = {
   focus: PropTypes.bool.isRequired,
   onBackspace: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -56,4 +58,4 @@ Letter.propTypes = {
   triggerFocus: PropTypes.bool.isRequired,
 };
 
-export default Letter;
+export default SubmitButton;
