@@ -185,13 +185,8 @@ class Puzzle extends Component {
           status={this.state.puzzle.status}
         />
         {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
-        {this.state.puzzle.status !== 'IN_PROGRESS' && this.state.supportingContent && <SupportingContent hidden={this.state.statMobileOpen} {...this.state.supportingContent} />}
-        {this.props.debug &&
-          <Debug
-            id={this.props.id}
-            incrementStats={this.incrementStats}
-          />
-        }
+        {this.state.puzzle.status !== 'IN_PROGRESS' && this.state.supportingContent && <SupportingContent hidden={this.state.statModalOpen} {...this.state.supportingContent} />}
+        {this.props.debug && <Debug id={this.props.id} />}
       </>
     );
   }
