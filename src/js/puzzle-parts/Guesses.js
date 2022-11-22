@@ -18,9 +18,6 @@ class Guesses extends Component {
     this.onRefocusComplete = this.onRefocusComplete.bind(this);
   }
 
-  /**
-   * Change the state t
-   */
   triggerRefocus() {
     this.setState({ triggerFocus: true });
   }
