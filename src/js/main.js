@@ -203,7 +203,10 @@ Puzzle.defaultProps = {
 
 Puzzle.propTypes = {
   fetchSupportingContent: PropTypes.func,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
   puzzle: PropTypes.object.isRequired,
   onPuzzleComplete: PropTypes.func,
 };
