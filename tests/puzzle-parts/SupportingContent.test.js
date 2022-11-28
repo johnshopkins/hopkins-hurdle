@@ -32,7 +32,7 @@ describe('SupportingContent', () => {
       });
       const { getByLabelText } = render(<SupportingContent {...props} />);
 
-      expect(getByLabelText('See it on the Hub')).toHaveAttribute('aria-hidden', 'true');
+      expect(getByLabelText('You did it!')).toHaveAttribute('aria-hidden', 'true');
 
     });
 
@@ -43,7 +43,7 @@ describe('SupportingContent', () => {
       });
       const { getByLabelText } = render(<SupportingContent {...props} />);
 
-      expect(getByLabelText('See it on the Hub')).toHaveAttribute('aria-hidden', 'false');
+      expect(getByLabelText('You did it!')).toHaveAttribute('aria-hidden', 'false');
 
     });
 

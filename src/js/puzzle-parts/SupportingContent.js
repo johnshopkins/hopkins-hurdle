@@ -7,7 +7,7 @@ const SupportingContent = ({ hidden, headline, kicker, published, summary, thumb
   
   const attributes = {
     'aria-hidden': hidden,
-    'aria-label': 'See it on the Hub',
+    'aria-label': 'You did it!',
     'aria-live': 'polite',
     className: 'supporting-content',
     role: 'region'
@@ -20,7 +20,8 @@ const SupportingContent = ({ hidden, headline, kicker, published, summary, thumb
 
   return (
     <div {...attributes}>
-      <h2>See it on the Hub</h2>
+      <h2>You did it!</h2>
+      <p>And as a reward, here's the story that inspired the clue. Do you remember it?</p>
       <div className={teaserClasses.join(' ')}>
         {thumbnail && 
           <div className={'thumbnail'}>
