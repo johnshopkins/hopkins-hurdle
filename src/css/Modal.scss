@@ -1,11 +1,5 @@
 @use 'utils/colors' as *;
 
-.body {
-  &.modal-open {
-    overflow: hidden;
-  }
-}
-
 .hopkins-hurdle {
   .modal-container {
     position: fixed;
