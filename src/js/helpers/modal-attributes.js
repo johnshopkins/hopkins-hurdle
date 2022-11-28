@@ -1,14 +1,9 @@
-export default (label, open) => {
+export default (label) => {
 
   const attributes = {
     className: 'modal',
     role: 'region',
   };
-
-
-  if (open) {
-    attributes.className += ' open';
-  }
 
   if (label) {
     attributes['aria-label'] = label;

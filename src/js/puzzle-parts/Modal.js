@@ -10,9 +10,9 @@ import CloseIcon from '../icons/Close';
 
 import '../../css/Modal.scss';
 
-const Modal = ({ children, classes, label, onClose, open, testing }) => {
+const Modal = ({ children, classes, label, onClose, testing }) => {
 
-  const attributes = getAttributes(label, open);
+  const attributes = getAttributes(label);
 
   classes.push('modal-container');
 
