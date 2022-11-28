@@ -31,55 +31,6 @@ const getProps = (override) => {
 
 describe('StatisticsModal', () => {
 
-  describe('Show or hide', () => {
-
-    test('Component is hidden when open=false', () => {
-
-      const props = getProps({
-        open: false
-      });
-      const { getByLabelText } = render(<StatisticsModal {...props} />);
-
-      expect(getByLabelText('Statistics')).toHaveAttribute('class', 'stats');
-      expect(document.body).not.toHaveAttribute('class');
-
-    });
-
-    test('Component is shown when open=true', () => {
-
-      document.body.setAttribute('class', 'test');
-
-      const props = getProps();
-      const { getByLabelText } = render(<StatisticsModal {...props} />);
-
-      expect(getByLabelText('Statistics')).toHaveAttribute('class', 'stats open');
-      expect(document.body).toHaveAttribute('class', 'test modal-open');
-
-    });
-
-  });
-
-  describe('Close', () => {
-
-    test('Calls onClose callback when close button is pressed', async () => {
-
-      const onClose = jest.fn();
-
-      const props = getProps({
-        onClose: onClose
-      });
-      const { getByLabelText, getByRole } = render(<StatisticsModal {...props} />);
-
-      expect(getByLabelText('Statistics')).toHaveAttribute('class', 'stats open');
-      expect(document.body).toHaveAttribute('class', 'test modal-open');
-
-      await userEvent.click(getByRole('button'));
-      expect(onClose).toHaveBeenCalledTimes(1);
-
-    });
-
-  });
-
   describe('Statistics calculations', () => {
 
     test('0 games played', () => {

@@ -1,0 +1,40 @@
+@use 'utils/colors' as *;
+
+.body {
+  &.modal-open {
+    overflow: hidden;
+  }
+}
+
+.hopkins-hurdle {
+  .modal {
+    .overlay {
+      background-color: $black;
+      height: 100%;
+      left: 0;
+      opacity: 0.5;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 0;
+    }
+
+    .modal-container {
+      background-color: $white;
+      margin: auto;
+      padding: 20px;
+      position: relative;
+      text-align: left;
+      z-index: 100;
+
+      button {
+        float: right;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
