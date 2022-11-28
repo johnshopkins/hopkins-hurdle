@@ -150,12 +150,12 @@ class Puzzle extends Component {
     const remainingGuesses = this.availableGuesses - (this.state.puzzle.guesses.filter(n => n).length);
 
     return (
-      <>
         <StatisticsModal
           onClose={this.closeStatsModal}
           open={this.state.statModalOpen}
           stats={this.stats.stats}
         />
+      <div className={'hopkins-hurdle'}>
         <Message
           hidden={this.state.statModalOpen}
           onTtl={this.clearMessage}
@@ -181,7 +181,7 @@ class Puzzle extends Component {
         {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
         {this.state.puzzle.status !== 'IN_PROGRESS' && this.state.supportingContent && <SupportingContent hidden={this.state.statModalOpen} {...this.state.supportingContent} />}
         {this.props.debug && <Debug id={this.props.id} />}
-      </>
+      </div>
     );
   }
 
