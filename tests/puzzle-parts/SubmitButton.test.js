@@ -22,7 +22,7 @@ const getProps = (override) => {
 
 describe('Button', () => {
 
-  describe('onKeyDown', () => {
+  describe('button clicked', () => {
 
     test('when button is clicked, onSubmit callback is called', async () => {
 
@@ -37,6 +37,26 @@ describe('Button', () => {
       await userEvent.click(getByRole('button'));
 
       expect(onSubmit).toHaveBeenCalledTimes(1);
+
+    });
+
+  });
+
+  describe('Backspace', () => {
+
+    test('when backspace is pressed, onBackspace callback is called', async () => {
+
+      const onBackspace = jest.fn();
+
+      const props = getProps({
+        onBackspace: onBackspace,
+      });
+
+      const { getByRole } = render(<SubmitButton {...props} />);
+
+      await userEvent.type(getByRole('button'), '{backspace}');
+
+      expect(onBackspace).toHaveBeenCalledTimes(1);
 
     });
 
