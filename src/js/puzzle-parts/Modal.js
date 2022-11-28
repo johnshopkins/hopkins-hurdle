@@ -25,8 +25,14 @@ const Modal = ({ children, classes, label, onClose, testing }) => {
     }
   } : {};
 
+  const onKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      onClose();
+    }
+  }
+
   return (
-    <div {...attributes}>
+    <div {...attributes} onKeyDown={onKeyDown}>
       <FocusTrap focusTrapOptions={focusTrapOptions}>
         <div className={classes.join(' ')}>
           <button className={'close-box-x close'} aria-label={'Close modal'} onClick={onClose}>

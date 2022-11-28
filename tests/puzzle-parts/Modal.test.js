@@ -42,6 +42,22 @@ describe('Modal', () => {
 
     });
 
+    test('Calls onClose callback when escape key is pressed', async () => {
+
+      const onClose = jest.fn();
+
+      const props = getProps({
+        onClose: onClose,
+      });
+
+      const { container } = render(<Modal {...props} />);
+
+      await userEvent.type(container, '{escape}');
+
+      expect(onClose).toHaveBeenCalledTimes(1);
+
+    });
+
   });
 
 });
