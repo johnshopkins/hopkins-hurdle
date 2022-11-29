@@ -46,7 +46,7 @@ class Phrase extends Component {
 
     this.onBackspace = this.onBackspace.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.evaluateGuess = this.evaluateGuess.bind(this);
 
   }
 
@@ -172,21 +172,6 @@ class Phrase extends Component {
     });
   }
 
-  onSubmit() {
-
-    // const guess = this.state.guess.map(guess => guess.guessedLetter).join('');
-
-    // if (guess.length < this.props.correctAnswer.length) {
-    //   console.log('this should never happen');
-    //   this.props.displayMessage({
-    //     type: 'error',
-    //     message: 'Not enough letters'
-    //   });
-    // } else {
-      this.evaluateGuess();
-    // }
-  }
-
   render() {
 
     let label = `Guess #${this.props.phraseNumber + 1}`;
@@ -226,7 +211,7 @@ class Phrase extends Component {
         <SubmitButton
           focus={this.state.submitButtonActive}
           onBackspace={() => this.onBackspace(null)}
-          onSubmit={this.onSubmit}
+          onSubmit={this.evaluateGuess}
           onRefocusComplete={this.props.onRefocusComplete}
           triggerFocus={this.props.triggerFocus && this.state.submitButtonActive}
         />
