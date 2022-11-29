@@ -1,6 +1,6 @@
 @use 'utils/colors' as *;
 
-@mixin flip($name, $to-color) {
+@mixin flip($name, $to-background, $to-text) {
   @keyframes #{$name} {
     0% {
       transform: scaleY(1);
@@ -12,14 +12,16 @@
 
     100% {
       transform: scaleY(1);
-      border-color: $to-color;
+      background-color: $to-background;
+      border-color: $to-background;
+      color: $to-text;
     }
   }
 }
 
-@include flip(flip-pass, $green);
-@include flip(flip-shuffle, $yellow);
-@include flip(flip-fail, $gray);
+@include flip(flip-pass, $green, $white);
+@include flip(flip-shuffle, $yellow, $black);
+@include flip(flip-fail, $gray, $white);
 
 .hopkins-hurdle {
   .guess {
@@ -46,14 +48,19 @@
 
       &:not(.animate) {
         &.pass {
+          background-color: $green;
           border-color: $green;
+          color: $white;
         }
 
         &.fail {
+          background-color: $gray;
           border-color: $gray;
+          color: $white;
         }
 
         &.shuffle {
+          background-color: $yellow;
           border-color: $yellow;
         }
       }
