@@ -44,7 +44,6 @@ class Guesses extends Component {
       {this.props.guesses.map((guess, i) =>
         <Phrase
           correctAnswer={this.props.correctAnswer}
-          displayMessage={this.props.displayMessage}
           guess={guess}
           isComplete={this.props.status !== 'IN_PROGRESS' || i < this.props.currentRow}
           isCurrentRow={this.props.currentRow === i}
@@ -65,7 +64,6 @@ Guesses.propTypes = {
   answerDescription: PropTypes.string.isRequired,
   currentRow: PropTypes.number.isRequired,
   correctAnswer: PropTypes.string.isRequired,
-  displayMessage: PropTypes.func.isRequired,
   guesses: PropTypes.array.isRequired,
   hidden: PropTypes.bool.isRequired,
   onGuessFail: PropTypes.func.isRequired,
