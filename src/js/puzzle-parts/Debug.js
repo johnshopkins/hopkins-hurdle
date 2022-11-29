@@ -5,7 +5,7 @@ import { local as localStorage } from '../helpers/storage';
 
 import '../../css/Debug.scss';
 
-const Debug = ({ id, incrementStats }) => {
+export default ({ id }) => {
 
   const clearPuzzleData = () => {
     localStorage.remove('hopkinshurdle.' + id);
@@ -21,11 +21,4 @@ const Debug = ({ id, incrementStats }) => {
       <button onClick={clearStatsData}>Clear stored stats data</button>
     </div>
   );
-}
-
-
-Debug.Debug = {
-  incrementStats: PropTypes.func.isRequired,
 };
-
-export default Debug;
