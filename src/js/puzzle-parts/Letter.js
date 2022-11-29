@@ -96,7 +96,7 @@ class Letter extends Component {
 
     if (this.props.isSpace) {
       label += `: Space`
-    } else if (this.props.isComplete) {
+    } else if (this.props.isRowComplete) {
       label += `: ${this.getNiceStatus()}`
     }
 
@@ -110,7 +110,7 @@ class Letter extends Component {
     return <input
       aria-label={this.getLabel()}
       className={this.getClass()}
-      disabled={this.props.isComplete}
+      disabled={this.props.isRowComplete}
       maxLength={1}
       onChange={e => this.onChange(e.target.value)}
       onKeyDown={this.onKeyDown}
@@ -130,7 +130,7 @@ Letter.propTypes = {
   animate: PropTypes.bool.isRequired,
   direction: PropTypes.string.isRequired,
   focus: PropTypes.bool.isRequired,
-  isComplete: PropTypes.bool.isRequired,
+  isRowComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
   isSpace: PropTypes.bool.isRequired,
   letterNumber: PropTypes.number.isRequired,

@@ -23,7 +23,7 @@ class Phrase extends Component {
         i: i,
         correctLetter: letter,
         guessedLetter: guessedLetter,
-        status: this.props.isComplete ?
+        status: this.props.isRowComplete ?
           this.evaluateGuessForCorrectness(guessedLetter, letter, i) :
           null
       }
@@ -191,7 +191,7 @@ class Phrase extends Component {
 
     let label = `Guess #${this.props.phraseNumber + 1}`;
 
-    if (this.props.isComplete) {
+    if (this.props.isRowComplete) {
       label += ': complete'
     } else if (this.props.isCurrentRow) {
       label += ': in progress'
@@ -209,7 +209,7 @@ class Phrase extends Component {
           animate={this.state.animate}
           direction={this.state.direction}
           focus={this.props.isCurrentRow && this.state.activeLetter === i}
-          isComplete={this.props.isComplete}
+          isRowComplete={this.props.isRowComplete}
           isCurrentRow={this.props.isCurrentRow}
           isSpace={character.correctLetter === ' '}
           key={i}
@@ -239,7 +239,7 @@ Phrase.propTypes = {
   correctAnswer: PropTypes.string.isRequired,
   displayMessage: PropTypes.func.isRequired,
   guess: PropTypes.string.isRequired,
-  isComplete: PropTypes.bool.isRequired,
+  isRowComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
   onFail: PropTypes.func.isRequired,
   onPass: PropTypes.func.isRequired,

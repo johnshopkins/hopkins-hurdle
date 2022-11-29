@@ -12,9 +12,8 @@ import Phrase from '../../src/js/puzzle-parts/Phrase';
 const getProps = (override) => {
   return {
     correctAnswer: '',
-    displayMessage: () => {},
     guess: '',
-    isComplete: false,
+    isRowComplete: false,
     isCurrentRow: true,
     onFail: () => {},
     onPass: () => {},
@@ -32,7 +31,7 @@ describe('Phrase', () => {
 
     test('adds `complete` to aira-labal when a row is complete', () => {
 
-      const props = getProps({ isComplete: true });
+      const props = getProps({ isRowComplete: true });
       const { getByLabelText } = render(<Phrase {...props} />);
 
       expect(getByLabelText('Guess #2: complete')).toBeInTheDocument()
@@ -52,7 +51,7 @@ describe('Phrase', () => {
 
       const props = getProps({
         correctAnswer: 'testing',
-        isComplete: true,
+        isRowComplete: true,
         guess: 'sejtaaa'
       });
 
@@ -72,7 +71,7 @@ describe('Phrase', () => {
 
       const props = getProps({
         correctAnswer: 'test',
-        isComplete: true,
+        isRowComplete: true,
         guess: 'test'
       });
       
@@ -109,7 +108,7 @@ describe('Phrase', () => {
 
       const props = getProps({
         correctAnswer: 'TESTING',
-        isComplete: true,
+        isRowComplete: true,
         guess: 'sejtaaa'
       });
 
@@ -127,7 +126,7 @@ describe('Phrase', () => {
 
       const props = getProps({
         correctAnswer: 'TESTING',
-        isComplete: true,
+        isRowComplete: true,
         guess: 'sejtaaa'
       });
 

@@ -14,7 +14,7 @@ const getProps = (override) => {
     animate: false,
     direction: 'forward',
     focus: false,
-    isComplete: false,
+    isRowComplete: false,
     isCurrentRow: false,
     isSpace: false,
     letterNumber: 0,
@@ -121,7 +121,7 @@ describe('Letter', () => {
     test('pass status yeilds `correct` label', () => {
 
       const props = getProps({
-        isComplete: true,
+        isRowComplete: true,
         status: 'pass',
       });
 
@@ -134,7 +134,7 @@ describe('Letter', () => {
     test('fail status yeilds `incorrect` label', () => {
 
       const props = getProps({
-        isComplete: true,
+        isRowComplete: true,
         status: 'fail',
       });
 
@@ -147,7 +147,7 @@ describe('Letter', () => {
     test('shuffle status yeilds `correct letter, but in wrong position` label', () => {
 
       const props = getProps({
-        isComplete: true,
+        isRowComplete: true,
         status: 'shuffle',
       });
 
