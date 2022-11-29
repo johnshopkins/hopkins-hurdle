@@ -186,7 +186,7 @@ class Puzzle extends Component {
           onGuessFail={this.onGuessFail}
           onPuzzlePass={this.onPuzzlePass}
           remainingGuesses={remainingGuesses}
-          status={this.state.puzzle.status}
+          puzzleStatus={this.state.puzzle.status}
         />
         {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
         {this.state.puzzle.status !== 'IN_PROGRESS' && this.state.supportingContent && <SupportingContent hidden={this.state.modalOpen} {...this.state.supportingContent} />}

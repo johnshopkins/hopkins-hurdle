@@ -20,7 +20,7 @@ const getProps = (override) => {
     onGuessFail: () => { },
     onPuzzlePass: () => { },
     remainingGuesses: 6,
-    status: 'IN_PROGRESS',
+    puzzleStatus: 'IN_PROGRESS',
     ...override
   }
 };

@@ -45,7 +45,7 @@ class Guesses extends Component {
         <Phrase
           correctAnswer={this.props.correctAnswer}
           guess={guess}
-          isRowComplete={this.props.status !== 'IN_PROGRESS' || i < this.props.currentRow}
+          isRowComplete={this.props.puzzleStatus !== 'IN_PROGRESS' || i < this.props.currentRow}
           isCurrentRow={this.props.currentRow === i}
           key={i}
           onFail={this.props.onGuessFail}
@@ -69,7 +69,7 @@ Guesses.propTypes = {
   onGuessFail: PropTypes.func.isRequired,
   onPuzzlePass: PropTypes.func.isRequired,
   remainingGuesses: PropTypes.number.isRequired,
-  status: PropTypes.string.isRequired,
+  puzzleStatus: PropTypes.string.isRequired,
 };
 
 export default Guesses;
