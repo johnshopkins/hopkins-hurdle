@@ -237,7 +237,6 @@ class Phrase extends Component {
 
 Phrase.propTypes = {
   correctAnswer: PropTypes.string.isRequired,
-  displayMessage: PropTypes.func.isRequired,
   guess: PropTypes.string.isRequired,
   isRowComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
