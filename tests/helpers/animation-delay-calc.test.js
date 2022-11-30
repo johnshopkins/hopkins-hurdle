@@ -15,6 +15,7 @@ describe('Calculate animation delay', () => {
     // animation duration
     expect(calculateAnimationDuration('flip', 'plant')).toEqual(900);
     expect(calculateAnimationDuration('jump', 'plant')).toEqual(640);
+    expect(calculateAnimationDuration('jump', 'plant', true)).toEqual(1140);
 
   });
 

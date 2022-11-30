@@ -45,12 +45,13 @@ const calculateAnimationDelay = (i, animation = 'flip', answer = '', returnAs = 
  * @param {string} answer    Currect puzzle answer
  * @returns 
  */
-const calculateAnimationDuration = (animation = 'flip', answer = '') => {
+const calculateAnimationDuration = (animation = 'flip', answer = '', includeDelayBeteenAnimations = false) => {
 
   const duration = animation === 'flip' ? settings.flipDuration : settings.jumpDuration;
   const delayBetween = animation === 'flip' ? settings.delayBetweenFlip : settings.delayBetweenJump;
+  const delayBetweenAnimations = includeDelayBeteenAnimations ? settings.delayBetweenAnimations : 0;
 
-  return ((answer.length - 1) * delayBetween) + duration;
+  return ((answer.length - 1) * delayBetween) + duration + delayBetweenAnimations;
 }
 
 export { calculateAnimationDelay, calculateAnimationDuration };
