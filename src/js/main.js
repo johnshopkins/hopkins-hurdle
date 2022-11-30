@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { savePuzzleState, loadPuzzleState} from './helpers/persistance';
 import { local as localStorage } from './helpers/storage';
-
+import { savePuzzleState, loadPuzzleState } from './helpers/persistance';
 import Statistics from './helpers/statistics';
 
 import Answer from './puzzle-parts/Answer';
@@ -26,7 +25,6 @@ class Puzzle extends Component {
     super(props);
 
     this.availableGuesses = 6;
-    this.supportingContent = null;
 
     this.loadPuzzle = id => loadPuzzleState(id);
     this.savePuzzle = (id, puzzle) => savePuzzleState(id, puzzle);
@@ -134,7 +132,7 @@ class Puzzle extends Component {
   onPuzzleEnd(numberOfGuesses) {
 
     this.stats.stats = this.stats.update(this.state.puzzle.status, numberOfGuesses);
-    this.onPuzzleComplete(this.state.puzzle.status, numberOfGuesses)
+    this.onPuzzleComplete(this.state.puzzle.status, numberOfGuesses);
 
     setTimeout(() => {
       this.displayMessage({
@@ -180,7 +178,6 @@ class Puzzle extends Component {
           answerDescription={this.props.puzzle.answerDescription}
           currentRow={this.state.puzzle.currentRow}
           correctAnswer={this.props.puzzle.answer.toUpperCase()}
-          displayMessage={this.displayMessage}
           guesses={this.state.puzzle.guesses}
           hidden={Boolean(this.state.modalOpen)}
           onGuessFail={this.onGuessFail}
