@@ -139,7 +139,7 @@ class Puzzle extends Component {
     setTimeout(() => {
 
       this.displayMessage({
-        message: this.state.puzzle.status === 'PASS' ? 'Great job!' : 'Better luck next time.';
+        message: this.state.puzzle.status === 'PASS' ? 'Great job!' : 'Better luck next time.'
       });
 
       const delayUntilModal = this.state.puzzle.status === 'PASS' ?
