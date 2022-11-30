@@ -1,4 +1,5 @@
 const path = require('path');
+const settings = require('./src/settings');
 
 module.exports = {
   mode: 'production',
@@ -20,7 +21,26 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              additionalData: (content) => {
+
+                let add = '';
+
+                for (const prop in settings.animations) {
+                  add += `$${prop}: ${settings.animations[prop]};`;
+                }
+
+                return add + content;
+
+              }
+            }
+          }
+        ],
       }
     ]
   }
