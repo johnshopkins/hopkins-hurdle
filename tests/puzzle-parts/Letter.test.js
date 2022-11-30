@@ -12,6 +12,7 @@ import Letter from '../../src/js/puzzle-parts/Letter';
 const getProps = (override) => {
   return {
     animate: false,
+    correctAnswer: '',
     direction: 'forward',
     focus: false,
     isRowComplete: false,
@@ -22,6 +23,7 @@ const getProps = (override) => {
     onEnter: () => { },
     onChange: () => { },
     onRefocusComplete: () => { },
+    puzzleStatus: 'IN_PROGRESS',
     triggerFocus: false,
     status: null,
     value: '',
@@ -229,6 +231,7 @@ describe('Letter', () => {
     test('third input has the correct animation delay', () => {
 
       const props = getProps({
+        isCurrentRow: true,
         letterNumber: 2
       });
 
@@ -295,7 +298,7 @@ describe('Letter', () => {
 
     });
 
-    test('input set to animate has `animate class', () => {
+    test('when a phrase is complete, input set to animate has `animate flip` class', () => {
 
       const props = getProps({
         animate: true
@@ -304,7 +307,23 @@ describe('Letter', () => {
       const { getByRole } = render(<Letter {...props} />);
 
       const input = getByRole('textbox');
-      expect(input).toHaveAttribute('class', 'animate');
+      expect(input).toHaveAttribute('class', 'animate flip');
+
+    });
+
+    test('when a phrase and puzzle is complete, input set to animate has `animate jump` class', () => {
+
+      const props = getProps({
+        animate: true,
+        correctAnswer: 'test',
+        isCurrentRow: true,
+        puzzleStatus: 'PASS'
+      });
+
+      const { getByRole } = render(<Letter {...props} />);
+
+      const input = getByRole('textbox');
+      expect(input).toHaveAttribute('class', 'animate jump');
 
     });
   });

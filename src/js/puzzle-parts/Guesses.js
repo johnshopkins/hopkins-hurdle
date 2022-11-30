@@ -52,6 +52,7 @@ class Guesses extends Component {
           onPass={this.props.onPuzzlePass}
           onRefocusComplete={this.onRefocusComplete}
           phraseNumber={i}
+          puzzleStatus={this.props.puzzleStatus}
           triggerFocus={this.state.triggerFocus}
         />
       )}

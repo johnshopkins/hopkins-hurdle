@@ -20,6 +20,7 @@ const getProps = (override) => {
     onRefocusComplete: () => {},
     submitButtonActive: false,
     phraseNumber: 1,
+    puzzleStatus: 'IN_PROGRESS',
     triggerFocus: true,
     ...override
   }

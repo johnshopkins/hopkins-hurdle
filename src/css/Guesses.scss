@@ -1,5 +1,7 @@
 @use 'utils/main' as *;
 
+// note: $flipDuration and $jumpDuration are set in ./src/settings.js
+
 .hopkins-hurdle {
   .guess {
 
@@ -45,20 +47,23 @@
       &.animate.flip {
         &.pass {
           @include flip(flip-pass, $green, $white);
-          animation: flip-pass 500ms ease forwards;
+          animation: flip-pass #{$flipDuration}ms ease forwards;
         }
 
         &.shuffle {
           @include flip(flip-shuffle, $yellow, $black);
-          animation: flip-shuffle 500ms ease forwards;
+          animation: flip-shuffle #{$flipDuration}ms ease forwards;
         }
 
         &.fail {
           @include flip(flip-fail, $gray, $white);
-          animation: flip-fail 500ms ease forwards;
+          animation: flip-fail #{$flipDuration}ms ease forwards;
         }
       }
 
+      &.animate.jump {
+        @include jump();
+        animation: flip-pass #{$flipDuration}ms ease forwards, jump #{$jumpDuration}ms ease forwards;
       }
     }
   }

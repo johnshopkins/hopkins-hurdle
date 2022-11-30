@@ -1,15 +1,20 @@
-import calculateDelay from '../../src/js/helpers/animation-delay-calc';
+import { calculateAnimationDelay, calculateAnimationDuration } from '../../src/js/helpers/animation-delay-calc';
 
 describe('Calculate animation delay', () => {
 
   test('calculates the correct delay', () => {
 
-    expect(calculateDelay(0, 100)).toEqual('0ms');
-    expect(calculateDelay(5, 100)).toEqual('500ms');
+    // animation delay; flip
+    expect(calculateAnimationDelay(0)).toEqual('0ms');
+    expect(calculateAnimationDelay(4)).toEqual('400ms');
 
-    expect(calculateDelay(0, 100, 0)).toEqual('0ms');
-    expect(calculateDelay(0, 100, 500)).toEqual('500ms');
-    expect(calculateDelay(5, 100, 500)).toEqual('1000ms');
+    // animation delay; jump
+    expect(calculateAnimationDelay(0, 'jump', 'plant')).toEqual('0ms, 1400ms');
+    expect(calculateAnimationDelay(4, 'jump', 'plant')).toEqual('400ms, 1640ms');
+
+    // animation duration
+    expect(calculateAnimationDuration('flip', 'plant')).toEqual(900);
+    expect(calculateAnimationDuration('jump', 'plant')).toEqual(640);
 
   });
 

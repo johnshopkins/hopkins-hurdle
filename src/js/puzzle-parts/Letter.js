@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import calculateDelay from '../helpers/animation-delay-calc';
+import { calculateAnimationDelay } from '../helpers/animation-delay-calc';
 
 class Letter extends Component {
 
@@ -13,6 +13,12 @@ class Letter extends Component {
 
     this.input = React.createRef();
 
+    this.animationDelay = '0ms';
+
+    if (this.props.isCurrentRow) {
+      // calculate inital animation delay (assuming flip)
+      this.setAnimationDelay();
+    }
   }
 
   componentDidMount() {
@@ -21,6 +27,11 @@ class Letter extends Component {
 
   componentDidUpdate() {
     this.maybeFocus();
+  }
+
+  setAnimationDelay() {
+    const animation = this.props.puzzleStatus === 'PASS' && this.props.isCurrentRow ? 'jump' : 'flip';
+    this.animationDelay = calculateAnimationDelay(this.props.letterNumber, animation, this.props.correctAnswer);
   }
 
   maybeFocus() {
@@ -57,6 +68,7 @@ class Letter extends Component {
 
     if (this.props.animate) {
       classes.push('animate');
+      classes.push(this.props.puzzleStatus === 'PASS' && this.props.isCurrentRow ? 'jump' : 'flip')
     }
 
     return classes.join(' ');
@@ -107,7 +119,10 @@ class Letter extends Component {
 
   render() {
 
-    const animationDelay = calculateDelay(this.props.letterNumber, 100);
+    if (this.props.isCurrentRow && this.props.puzzleStatus === 'PASS') {
+      // recalculate now that the puzzle is complete (jump)
+      this.setAnimationDelay();
+    }
 
     return <input
       aria-label={this.getLabel()}
@@ -119,7 +134,7 @@ class Letter extends Component {
       onMouseDown={this.onMouseDown}
       readOnly={this.isSpace || !this.props.focus}
       ref={this.input}
-      style={{animationDelay: animationDelay}}
+      style={{animationDelay: this.animationDelay}}
       tabIndex={this.props.focus ? null : -1}
       type={'text'}
       value={this.props.value}
@@ -130,6 +145,7 @@ class Letter extends Component {
 
 Letter.propTypes = {
   animate: PropTypes.bool.isRequired,
+  correctAnswer: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   focus: PropTypes.bool.isRequired,
   isRowComplete: PropTypes.bool.isRequired,
@@ -139,6 +155,7 @@ Letter.propTypes = {
   onBackspace: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onRefocusComplete: PropTypes.func.isRequired,
+  puzzleStatus: PropTypes.string.isRequired,
   triggerFocus: PropTypes.bool.isRequired,
   status: PropTypes.string,
   value: PropTypes.string,

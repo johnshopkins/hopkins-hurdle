@@ -192,6 +192,7 @@ class Phrase extends Component {
       {this.state.guess.map((character, i) =>
         <Letter
           animate={this.state.animate}
+          correctAnswer={this.props.correctAnswer}
           direction={this.state.direction}
           focus={this.props.isCurrentRow && this.state.activeLetter === i}
           isRowComplete={this.props.isRowComplete}
@@ -202,6 +203,7 @@ class Phrase extends Component {
           onBackspace={() => this.onBackspace(i)}
           onChange={(letter) => this.onChange(letter, i)}
           onRefocusComplete={this.props.onRefocusComplete}
+          puzzleStatus={this.props.puzzleStatus}
           status={character.status}
           triggerFocus={this.props.triggerFocus && this.props.isCurrentRow && this.state.activeLetter === i}
           value={character.guessedLetter}
@@ -229,6 +231,7 @@ Phrase.propTypes = {
   onPass: PropTypes.func.isRequired,
   onRefocusComplete: PropTypes.func.isRequired,
   phraseNumber: PropTypes.number.isRequired,
+  puzzleStatus: PropTypes.string.isRequired,
   triggerFocus: PropTypes.bool.isRequired,
 };
 
