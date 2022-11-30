@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import calculateDelay from '../helpers/animation-delay-calc';
+
 class Letter extends Component {
 
   constructor(props) {
@@ -105,7 +107,7 @@ class Letter extends Component {
 
   render() {
 
-    const animationDelay = (100 * this.props.letterNumber) + 'ms';
+    const animationDelay = calculateDelay(this.props.letterNumber, 100);
 
     return <input
       aria-label={this.getLabel()}
