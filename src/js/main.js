@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { calculateAnimationDuration } from './helpers/animation-delay-calc';
 import { local as localStorage } from './helpers/storage';
 import { savePuzzleState, loadPuzzleState } from './helpers/persistance';
 import Statistics from './helpers/statistics';
@@ -45,7 +46,7 @@ class Puzzle extends Component {
         status: 'IN_PROGRESS',
         ...stored,
       },
-      modalOpen: null,
+      modalOpen: false,
       supportingContent: null
     };
 
@@ -95,9 +96,10 @@ class Puzzle extends Component {
       if (this.state.puzzle.status === 'FAIL') {
         this.onPuzzleEnd(numberOfGuesses);
       } else {
+        // for accessibility -- how to visually hide this?
         this.displayMessage({
           type: 'info',
-          message: 'Your guess is incorrect.'
+          message: 'Your guess is incorrect. Try again.'
         });
       }
     });
@@ -135,11 +137,20 @@ class Puzzle extends Component {
     this.onPuzzleComplete(this.state.puzzle.status, numberOfGuesses);
 
     setTimeout(() => {
+
       this.displayMessage({
-        type: 'error',
-        message: this.state.puzzle.status === 'PASS' ? 'Great job!' : 'Better luck next time.'
+        message: this.state.puzzle.status === 'PASS' ? 'Great job!' : 'Better luck next time.';
       });
-    }, (this.props.puzzle.answer.length * 100) + 750) // 750ms after animation finishes
+
+      const delayUntilModal = this.state.puzzle.status === 'PASS' ?
+        calculateAnimationDuration('jump', this.props.puzzle.answer, true) :
+        500;
+
+      setTimeout(() => {
+        this.setState({ modalOpen: 'stats' })
+      }, delayUntilModal);
+
+    }, calculateAnimationDuration('flip', this.props.puzzle.answer, true));
   }
 
   render() {
