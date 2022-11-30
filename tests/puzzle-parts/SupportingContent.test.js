@@ -13,7 +13,7 @@ const getProps = (override) => {
     headline: 'This is a headline',
     hidden: false,
     kicker: null,
-    pulished: 'May 10, 2010',
+    published: 'May 10, 2010',
     summary: 'This is a summary',
     thumbnail: null,
     url: 'https://hub.jhu.edu',

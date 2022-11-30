@@ -55,7 +55,7 @@ SupportingContent.propTypes = {
   headline: PropTypes.string.isRequired,
   hidden: PropTypes.bool.isRequired,
   kicker: PropTypes.string,
-  pulished: PropTypes.string.isRequired,
+  published: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
   thumbnail: PropTypes.object,
   url: PropTypes.string.isRequired,
