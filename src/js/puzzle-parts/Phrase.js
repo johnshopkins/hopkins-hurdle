@@ -99,8 +99,8 @@ class Phrase extends Component {
       const guess = state.guess.map(g => g.guessedLetter).join('');
 
       success ?
-        this.props.onPass(guess, this.props.phraseNumber + 1) :
-        this.props.onFail(guess, this.props.phraseNumber + 1);
+        this.props.onPass(guess, state.guess, this.props.phraseNumber + 1) :
+        this.props.onFail(guess, state.guess, this.props.phraseNumber + 1);
 
       return {
         animate: true,

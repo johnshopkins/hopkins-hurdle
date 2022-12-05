@@ -3,8 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from './Modal';
+import Share from './Share';
 
-const StatisticsModal = ({ onClose, stats, testing }) => {
+const StatisticsModal = ({ correctAnswer, onClose, puzzle, stats, testing }) => {
 
   const winPercentage = (stats.gamesPlayed > 0 && stats.gamesWon > 0) ?
     Math.round((stats.gamesWon / stats.gamesPlayed) * 100) :
@@ -44,6 +45,13 @@ const StatisticsModal = ({ onClose, stats, testing }) => {
           );
         })}
       </dl>
+
+      {puzzle.status === 'PASS' &&
+        <Share 
+          correctAnswer={correctAnswer} 
+          puzzle={puzzle}
+        />
+      }
     </Modal>
   )
 };
@@ -53,6 +61,7 @@ StatisticsModal.defaultProps = {
 };
 
 StatisticsModal.propTypes = {
+  correctAnswer: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   stats: PropTypes.object.isRequired,
   testing: PropTypes.bool,

@@ -41,6 +41,7 @@ class Puzzle extends Component {
     this.state = {
       message: {},
       puzzle: {
+        evaluatedGuesses: Array.apply(null, Array(this.availableGuesses)).map(() => []),
         guesses: Array.apply(null, Array(this.availableGuesses)).map(() => ''),
         currentRow: 0,
         status: 'IN_PROGRESS',
@@ -73,13 +74,14 @@ class Puzzle extends Component {
     this.setState({ modalOpen: null });
   }
 
-  onGuessFail(guess, numberOfGuesses) {
+  onGuessFail(guess, evaluatedGuess, numberOfGuesses) {
     this.setState((state) => {
 
       const puzzle = state.puzzle;
 
       // update guesses
       puzzle.guesses[puzzle.currentRow] = guess;
+      puzzle.evaluatedGuesses[puzzle.currentRow] = evaluatedGuess;
 
       // ran out of guesses
       if (puzzle.currentRow + 1 === this.availableGuesses){
@@ -105,7 +107,7 @@ class Puzzle extends Component {
     });
   }
 
-  onPuzzlePass(guess, numberOfGuesses) {
+  onPuzzlePass(guess, evaluatedGuess, numberOfGuesses) {
     this.setState((state) => {
 
       const puzzle = state.puzzle;
@@ -113,7 +115,8 @@ class Puzzle extends Component {
 
       // update guesses
       puzzle.guesses[puzzle.currentRow] = guess;
-      puzzle.guesses = puzzle.guesses;
+
+      puzzle.evaluatedGuesses[puzzle.currentRow] = evaluatedGuess;
 
       return { puzzle: puzzle };
 
@@ -161,8 +164,10 @@ class Puzzle extends Component {
       <div className={'hopkins-hurdle'}>
         {this.state.modalOpen === 'stats' &&
           <StatisticsModal
+            correctAnswer={this.props.puzzle.answer.toUpperCase()}
             logger={this.props.logger}
             onClose={this.closeModal}
+            puzzle={this.state.puzzle}
             stats={this.stats.stats}
           />
         }
