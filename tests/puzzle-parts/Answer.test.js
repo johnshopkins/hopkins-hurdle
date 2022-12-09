@@ -18,11 +18,12 @@ const getProps = (override) => {
 describe('Answer', () => {
 
   test('Given answer is displayed', () => {
-
-    const { getByText } = render(<Answer answer={'tastee tape'} />);
+    const props = getProps({
+      answer: 'tastee tape'
+    });
+    const { getByText } = render(<Answer {...props} />);
 
     expect(getByText('tastee tape')).toBeInTheDocument();
-
   });
 
 });

@@ -14,9 +14,14 @@ const getProps = (override) => {
   const overrideStats = typeof override !== 'undefined' && typeof override.stats === 'object' ? override.stats : {};
 
   return {
+    correctAnswer: 'test',
     onClose: () => { },
     open: true,
     testing: true,
+    nextGame: null,
+    puzzle: {
+      status: 'IN_PROGRESS',
+    },
     ...override,
     stats: {
       gamesPlayed: 0,
@@ -92,6 +97,43 @@ describe('StatisticsModal', () => {
         expect(getByTestId(`guessDistribution-count-${i}`)).toHaveStyle(`width: ${10*number}%`);
       });
 
+    });
+
+  });
+
+  describe('Share', () => {
+
+    test('Show share component when puzzle is complete', () => {
+      const props = getProps({
+        puzzle: { status: 'PASS' }
+      });
+      const { getByText } = render(<StatisticsModal {...props} />);
+
+      expect(getByText('Share'));
+    });
+
+    test('Do not show share component when puzzle is not complete', () => {
+      const props = getProps();
+      const { queryByText } = render(<StatisticsModal {...props} />);
+
+      expect(queryByText('Share')).toBeNull();
+    });
+  });
+
+  describe('Countdown', () => {
+
+    test('Show countdown to next game when there is a next game', () => {
+      const props = getProps({
+        nextGame: new Date() + 50000
+      });
+      const { container } = render(<StatisticsModal {...props} />);
+      expect(container.querySelector('.countdown')).toHaveTextContent('Next game');
+    });
+
+    test('Do not show countdown to next game when there is not a next game', () => {
+      const props = getProps();
+      const { container } = render(<StatisticsModal {...props} />);
+      expect(container.querySelector('.countdown')).toBeNull();
     });
 
   });
