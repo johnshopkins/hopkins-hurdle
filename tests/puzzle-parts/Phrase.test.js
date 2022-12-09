@@ -21,6 +21,7 @@ const getProps = (override) => {
     submitButtonActive: false,
     phraseNumber: 1,
     puzzleStatus: 'IN_PROGRESS',
+    testing: true,
     triggerFocus: true,
     ...override
   }
