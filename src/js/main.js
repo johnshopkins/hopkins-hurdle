@@ -184,7 +184,10 @@ class Puzzle extends Component {
         {this.props.nextGame &&
           <Countdown
             date={this.props.nextGame}
-            renderer={({ hours, minutes, seconds }) => <div className={'countdown'}>{hours}:{minutes}:{seconds}</div>}
+            renderer={({ formatted }) => {
+              const { hours, minutes, seconds } = formatted;
+              return <div className={'countdown'}>{hours}:{minutes}:{seconds}</div>
+            }}
             // redirect after a 5 seconds (give server a change to clear cache)
             onComplplete={() => setTimeout(() => location.reload(), 5000)}
           />
