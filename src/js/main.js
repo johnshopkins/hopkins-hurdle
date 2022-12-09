@@ -29,8 +29,8 @@ class Puzzle extends Component {
 
     this.loadPuzzle = id => loadPuzzleState(id);
     this.savePuzzle = (id, puzzle) => savePuzzleState(id, puzzle);
-    this.onPuzzleComplete = props.onPuzzleComplete || function (status, numberOfGuesses) { };
-    this.fetchSupportingContent = props.fetchSupportingContent || function (endpoint, callback) { };
+    this.onPuzzleComplete = this.props.onPuzzleComplete;
+    this.fetchSupportingContent = this.props.fetchSupportingContent;
 
     // fetch any stored data from localStorage
     const stored = this.loadPuzzle(this.props.id) || {};
@@ -213,7 +213,9 @@ class Puzzle extends Component {
 
 Puzzle.defaultProps = {
   debug: false,
-  nextGame: null
+  fetchSupportingContent: (endpoint, callback) => { },
+  nextGame: null,
+  onPuzzleComplete: (status, numberOfGuesses) => { }
 };
 
 Puzzle.propTypes = {
