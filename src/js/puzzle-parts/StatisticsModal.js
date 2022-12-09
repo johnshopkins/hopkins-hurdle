@@ -1,11 +1,12 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
+
+import Countdown from 'react-countdown'
 
 import Modal from './Modal';
 import Share from './Share';
 
-const StatisticsModal = ({ correctAnswer, onClose, puzzle, stats, testing }) => {
+const StatisticsModal = ({ correctAnswer, nextGame, onClose, puzzle, stats, testing }) => {
 
   const winPercentage = (stats.gamesPlayed > 0 && stats.gamesWon > 0) ?
     Math.round((stats.gamesWon / stats.gamesPlayed) * 100) :
@@ -50,6 +51,21 @@ const StatisticsModal = ({ correctAnswer, onClose, puzzle, stats, testing }) => 
         <Share 
           correctAnswer={correctAnswer} 
           puzzle={puzzle}
+        />
+      }
+
+      {nextGame &&
+        <Countdown
+          date={nextGame}
+          renderer={({ formatted }) => {
+            const { hours, minutes, seconds } = formatted;
+            return <div className={'countdown'}>
+              <span>Next game</span>
+              <time>{hours}:{minutes}:{seconds}</time>
+            </div>
+          }}
+          // // redirect after a 5 seconds (give server a change to clear cache)
+          // onComplplete={() => setTimeout(() => location.reload(), 5000)}
         />
       }
     </Modal>

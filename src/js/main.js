@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Countdown from 'react-countdown'
-
 import { calculateAnimationDuration } from './helpers/animation-delay-calc';
 import { local as localStorage } from './helpers/storage';
 import { savePuzzleState, loadPuzzleState } from './helpers/persistance';
@@ -168,6 +166,7 @@ class Puzzle extends Component {
           <StatisticsModal
             correctAnswer={this.props.puzzle.answer.toUpperCase()}
             logger={this.props.logger}
+            nextGame={this.props.nextGame}
             onClose={this.closeModal}
             puzzle={this.state.puzzle}
             stats={this.stats.stats}
@@ -181,17 +180,6 @@ class Puzzle extends Component {
           onTtl={this.clearMessage}
           {...this.state.message}
         />
-        {this.props.nextGame &&
-          <Countdown
-            date={this.props.nextGame}
-            renderer={({ formatted }) => {
-              const { hours, minutes, seconds } = formatted;
-              return <div className={'countdown'}>{hours}:{minutes}:{seconds}</div>
-            }}
-            // redirect after a 5 seconds (give server a change to clear cache)
-            onComplplete={() => setTimeout(() => location.reload(), 5000)}
-          />
-        }
         <Utilities
           hidden={Boolean(this.state.modalOpen)}
           openInfoModal={() => this.setState({ modalOpen: 'info' })}
