@@ -139,7 +139,7 @@ class Puzzle extends Component {
   onPuzzleEnd(numberOfGuesses) {
 
     this.stats.stats = this.stats.update(this.state.puzzle.status, numberOfGuesses);
-    this.onPuzzleComplete(this.state.puzzle.status, numberOfGuesses);
+    this.onPuzzleComplete(this.props.id, this.state.puzzle.status, numberOfGuesses);
 
     setTimeout(() => {
 
