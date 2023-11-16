@@ -15,7 +15,6 @@ import Message from './puzzle-parts/Message';
 import StatisticsModal from './puzzle-parts/StatisticsModal';
 import SupportingContent from './puzzle-parts/SupportingContent';
 import Utilities from './puzzle-parts/Utilities';
-import {class as classUtils} from "js-utils";
 
 class Puzzle extends Component {
 
@@ -70,7 +69,7 @@ class Puzzle extends Component {
   }
 
   closeModal() {
-    classUtils.removeClass(document.body, 'modal-open');
+    document.body.classList.remove('modal-open');
     this.setState({ modalOpen: null });
   }
 

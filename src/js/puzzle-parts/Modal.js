@@ -2,7 +2,6 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
-import { class as classUtils } from 'js-utils';
 
 import getAttributes from '../helpers/modal-attributes';
 
@@ -16,7 +15,7 @@ const Modal = ({ children, classes, label, onClose, testing }) => {
 
   classes.push('modal-content');
 
-  classUtils.addClass(document.body, 'modal-open');
+  document.body.classList.add('modal-open');
 
   // see: https://github.com/focus-trap/focus-trap#testing-in-jsdom
   const focusTrapOptions = testing ? {
