@@ -3,9 +3,9 @@
 .hopkins-hurdle {
   .guess {
     button {
-      background-color: transparent;
-      border: 4px $light_gray solid;
-      color: $gray;
+      background-color: var(--submit-bg);
+      border: 4px var(--submit-border) solid;
+      color: var(--submit-text);
       font-size: 20px;
       height: 40px;
       margin: 2px;
@@ -14,8 +14,9 @@
       outline: none;
 
       &:focus {
-        border: 4px $black solid;
-        color: $black;
+        background-color: var(--submit-bg-focus);
+        border: 4px var(--submit-border-focus) solid;
+        color: var(--submit-text-focus);
         cursor: pointer;
       }
     }

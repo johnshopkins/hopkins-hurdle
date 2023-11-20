@@ -6,7 +6,9 @@
   .guess {
 
     input {
-      border: 4px $light_gray solid;
+      background-color: var(--input-bg);
+      border: 4px var(--input-border) solid;
+      color: var(--input-text);
       caret-color: transparent;
       font-size: 20px;
       height: 30px;
@@ -16,7 +18,9 @@
       width: 30px;
 
       &:focus {
-        border: 4px $black solid;
+        background-color: var(--input-bg-focus);
+        border: 4px var(--input-border-focus) solid;
+        color: var(--input-text-focus);
       }
 
       &.space {
@@ -27,36 +31,36 @@
 
       &:not(.animate) {
         &.pass {
-          background-color: $green;
-          border-color: $green;
-          color: $white;
+          background-color: var(--correct-spot-bg);
+          border-color: var(--correct-spot-bg);
+          color: var(--correct-spot-text);
         }
 
         &.fail {
-          background-color: $gray;
-          border-color: $gray;
-          color: $white;
+          background-color: var(--wrong-bg);
+          border-color: var(--wrong-bg);
+          color: var(--wrong-text);
         }
 
         &.shuffle {
-          background-color: $yellow;
-          border-color: $yellow;
+          background-color: var(--wrong-spot-bg);
+          border-color: var(--wrong-spot-bg);
         }
       }
       
       &.animate.flip {
         &.pass {
-          @include flip(flip-pass, $green, $white);
+          @include flip(flip-pass, var(--correct-spot-bg), var(--correct-spot-text));
           animation: flip-pass #{$flipDuration}ms ease forwards;
         }
 
         &.shuffle {
-          @include flip(flip-shuffle, $yellow, $black);
+          @include flip(flip-shuffle, var(--wrong-spot-bg), var(--wrong-spot-text));
           animation: flip-shuffle #{$flipDuration}ms ease forwards;
         }
 
         &.fail {
-          @include flip(flip-fail, $gray, $white);
+          @include flip(flip-fail, var(--wrong-bg), var(--wrong-text));
           animation: flip-fail #{$flipDuration}ms ease forwards;
         }
       }

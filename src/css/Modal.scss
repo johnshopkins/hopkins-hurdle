@@ -10,7 +10,7 @@
     z-index: 500;
 
     .overlay {
-      background-color: $black;
+      background-color: var(--model-overlay);
       height: 100%;
       left: 0;
       opacity: 0.5;
@@ -20,7 +20,7 @@
     }
 
     .modal-content {
-      background-color: $white;
+      background-color: var(--modal-bg);
       margin: auto;
       padding: 20px;
       position: relative;

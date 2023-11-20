@@ -1,6 +1,28 @@
-$white: #ffffff;
-$black: #000000;
-$gray: #a1a1a1;
-$green: #286140;
-$light_gray: #dddddd;
-$yellow: #f1c400;
+:root {
+  --correct-spot-bg: #286140;
+  --correct-spot-text: #ffffff;
+
+  --wrong-spot-bg: #f1c400;
+  --wrong-spot-text: #000000;
+
+  --wrong-bg: #a1a1a1;
+  --wrong-text: #ffffff;
+
+  --input-bg: #ffffff;
+  --input-bg-focus: #ffffff;
+  --input-border: #dddddd;
+  --input-border-focus: #000000;
+  --input-text: #000000;
+  --input-text-focus: #000000;
+
+  --submit-bg: var(--input-bg);
+  --submit-bg-focus: var(--input-bg-focus);
+  --submit-border: var(--input-border);
+  --submit-border-focus: var(--input-border-focus);
+  --submit-text: #a1a1a1;
+  --submit-text-focus: var(--input-text-focus);
+
+  --modal-bg: #ffffff;
+  --model-overlay: #000000;
+}
+
