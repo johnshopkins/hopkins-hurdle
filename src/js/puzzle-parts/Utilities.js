@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import InfoIcon from '../icons/Info';
-import StatsIcon from '../icons/Stats';
 
 import '../../css/Utilities.scss';
 
-const Utilities = ({ hidden, openInfoModal, openStatsModal }) => {
+const Utilities = ({ hidden, openInfoModal }) => {
 
   const attributes = {
     'aria-hidden': hidden,
@@ -20,9 +19,6 @@ const Utilities = ({ hidden, openInfoModal, openStatsModal }) => {
       <button aria-label={'Information'} onClick={openInfoModal}>
         <InfoIcon />
       </button>
-      <button aria-label={'Statistics'} onClick={openStatsModal}>
-        <StatsIcon />
-      </button>
     </div>
   );
 }
@@ -30,7 +26,6 @@ const Utilities = ({ hidden, openInfoModal, openStatsModal }) => {
 
 Utilities.Utilities = {
   openInfoModal: PropTypes.func.isRequired,
-  openStatsModal: PropTypes.func.isRequired,
 };
 
 export default Utilities;

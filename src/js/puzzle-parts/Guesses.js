@@ -39,7 +39,6 @@ class Guesses extends Component {
     const answerDescription = `${this.props.answerDescription} You have ${this.props.remainingGuesses} ${this.props.remainingGuesses === 1 ? 'guess' : 'guesses'} remaining.`;
 
     return <div {...attributes}>
-      <h2>Now Guess!</h2>
       <p className={'visuallyhidden'}>{answerDescription}</p>
       {this.props.guesses.map((guess, i) =>
         <Phrase
