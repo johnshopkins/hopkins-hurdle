@@ -2,7 +2,7 @@ const path = require('path');
 const settings = require('./src/settings');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/js/main.js',
   output: {
     clean: true,
