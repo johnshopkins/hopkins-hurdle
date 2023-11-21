@@ -54,8 +54,8 @@ class Puzzle extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.get('hopkinshurdle.seenInfo') === null) {
-      this.openInfoModal(false)
+    if (this.props.autoInfoModal && localStorage.get('hopkinshurdle.seenInfo') === null) {
+      this.openInfoModal(false);
     }
   }
 
@@ -197,6 +197,7 @@ class Puzzle extends Component {
 }
 
 Puzzle.defaultProps = {
+  autoInfoModal: true,
   debug: false,
   onPuzzleComplete: (status, numberOfGuesses) => { }
 };

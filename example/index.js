@@ -39,5 +39,6 @@ root.render(
     puzzle={puzzle}
     debug={true}
     onPuzzleComplete={onPuzzleComplete}
+    autoInfoModal={false}
   />
 );
