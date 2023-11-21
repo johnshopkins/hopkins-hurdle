@@ -9,6 +9,7 @@ export default ({ id }) => {
 
   const clearPuzzleData = () => {
     localStorage.remove('hopkinshurdle.' + id);
+    localStorage.remove('hopkinshurdle.seenInfo');
   };
 
   return (

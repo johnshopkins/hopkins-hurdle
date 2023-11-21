@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { calculateAnimationDuration } from './helpers/animation-delay-calc';
+import { local as localStorage } from './helpers/storage';
 import { savePuzzleState, loadPuzzleState } from './helpers/persistance';
 
 import Answer from './puzzle-parts/Answer';
@@ -50,8 +51,19 @@ class Puzzle extends Component {
     this.clearMessage = this.clearMessage.bind(this);
   }
 
+  componentDidMount() {
+    if (localStorage.get('hopkinshurdle.seenInfo') === null) {
+      this.setState({ modalOpen: 'info' });
+    }
+  }
+
   closeModal() {
     document.body.classList.remove('modal-open');
+
+    if (this.state.modalOpen === 'info') {
+      localStorage.set('hopkinshurdle.seenInfo', true);
+    }
+
     this.setState({ modalOpen: null });
   }
 
