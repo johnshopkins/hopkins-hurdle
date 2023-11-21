@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { calculateAnimationDuration } from './helpers/animation-delay-calc';
 import { local as localStorage } from './helpers/storage';
 import { savePuzzleState, loadPuzzleState } from './helpers/persistance';
+import { publish } from './helpers/events';
 
 import Answer from './puzzle-parts/Answer';
 import Debug from './puzzle-parts/Debug';
@@ -47,13 +48,22 @@ class Puzzle extends Component {
     this.displayMessage = this.displayMessage.bind(this);
     this.onGuessFail = this.onGuessFail.bind(this);
     this.onPuzzlePass = this.onPuzzlePass.bind(this);
+    this.openInfoModal = this.openInfoModal.bind(this);
 
     this.clearMessage = this.clearMessage.bind(this);
   }
 
   componentDidMount() {
     if (localStorage.get('hopkinshurdle.seenInfo') === null) {
-      this.setState({ modalOpen: 'info' });
+      this.openInfoModal(false)
+    }
+  }
+
+  openInfoModal(userInitiated = true) {
+    this.setState({ modalOpen: 'info' });
+    
+    if (userInitiated) {
+      publish('userInitiatedInfoModal');
     }
   }
 
@@ -164,7 +174,7 @@ class Puzzle extends Component {
         />
         <Utilities
           hidden={Boolean(this.state.modalOpen)}
-          openInfoModal={() => this.setState({ modalOpen: 'info' })}
+          openInfoModal={() => this.openInfoModal()}
           closeModal={this.closeModal}
         />
         <Guesses

@@ -1,6 +1,12 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
+import { subscribe } from '../src/js/helpers/events';
+
+subscribe('userInitiatedInfoModal', function () {
+  console.log('event fired', 'userInitiatedInfoModal');
+});
+
 import Puzzle from '../src/js/main';
 
 const puzzle = {
