@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Letter from './Letter';
 import SubmitButton from './SubmitButton';
 
+import { publish } from '../helpers/events';
+
 class Phrase extends Component {
 
   constructor(props) {
@@ -101,6 +103,11 @@ class Phrase extends Component {
       success ?
         this.props.onPass(guess, state.guess, this.props.phraseNumber + 1) :
         this.props.onFail(guess, state.guess, this.props.phraseNumber + 1);
+
+      publish('userGuess', {
+        success: success,
+        guess: guess,
+      });
 
       return {
         animate: true,

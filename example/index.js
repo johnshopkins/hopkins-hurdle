@@ -7,6 +7,12 @@ subscribe('userInitiatedInfoModal', function () {
   console.log('event fired', 'userInitiatedInfoModal');
 });
 
+subscribe('userGuess', function (e) {
+  console.log('user completed a guess');
+  console.log(e.detail);
+  console.log('---');
+});
+
 import Puzzle from '../src/js/main';
 
 const puzzle = {
