@@ -107,6 +107,7 @@ class Phrase extends Component {
       publish('userGuess', {
         success: success,
         guess: guess,
+        id: this.props.id,
       });
 
       return {

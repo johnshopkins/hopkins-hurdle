@@ -44,6 +44,7 @@ class Guesses extends Component {
         <Phrase
           correctAnswer={this.props.correctAnswer}
           guess={guess}
+          id={this.props.id}
           isRowComplete={this.props.puzzleStatus !== 'IN_PROGRESS' || i < this.props.currentRow}
           isCurrentRow={this.props.currentRow === i}
           key={i}

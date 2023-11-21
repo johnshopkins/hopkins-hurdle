@@ -183,6 +183,7 @@ class Puzzle extends Component {
           correctAnswer={this.props.puzzle.answer.toUpperCase()}
           guesses={this.state.puzzle.guesses}
           hidden={Boolean(this.state.modalOpen)}
+          id={this.props.id}
           onGuessFail={this.onGuessFail}
           onPuzzlePass={this.onPuzzlePass}
           remainingGuesses={remainingGuesses}
