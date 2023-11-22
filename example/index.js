@@ -13,7 +13,7 @@ subscribe('userGuess', function (e) {
   console.log('---');
 });
 
-import Puzzle from '../src/js/main';
+import { Puzzle } from '../src/js/main';
 
 const puzzle = {
   answer: 'truly',
