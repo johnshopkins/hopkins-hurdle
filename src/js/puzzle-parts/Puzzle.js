@@ -139,8 +139,6 @@ class Puzzle extends Component {
 
   onPuzzleEnd(numberOfGuesses) {
 
-    this.onPuzzleComplete(this.props.id, this.state.puzzle.status, numberOfGuesses);
-
     setTimeout(() => {
 
       this.displayMessage({
@@ -152,7 +150,7 @@ class Puzzle extends Component {
         500;
 
       setTimeout(() => {
-        this.setState({ modalOpen: 'stats' })
+        this.onPuzzleComplete(this.props.id, this.state.puzzle.status, numberOfGuesses);
       }, delayUntilModal);
 
     }, calculateAnimationDuration('flip', this.props.puzzle.answer, true));
