@@ -173,12 +173,12 @@ class Puzzle extends Component {
           <InfoModal onClose={this.closeModal} />
         }
         <Message
-          hidden={!Boolean(this.state.modalOpen)}
+          hidden={this.props.hidden || !Boolean(this.state.modalOpen)}
           onTtl={this.clearMessage}
           {...this.state.message}
         />
         <Utilities
-          hidden={Boolean(this.state.modalOpen)}
+          hidden={this.props.hidden || Boolean(this.state.modalOpen)}
           openInfoModal={() => this.openInfoModal()}
           closeModal={this.closeModal}
         />
@@ -187,7 +187,7 @@ class Puzzle extends Component {
           currentRow={this.state.puzzle.currentRow}
           correctAnswer={this.props.puzzle.answer.toUpperCase()}
           guesses={this.state.puzzle.guesses}
-          hidden={Boolean(this.state.modalOpen)}
+          hidden={this.props.hidden || Boolean(this.state.modalOpen)}
           id={this.props.id}
           onGuessFail={this.onGuessFail}
           onPuzzlePass={this.onPuzzlePass}
