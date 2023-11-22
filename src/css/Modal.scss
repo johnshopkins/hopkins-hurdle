@@ -1,41 +1,38 @@
 @use 'utils/main' as *;
 
-.hopkins-hurdle {
-  .modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+.hh-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+
+  .overlay {
+    background-color: var(--model-overlay);
     height: 100%;
-    z-index: 500;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 
-    .overlay {
-      background-color: var(--model-overlay);
-      height: 100%;
-      left: 0;
-      opacity: 0.5;
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
+  .modal-content {
+    background-color: var(--modal-bg);
+    margin: auto;
+    padding: 20px;
+    position: relative;
+    text-align: left;
+    width: 50%;
+    z-index: 501;
 
-    .modal-content {
-      background-color: var(--modal-bg);
-      margin: auto;
-      padding: 20px;
-      position: relative;
-      text-align: left;
-      width: 50%;
-      z-index: 501;
+    button.close {
+      float: right;
 
-      button.close {
-        float: right;
-
-        &:hover {
-          cursor: pointer;
-        }
+      &:hover {
+        cursor: pointer;
       }
     }
   }
 }
-

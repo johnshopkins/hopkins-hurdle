@@ -1,7 +1,7 @@
 export default (label) => {
 
   const attributes = {
-    className: 'modal-container',
+    className: 'hh-modal-container',
     role: 'region',
   };
 
