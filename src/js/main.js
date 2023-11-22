@@ -162,8 +162,15 @@ class Puzzle extends Component {
 
     const remainingGuesses = this.availableGuesses - (this.state.puzzle.guesses.filter(n => n).length);
 
+    const attributes = {
+      'aria-hidden': this.props.hidden,
+      'aria-label': 'Puzzle',
+      className: 'hopkins-hurdle',
+      role: 'region',
+    };
+
     return (
-      <div className={'hopkins-hurdle'}>
+      <div {...attributes}>
         {this.state.modalOpen === 'info' &&
           <InfoModal onClose={this.closeModal} />
         }
@@ -200,10 +207,12 @@ class Puzzle extends Component {
 Puzzle.defaultProps = {
   autoInfoModal: true,
   debug: false,
+  hidden: false,
   onPuzzleComplete: (status, numberOfGuesses) => { }
 };
 
 Puzzle.propTypes = {
+  hidden: PropTypes.bool.isRequired,
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
