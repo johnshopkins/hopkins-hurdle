@@ -15,7 +15,7 @@ class Letter extends Component {
 
     this.animationDelay = '0ms';
 
-    // calculate inital animation delay (assuming flip)
+    // calculate initial animation delay (assuming flip)
     this.setAnimationDelay();
   }
 
