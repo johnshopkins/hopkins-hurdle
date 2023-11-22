@@ -34,7 +34,7 @@ describe('Modal', () => {
       });
       const { getByLabelText, getByRole } = render(<Modal {...props} />);
 
-      expect(getByLabelText('Modal label')).toHaveAttribute('class', 'modal-container');
+      expect(getByLabelText('Modal label')).toHaveAttribute('class', 'hh-modal-container');
       expect(document.body).toHaveAttribute('class', 'modal-open');
 
       await userEvent.click(getByRole('button'));

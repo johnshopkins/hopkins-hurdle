@@ -88,7 +88,7 @@ describe('Guesses', () => {
       const props = getProps({
         currentRow: 1
       });
-      const { getByLabelText, getByRole } = render(<Guesses {...props} />);
+      const { getByLabelText, getByText } = render(<Guesses {...props} />);
 
       // initially, the first letter of the second guess has focus
       const secondGuess = getByLabelText('Guess #2: in progress');
@@ -100,7 +100,7 @@ describe('Guesses', () => {
       expect(letter).not.toHaveFocus();
 
       // clicking inside Guesses returns focus
-      await userEvent.click(getByRole('heading'));
+      await userEvent.click(getByText('The answer consists of 2 letters, followed by a space, followed by 4 letters. You have 6 guesses remaining.'));
       expect(letter).toHaveFocus();
 
     });

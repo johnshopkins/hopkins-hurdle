@@ -5,7 +5,7 @@ describe('Get Attributes', () => {
   test('gets the default attributes', () => {
 
     const expected = {
-      className: 'modal-container',
+      className: 'hh-modal-container',
       role: 'region',
     };
 
@@ -17,7 +17,7 @@ describe('Get Attributes', () => {
 
     const expected = {
       'aria-label': 'a label',
-      className: 'modal-container',
+      className: 'hh-modal-container',
       role: 'region',
     };
 
