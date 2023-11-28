@@ -9,9 +9,9 @@
       background-color: var(--input-bg);
       border: 4px var(--input-border) solid;
       display: inline-block;
-      height: var(--input-size);
+      height: var(--input-size) + 4px;
       margin: calc(var(--input-size) * 0.06);
-      width: var(--input-size);
+      width: var(--input-size) + 4px;
 
       input {
         background-color: transparent;
