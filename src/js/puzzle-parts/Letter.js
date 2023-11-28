@@ -122,21 +122,26 @@ class Letter extends Component {
       this.setAnimationDelay();
     }
 
-    return <input
-      aria-label={this.getLabel()}
-      className={this.getClass()}
-      disabled={this.props.isRowComplete}
-      maxLength={1}
-      onChange={e => this.onChange(e.target.value)}
-      onKeyDown={this.onKeyDown}
-      onMouseDown={this.onMouseDown}
-      readOnly={this.isSpace || !this.props.focus}
-      ref={this.input}
-      style={{animationDelay: this.animationDelay}}
-      tabIndex={this.props.focus ? null : -1}
-      type={'text'}
-      value={this.props.value}
-    />
+    return (
+      <div
+        className={this.getClass()}
+        style={{animationDelay: this.animationDelay}}
+      >
+        <input
+          aria-label={this.getLabel()}
+          disabled={this.props.isRowComplete}
+          maxLength={1}
+          onChange={e => this.onChange(e.target.value)}
+          onKeyDown={this.onKeyDown}
+          onMouseDown={this.onMouseDown}
+          readOnly={this.isSpace || !this.props.focus}
+          ref={this.input}
+          tabIndex={this.props.focus ? null : -1}
+          type={'text'}
+          value={this.props.value}
+        />
+      </div>
+    )
   }
 
 }

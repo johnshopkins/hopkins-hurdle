@@ -1,17 +1,26 @@
-@mixin flip($name, $to-background, $to-text) {
-  @keyframes #{$name} {
+@use 'mixins' as *;
+
+@mixin flipInput($name, $to-background) {
+  @include keyframes($name) {
     0% {
-      transform: scaleY(1);
+      @include transform(scaleY(1));
     }
 
     50% {
-      transform: scaleY(0);
+      @include transform(scaleY(0));
     }
 
     100% {
-      transform: scaleY(1);
+      @include transform(scaleY(1));
       background-color: $to-background;
       border-color: $to-background;
+    }
+  }
+}
+
+@mixin flipText($name, $to-text) {
+  @include keyframes($name) {
+    100% {
       color: $to-text;
     }
   }
@@ -20,15 +29,15 @@
 @mixin jump() {
   @keyframes jump {
     0% {
-      transform: translate3d(0, 0, 0);
+      @include transform(translate3d(0, 0, 0));
     }
 
     50% {
-      transform: translate3d(0, -75%, 0);
+      @include transform(translate3d(0, -75%, 0));
     }
 
     100% {
-      transform: translate3d(0, 0, 0);
+      @include transform(translate3d(0, 0, 0));
     }
   }
 }
