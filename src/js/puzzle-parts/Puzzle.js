@@ -194,7 +194,7 @@ class Puzzle extends Component {
           remainingGuesses={remainingGuesses}
           puzzleStatus={this.state.puzzle.status}
         />
-        {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} />}
+        {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} answerTemplate={this.props.answerTemplate} />}
         {this.props.debug && <Debug id={this.props.id} />}
       </div>
     );
@@ -206,7 +206,8 @@ Puzzle.defaultProps = {
   autoInfoModal: true,
   debug: false,
   hidden: false,
-  onPuzzleComplete: (status, numberOfGuesses) => { }
+  onPuzzleComplete: (status, numberOfGuesses) => { },
+  answerTemplate: 'The correct answer is {answer}.',
 };
 
 Puzzle.propTypes = {
@@ -217,6 +218,7 @@ Puzzle.propTypes = {
   ]).isRequired,
   puzzle: PropTypes.object.isRequired,
   onPuzzleComplete: PropTypes.func,
+  answerTemplate: PropTypes.string,
 };
 
 export default Puzzle;
