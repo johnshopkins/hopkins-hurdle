@@ -147,7 +147,7 @@ class Puzzle extends Component {
 
       const delayUntilModal = this.state.puzzle.status === 'PASS' ?
         calculateAnimationDuration('jump', this.props.puzzle.answer, true) :
-        500;
+        this.props.modalDelay;
 
       setTimeout(() => {
         this.onPuzzleComplete(this.props.id, this.state.puzzle.status, numberOfGuesses);
@@ -206,6 +206,7 @@ Puzzle.defaultProps = {
   autoInfoModal: true,
   debug: false,
   hidden: false,
+  modalDelay: 500,
   onPuzzleComplete: (status, numberOfGuesses) => { },
   answerTemplate: 'The correct answer is {answer}.',
 };
@@ -216,6 +217,7 @@ Puzzle.propTypes = {
     PropTypes.string,
     PropTypes.number
   ]).isRequired,
+  modalDelay: PropTypes.number.isRequired,
   puzzle: PropTypes.object.isRequired,
   onPuzzleComplete: PropTypes.func,
   answerTemplate: PropTypes.string,
