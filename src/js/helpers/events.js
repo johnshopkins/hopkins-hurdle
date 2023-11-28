@@ -1,9 +1,9 @@
-function subscribe(eventName, listener) {
-  document.addEventListener(eventName, listener);
+function subscribe(eventName, listener, options = {}) {
+  document.addEventListener(eventName, listener, options);
 }
 
-function unsubscribe(eventName, listener) {
-  document.removeEventListener(eventName, listener);
+function unsubscribe(eventName, listener, options = {}) {
+  document.removeEventListener(eventName, listener, options);
 }
 
 function publish(eventName, data) {
