@@ -4,15 +4,15 @@ const { createRoot } = ReactDOM;
 
 import { subscribe } from '../src/js/helpers/events';
 
-subscribe('userInitiatedInfoModal', function () {
-  console.log('event fired', 'userInitiatedInfoModal');
-});
+// subscribe('userInitiatedInfoModal', function () {
+//   console.log('event fired', 'userInitiatedInfoModal');
+// });
 
-subscribe('userGuess', function (e) {
-  console.log('user completed a guess');
-  console.log(e.detail);
-  console.log('---');
-});
+// subscribe('userGuess', function (e) {
+//   console.log('user completed a guess');
+//   console.log(e.detail);
+//   console.log('---');
+// });
 
 import { Puzzle } from '../src/js/main';
 
