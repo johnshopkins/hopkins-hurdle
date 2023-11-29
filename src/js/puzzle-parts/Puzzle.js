@@ -6,7 +6,6 @@ import { local as localStorage } from '../helpers/storage';
 import { savePuzzleState, loadPuzzleState } from '../helpers/persistance';
 import { publish } from '../helpers/events';
 
-import Answer from '../puzzle-parts/Answer';
 import Debug from '../puzzle-parts/Debug';
 import InfoModal from '../puzzle-parts/InfoModal';
 import Guesses from '../puzzle-parts/Guesses';
@@ -101,9 +100,10 @@ class Puzzle extends Component {
       if (this.state.puzzle.status === 'FAIL') {
         this.onPuzzleEnd(numberOfGuesses);
       } else {
-        // for accessibility -- how to visually hide this?
+        const ordinals = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
         this.displayMessage({
-          message: 'Your guess is incorrect. Try again.'
+          message: `Your ${ordinals[numberOfGuesses - 1]} guess is incorrect. Try again.`,
+          screenReaderOnly: true,
         });
       }
     });
@@ -136,12 +136,21 @@ class Puzzle extends Component {
     this.setState({ message: message });
   }
 
+  getPuzzleEndMessage(status) {
+    if (status === 'PASS') {
+      return this.props.successMessage;
+    }
+    
+    const parts = this.props.failMessage.split('{answer}');
+    return <p>{parts[0]}<strong>{this.props.puzzle.answer}</strong>{parts[1]}</p>;
+  }
+
   onPuzzleEnd(numberOfGuesses) {
 
     setTimeout(() => {
 
       this.displayMessage({
-        message: this.state.puzzle.status === 'PASS' ? 'Great job!' : 'Better luck next time.'
+        message: this.getPuzzleEndMessage(this.state.puzzle.status)
       });
 
       const delayUntilModal = this.state.puzzle.status === 'PASS' ?
@@ -190,10 +199,8 @@ class Puzzle extends Component {
         />
         <Message
           hidden={this.props.hidden || Boolean(this.state.modalOpen)}
-          onTtl={this.clearMessage}
           {...this.state.message}
         />
-        {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} answerTemplate={this.props.answerTemplate} />}
         {this.props.debug && <Debug id={this.props.id} />}
       </div>
     );
@@ -207,7 +214,8 @@ Puzzle.defaultProps = {
   hidden: false,
   modalDelay: 500,
   onPuzzleComplete: (status, numberOfGuesses) => { },
-  answerTemplate: null,
+  failMessage: 'The correct answer is {answer}.',
+  successMessage: 'Great job!',
 };
 
 Puzzle.propTypes = {
@@ -219,7 +227,8 @@ Puzzle.propTypes = {
   modalDelay: PropTypes.number.isRequired,
   puzzle: PropTypes.object.isRequired,
   onPuzzleComplete: PropTypes.func,
-  answerTemplate: PropTypes.string,
+  failMessage: PropTypes.string.isRequired,
+  successMessage:  PropTypes.string.isRequired,
 };
 
 export default Puzzle;

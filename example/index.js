@@ -41,6 +41,7 @@ root.render(
     debug={true}
     onPuzzleComplete={onPuzzleComplete}
     autoInfoModal={false}
-    answerTemplate={'Solid effort, but it looks like you could use some help. The correct answer is {answer}.'}
+    failMessage={'Solid effort, but it looks like you could use some help. The correct answer is {answer}.'}
+    successMessage={'Whoo hoo!'}
   />
 );

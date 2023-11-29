@@ -1,39 +1,34 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import '../../css/Message.scss';
 
-const Message = ({ hidden, message, onTtl, ttl }) => {
+const Message = ({ hidden, message, onTtl, screenReaderOnly, ttl }) => {
 
   const attributes = {
     'aria-hidden': hidden,
     'aria-label': 'Messages',
-    'aria-live': 'polite',
+    'aria-live': 'assertive',
     className: 'message',
     role: 'region'
   };
 
-  // runs after the component is rendered
-  useEffect(() => {
-    if (!message) {
-      return;
-    }
-    setTimeout(onTtl, ttl);
-  });
-
-  return <div {...attributes}>{message}</div>
+  return (
+    <div {...attributes}>
+      {screenReaderOnly ? <div className={'visuallyhidden'}>{message}</div> : message}
+    </div>
+  );
 };
 
 Message.defaultProps = {
   hidden: false,
-  ttl: 5000
+  screenReaderOnly: false,
 };
 
 Message.propTypes = {
   hidden: PropTypes.bool.isRequired,
   message: PropTypes.string,
-  onTtl: PropTypes.func.isRequired,
-  ttl: PropTypes.number,
+  screenReaderOnly: PropTypes.bool.isRequired,
 };
 
 export default Message;
