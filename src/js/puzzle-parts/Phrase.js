@@ -191,7 +191,6 @@ class Phrase extends Component {
     }
 
     const attributes = {
-      'aria-hidden': !this.props.testing && (this.props.isRowComplete || this.props.isCurrentRow),
       'aria-label': label,
       className: 'guess',
       role: 'group'
@@ -231,9 +230,7 @@ class Phrase extends Component {
   }
 }
 
-Phrase.defaultProps = {
-  testing: false,
-};
+Phrase.defaultProps = {};
 
 Phrase.propTypes = {
   correctAnswer: PropTypes.string.isRequired,
@@ -245,7 +242,6 @@ Phrase.propTypes = {
   onRefocusComplete: PropTypes.func.isRequired,
   phraseNumber: PropTypes.number.isRequired,
   puzzleStatus: PropTypes.string.isRequired,
-  testing: PropTypes.bool,
   triggerFocus: PropTypes.bool.isRequired,
 };
 
