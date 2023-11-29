@@ -173,7 +173,7 @@ class Puzzle extends Component {
           <InfoModal onClose={this.closeModal} />
         }
         <Message
-          hidden={this.props.hidden || !Boolean(this.state.modalOpen)}
+          hidden={this.props.hidden || Boolean(this.state.modalOpen)}
           onTtl={this.clearMessage}
           {...this.state.message}
         />
