@@ -5,6 +5,7 @@ import { calculateAnimationDuration } from '../helpers/animation-delay-calc';
 import { local as localStorage } from '../helpers/storage';
 import { savePuzzleState, loadPuzzleState } from '../helpers/persistance';
 import { publish } from '../helpers/events';
+import getNiceLetterStatus from '../helpers/nice-letter-status';
 
 import Debug from '../puzzle-parts/Debug';
 import InfoModal from '../puzzle-parts/InfoModal';
@@ -76,6 +77,21 @@ class Puzzle extends Component {
     this.setState({ modalOpen: null });
   }
 
+  getOrdinal(i) {
+    const ordinals = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
+    return ordinals[i - 1];
+  }
+
+  getIncorrectGuessMessage(evaluatedGuess, numberOfGuesses) {
+    let message = `Your ${this.getOrdinal(numberOfGuesses)} guess is incorrect. `;
+
+    message += evaluatedGuess.map((character) => {
+      return `The ${this.getOrdinal(character.i +1)} letter, ${character.guessedLetter}, is ${getNiceLetterStatus(character.status)}.`;
+    }).join(' ');
+
+    return message;
+  }
+
   onGuessFail(guess, evaluatedGuess, numberOfGuesses) {
     this.setState((state) => {
 
@@ -102,7 +118,7 @@ class Puzzle extends Component {
       } else {
         const ordinals = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
         this.displayMessage({
-          message: `Your ${ordinals[numberOfGuesses - 1]} guess is incorrect. Try again.`,
+          message: this.getIncorrectGuessMessage(evaluatedGuess, numberOfGuesses),
           screenReaderOnly: true,
         });
       }
