@@ -16,7 +16,7 @@ const getProps = (override) => {
     direction: 'forward',
     focus: false,
     isRowComplete: false,
-    isCurrentRow: false,
+    isCurrentRow: true,
     isSpace: false,
     letterNumber: 0,
     onBackspace: () => { },
