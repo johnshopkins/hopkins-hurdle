@@ -208,7 +208,7 @@ Puzzle.defaultProps = {
   hidden: false,
   modalDelay: 500,
   onPuzzleComplete: (status, numberOfGuesses) => { },
-  answerTemplate: 'The correct answer is {answer}.',
+  answerTemplate: null,
 };
 
 Puzzle.propTypes = {
