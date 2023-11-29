@@ -21,9 +21,21 @@ describe('Answer', () => {
     const props = getProps({
       answer: 'tastee tape'
     });
-    const { getByText } = render(<Answer {...props} />);
+    const { container } = render(<Answer {...props} />);
 
-    expect(getByText('tastee tape')).toBeInTheDocument();
+    const paragraph = container.querySelector('p')
+    expect(paragraph.textContent).toBe('The correct answer is tastee tape.')
+  });
+
+  test('Given answer is displayed using given template', () => {
+    const props = getProps({
+      answer: 'tastee tape',
+      answerTemplate: 'We were looking for {answer}.'
+    });
+    const { container } = render(<Answer {...props} />);
+
+    const paragraph = container.querySelector('p')
+    expect(paragraph.textContent).toBe('We were looking for tastee tape.')
   });
 
 });

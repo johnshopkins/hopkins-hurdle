@@ -221,10 +221,10 @@ describe('Letter', () => {
         letterNumber: 0
       });
 
-      const { getByRole } = render(<Letter {...props} />);
+      const { container } = render(<Letter {...props} />);
 
-      const input = getByRole('textbox');
-      expect(input).toHaveAttribute('style', 'animation-delay: 0ms;');
+      const div = container.querySelector('div');
+      expect(div).toHaveAttribute('style', 'animation-delay: 0ms;');
 
     });
 
@@ -235,10 +235,10 @@ describe('Letter', () => {
         letterNumber: 2
       });
 
-      const { getByRole } = render(<Letter {...props} />);
+      const { container } = render(<Letter {...props} />);
 
-      const input = getByRole('textbox');
-      expect(input).toHaveAttribute('style', 'animation-delay: 200ms;');
+      const div = container.querySelector('div');
+      expect(div).toHaveAttribute('style', 'animation-delay: 200ms;');
 
     });
 
@@ -252,10 +252,10 @@ describe('Letter', () => {
         isSpace: true
       });
 
-      const { getByRole } = render(<Letter {...props} />);
+      const { container } = render(<Letter {...props} />);
 
-      const input = getByRole('textbox');
-      expect(input).toHaveAttribute('class', 'space');
+      const div = container.querySelector('div');
+      expect(div).toHaveAttribute('class', 'space');
 
     });
 
@@ -265,10 +265,10 @@ describe('Letter', () => {
         status: 'pass'
       });
 
-      const { getByRole } = render(<Letter {...props} />);
+      const { container } = render(<Letter {...props} />);
 
-      const input = getByRole('textbox');
-      expect(input).toHaveAttribute('class', 'pass');
+      const div = container.querySelector('div');
+      expect(div).toHaveAttribute('class', 'pass');
 
     });
 
@@ -278,10 +278,10 @@ describe('Letter', () => {
         status: 'fail'
       });
 
-      const { getByRole } = render(<Letter {...props} />);
+      const { container } = render(<Letter {...props} />);
 
-      const input = getByRole('textbox');
-      expect(input).toHaveAttribute('class', 'fail');
+      const div = container.querySelector('div');
+      expect(div).toHaveAttribute('class', 'fail');
 
     });
 
@@ -291,10 +291,10 @@ describe('Letter', () => {
         status: 'shuffle'
       });
 
-      const { getByRole } = render(<Letter {...props} />);
+      const { container } = render(<Letter {...props} />);
 
-      const input = getByRole('textbox');
-      expect(input).toHaveAttribute('class', 'shuffle');
+      const div = container.querySelector('div');
+      expect(div).toHaveAttribute('class', 'shuffle');
 
     });
 
@@ -304,10 +304,10 @@ describe('Letter', () => {
         animate: true
       });
 
-      const { getByRole } = render(<Letter {...props} />);
+      const { container } = render(<Letter {...props} />);
 
-      const input = getByRole('textbox');
-      expect(input).toHaveAttribute('class', 'animate flip');
+      const div = container.querySelector('div');
+      expect(div).toHaveAttribute('class', 'animate flip');
 
     });
 
@@ -320,10 +320,10 @@ describe('Letter', () => {
         puzzleStatus: 'PASS'
       });
 
-      const { getByRole } = render(<Letter {...props} />);
+      const { container } = render(<Letter {...props} />);
 
-      const input = getByRole('textbox');
-      expect(input).toHaveAttribute('class', 'animate jump');
+      const div = container.querySelector('div');
+      expect(div).toHaveAttribute('class', 'animate jump');
 
     });
   });
