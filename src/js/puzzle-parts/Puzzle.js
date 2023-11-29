@@ -172,11 +172,6 @@ class Puzzle extends Component {
         {this.state.modalOpen === 'info' &&
           <InfoModal onClose={this.closeModal} />
         }
-        <Message
-          hidden={this.props.hidden || Boolean(this.state.modalOpen)}
-          onTtl={this.clearMessage}
-          {...this.state.message}
-        />
         <Utilities
           hidden={this.props.hidden || Boolean(this.state.modalOpen)}
           openInfoModal={() => this.openInfoModal()}
@@ -193,6 +188,11 @@ class Puzzle extends Component {
           onPuzzlePass={this.onPuzzlePass}
           remainingGuesses={remainingGuesses}
           puzzleStatus={this.state.puzzle.status}
+        />
+        <Message
+          hidden={this.props.hidden || Boolean(this.state.modalOpen)}
+          onTtl={this.clearMessage}
+          {...this.state.message}
         />
         {this.state.puzzle.status === 'FAIL' && <Answer answer={this.props.puzzle.answer} answerTemplate={this.props.answerTemplate} />}
         {this.props.debug && <Debug id={this.props.id} />}
