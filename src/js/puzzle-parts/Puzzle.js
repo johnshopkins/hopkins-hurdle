@@ -103,7 +103,6 @@ class Puzzle extends Component {
       } else {
         // for accessibility -- how to visually hide this?
         this.displayMessage({
-          type: 'info',
           message: 'Your guess is incorrect. Try again.'
         });
       }

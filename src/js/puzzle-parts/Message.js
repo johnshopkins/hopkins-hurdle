@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import '../../css/Message.scss';
 
-const Message = ({ hidden, message, onTtl, ttl, type }) => {
+const Message = ({ hidden, message, onTtl, ttl }) => {
 
   const attributes = {
     'aria-hidden': hidden,
     'aria-label': 'Messages',
     'aria-live': 'polite',
-    className: `message ${type}`,
+    className: 'message',
     role: 'region'
   };
 
@@ -26,7 +26,6 @@ const Message = ({ hidden, message, onTtl, ttl, type }) => {
 
 Message.defaultProps = {
   hidden: false,
-  type: 'info',
   ttl: 5000
 };
 
@@ -35,7 +34,6 @@ Message.propTypes = {
   message: PropTypes.string,
   onTtl: PropTypes.func.isRequired,
   ttl: PropTypes.number,
-  type: PropTypes.string,
 };
 
 export default Message;
