@@ -8,7 +8,7 @@ const Message = ({ hidden, message, onTtl, screenReaderOnly, ttl }) => {
   const attributes = {
     'aria-hidden': hidden,
     'aria-label': 'Messages',
-    'aria-live': 'assertive',
+    'aria-live': 'polite',
     className: 'message',
     role: 'region'
   };
