@@ -155,7 +155,7 @@ describe('Letter', () => {
 
       const { getByLabelText } = render(<Letter {...props} />);
 
-      expect(getByLabelText('Letter #1: correct letter, but in wrong position')).toBeInTheDocument()
+      expect(getByLabelText('Letter #1: a correct letter, but in wrong position')).toBeInTheDocument()
 
     });
 

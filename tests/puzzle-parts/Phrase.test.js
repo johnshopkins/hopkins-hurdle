@@ -59,7 +59,7 @@ describe('Phrase', () => {
 
       const { getByLabelText } = render(<Phrase {...props} />);
 
-      expect(getByLabelText('Letter #1: correct letter, but in wrong position')).toBeInTheDocument();
+      expect(getByLabelText('Letter #1: a correct letter, but in wrong position')).toBeInTheDocument();
       expect(getByLabelText('Letter #2: correct')).toBeInTheDocument();
       expect(getByLabelText('Letter #3: incorrect')).toBeInTheDocument();
       expect(getByLabelText('Letter #4: correct')).toBeInTheDocument();

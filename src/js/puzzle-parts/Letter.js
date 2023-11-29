@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { calculateAnimationDelay } from '../helpers/animation-delay-calc';
+import getNiceLetterStatus from '../helpers/nice-letter-status';
 
 class Letter extends Component {
 
@@ -92,16 +93,6 @@ class Letter extends Component {
     e.preventDefault();
   }
 
-  getNiceStatus() {
-    if (this.props.status === 'pass') {
-      return 'correct';
-    } else if (this.props.status === 'shuffle') {
-      return 'correct letter, but in wrong position'
-    } else {
-      return 'incorrect';
-    }
-  }
-
   getLabel() {
 
     let label = `Letter #${this.props.letterNumber + 1}`;
@@ -109,7 +100,7 @@ class Letter extends Component {
     if (this.props.isSpace) {
       label += `: Space`
     } else if (this.props.isRowComplete) {
-      label += `: ${this.getNiceStatus()}`
+      label += `: ${getNiceLetterStatus(this.props.status)}`
     }
 
     return label;
