@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import '../../css/Message.scss';
+
 const Message = ({ hidden, message, type, ttl, onTtl }) => {
 
   const attributes = {
