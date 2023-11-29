@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import '../../css/Message.scss';
 
-const Message = ({ hidden, message, type, ttl, onTtl }) => {
+const Message = ({ hidden, message, onTtl, ttl, type }) => {
 
   const attributes = {
     'aria-hidden': hidden,
@@ -33,9 +33,9 @@ Message.defaultProps = {
 Message.propTypes = {
   hidden: PropTypes.bool.isRequired,
   message: PropTypes.string,
-  type: PropTypes.string,
-  ttl: PropTypes.number,
   onTtl: PropTypes.func.isRequired,
+  ttl: PropTypes.number,
+  type: PropTypes.string,
 };
 
 export default Message;
