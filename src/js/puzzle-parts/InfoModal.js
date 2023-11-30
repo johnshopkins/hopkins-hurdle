@@ -8,8 +8,8 @@ const InfoModal = ({ onClose, testing }) => {
 
   return (
     <Modal label={'Information'} classes={['info']} onClose={onClose} testing={testing}>
-      <h1>Information</h1>
-      <p>Modal stuff here</p>
+      <h1>How to play</h1>
+      <p>Instructions on how to play here</p>
     </Modal>
   )
 };

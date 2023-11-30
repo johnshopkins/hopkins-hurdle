@@ -17,7 +17,7 @@ const Utilities = ({ hidden, openInfoModal }) => {
   return (
     <div {...attributes}>
       <button aria-label={'Information'} onClick={openInfoModal}>
-        <InfoIcon />
+        <InfoIcon /> How to play
       </button>
     </div>
   );
