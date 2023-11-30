@@ -34,7 +34,7 @@ const Modal = ({ children, classes, label, onClose, testing }) => {
     <div {...attributes} onKeyDown={onKeyDown}>
       <FocusTrap focusTrapOptions={focusTrapOptions}>
         <div className={classes.join(' ')}>
-          <button className={'close'} aria-label={'Close modal'} onClick={onClose}>
+          <button className={'close-box-x'} aria-label={'Close modal'} onClick={onClose}>
             <CloseIcon />
           </button>
           {children}
