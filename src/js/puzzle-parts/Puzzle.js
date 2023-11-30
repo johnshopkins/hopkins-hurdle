@@ -169,13 +169,13 @@ class Puzzle extends Component {
         message: this.getPuzzleEndMessage(this.state.puzzle.status)
       });
 
-      const delayUntilModal = this.state.puzzle.status === 'PASS' ?
+      const delayForAnimation = this.state.puzzle.status === 'PASS' ?
         calculateAnimationDuration('jump', this.props.puzzle.answer, true) :
-        this.props.modalDelay;
+        0;
 
       setTimeout(() => {
         this.onPuzzleComplete(this.props.id, this.state.puzzle.status, numberOfGuesses);
-      }, delayUntilModal);
+      }, delayForAnimation);
 
     }, calculateAnimationDuration('flip', this.props.puzzle.answer, true));
   }
@@ -228,7 +228,6 @@ Puzzle.defaultProps = {
   autoInfoModal: true,
   debug: false,
   hidden: false,
-  modalDelay: 500,
   onPuzzleComplete: (status, numberOfGuesses) => { },
   failMessage: 'The correct answer is {answer}.',
   successMessage: 'Great job!',
@@ -240,7 +239,6 @@ Puzzle.propTypes = {
     PropTypes.string,
     PropTypes.number
   ]).isRequired,
-  modalDelay: PropTypes.number.isRequired,
   puzzle: PropTypes.object.isRequired,
   onPuzzleComplete: PropTypes.func,
   failMessage: PropTypes.string.isRequired,
