@@ -149,6 +149,7 @@ class Puzzle extends Component {
   }
 
   displayMessage(message) {
+    this.clearMessage(); // removes the <p> first to allow for css animations on new <p>
     this.setState({ message: message });
   }
 
