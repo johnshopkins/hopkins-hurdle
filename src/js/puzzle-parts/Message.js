@@ -15,7 +15,7 @@ const Message = ({ hidden, message, onTtl, screenReaderOnly, ttl }) => {
 
   return (
     <div {...attributes}>
-      {screenReaderOnly ? <div className={'visuallyhidden'}>{message}</div> : message}
+      {screenReaderOnly ? <p className={'visuallyhidden'}>{message}</p> : <p>{message}</p>}
     </div>
   );
 };

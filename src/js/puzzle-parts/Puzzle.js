@@ -158,7 +158,7 @@ class Puzzle extends Component {
     }
     
     const parts = this.props.failMessage.split('{answer}');
-    return <p>{parts[0]}<strong>{this.props.puzzle.answer}</strong>{parts[1]}</p>;
+    return <>{parts[0]}<strong>{this.props.puzzle.answer}</strong>{parts[1]}</>;
   }
 
   onPuzzleEnd(numberOfGuesses) {
