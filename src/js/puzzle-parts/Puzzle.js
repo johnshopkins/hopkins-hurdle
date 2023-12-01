@@ -217,7 +217,14 @@ class Puzzle extends Component {
           hidden={this.props.hidden || Boolean(this.state.modalOpen)}
           {...this.state.message}
         />
-        {this.props.debug && <Debug id={this.props.id} />}
+        {this.props.debug &&
+        <Debug
+          id={this.props.id}
+          clearMessage={this.clearMessage}
+          displayMessage={() => this.displayMessage({
+            message: 'This is a test message!'
+          })}
+        />}
       </div>
     );
   }
