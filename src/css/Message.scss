@@ -1,7 +1,7 @@
 .hopkins-hurdle {
-  // Hide only visually, but have it available for screen readers:
-  // http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
   .message {
+    // Hide only visually, but have it available for screen readers:
+    // http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
     .visuallyhidden {
       border: 0;
       clip: rect(0 0 0 0) !important;
