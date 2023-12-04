@@ -195,7 +195,10 @@ class Puzzle extends Component {
     return (
       <div {...attributes}>
         {this.state.modalOpen === 'info' &&
-          <InfoModal onClose={this.closeModal} />
+          <InfoModal
+            colors={this.props.colors}
+            onClose={this.closeModal}
+          />
         }
         <Utilities
           hidden={this.props.hidden || Boolean(this.state.modalOpen)}
@@ -239,6 +242,7 @@ Puzzle.defaultProps = {
   onPuzzleComplete: (status, numberOfGuesses) => { },
   failMessage: 'The correct answer is {answer}.',
   successMessage: 'Great job!',
+  colors: {},
 };
 
 Puzzle.propTypes = {
@@ -251,6 +255,7 @@ Puzzle.propTypes = {
   onPuzzleComplete: PropTypes.func,
   failMessage: PropTypes.string.isRequired,
   successMessage:  PropTypes.string.isRequired,
+  colors: PropTypes.object,
 };
 
 export default Puzzle;

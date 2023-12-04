@@ -43,5 +43,10 @@ root.render(
     autoInfoModal={false}
     failMessage={'Solid effort, but it looks like you could use some help. The correct answer is {answer}.'}
     successMessage={'Whoo hoo!'}
+    colors={{
+      correct: 'blue',
+      shuffle: 'gold',
+      incorrect: 'gray'
+    }}
   />
 );
