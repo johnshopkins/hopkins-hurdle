@@ -59,6 +59,9 @@
         &.shuffle {
           background-color: var(--wrong-spot-bg);
           border-color: var(--wrong-spot-bg);
+          input {
+            color: var(--wrong-spot-text);
+          }
         }
       }
 
