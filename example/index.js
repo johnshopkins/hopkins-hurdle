@@ -46,7 +46,7 @@ root.render(
     colors={{
       correct: 'blue',
       shuffle: 'gold',
-      incorrect: 'gray'
+      // incorrect: 'gray'
     }}
   />
 );
