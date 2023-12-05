@@ -31,7 +31,7 @@
         }
       }
 
-      &:has(input:focus) {
+      &:focus-within {
         background-color: var(--input-bg-focus);
         border: 4px var(--input-border-focus) solid;
         input {
