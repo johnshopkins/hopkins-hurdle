@@ -95,7 +95,7 @@ class Puzzle extends Component {
 
   onGuessNotWord() {
     this.displayMessage({
-      message: 'Sorry, that word is not in the word list. Try again.',
+      message: 'Sorry, that word is not in the approved list. Try again.',
     });
   }
 
