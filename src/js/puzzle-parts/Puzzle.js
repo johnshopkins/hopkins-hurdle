@@ -226,6 +226,7 @@ class Puzzle extends Component {
         />
         <Message
           hidden={this.props.hidden || Boolean(this.state.modalOpen)}
+          onTtl={this.clearMessage}
           {...this.state.message}
         />
         {this.props.debug &&

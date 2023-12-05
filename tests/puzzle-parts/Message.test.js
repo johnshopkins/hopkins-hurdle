@@ -12,6 +12,8 @@ const getProps = (override) => {
   return {
     hidden: false,
     message: '',
+    ttl: 5000,
+    onTtl: () => { },
     ...override
   }
 };
@@ -59,6 +61,27 @@ describe('Message', () => {
 
       expect(getByLabelText('Messages')).toHaveTextContent('this is the message');
       expect(getByLabelText('Messages')).toHaveAttribute('class', 'message');
+      expect(setTimeout).toHaveBeenCalledTimes(1);
+
+    });
+
+  });
+
+  describe('setTimeout', () => {
+
+    test('onTtl called after custom TTL', () => {
+
+      const onTtl = jest.fn();
+
+      const props = getProps({
+        message: 'this is the message 3',
+        onTtl: onTtl,
+        ttl: 100
+      });
+      render(<Message {...props} />);
+
+      expect(setTimeout).toHaveBeenCalledTimes(2);
+      expect(setTimeout).toHaveBeenLastCalledWith(onTtl, 100);
 
     });
 
