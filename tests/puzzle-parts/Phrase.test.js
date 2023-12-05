@@ -16,6 +16,7 @@ const getProps = (override) => {
     isRowComplete: false,
     isCurrentRow: true,
     onFail: () => {},
+    onNotWord: () => {},
     onPass: () => {},
     onRefocusComplete: () => {},
     submitButtonActive: false,
@@ -52,24 +53,22 @@ describe('Phrase', () => {
     test('correctly evaluates wrong guess on contruct', () => {
 
       const props = getProps({
-        correctAnswer: 'testing',
+        correctAnswer: 'phone',
         isRowComplete: true,
-        guess: 'sejtaaa'
+        guess: 'apple'
       });
 
       const { getByLabelText } = render(<Phrase {...props} />);
 
-      expect(getByLabelText('Letter #1: a correct letter, but in wrong position')).toBeInTheDocument();
-      expect(getByLabelText('Letter #2: correct')).toBeInTheDocument();
+      expect(getByLabelText('Letter #1: incorrect')).toBeInTheDocument();
+      expect(getByLabelText('Letter #2: a correct letter, but in wrong position')).toBeInTheDocument();
       expect(getByLabelText('Letter #3: incorrect')).toBeInTheDocument();
-      expect(getByLabelText('Letter #4: correct')).toBeInTheDocument();
-      expect(getByLabelText('Letter #5: incorrect')).toBeInTheDocument();
-      expect(getByLabelText('Letter #6: incorrect')).toBeInTheDocument();
-      expect(getByLabelText('Letter #7: incorrect')).toBeInTheDocument();
+      expect(getByLabelText('Letter #4: incorrect')).toBeInTheDocument();
+      expect(getByLabelText('Letter #5: correct')).toBeInTheDocument();
 
     });
 
-    test('correctly evaluates right guess on contruct', () => {
+    test('correctly evaluates right guess on construct', () => {
 
       const props = getProps({
         correctAnswer: 'test',
@@ -148,14 +147,14 @@ describe('Phrase', () => {
 
   describe('onSubmit', () => {
 
-    test('when an incorrect guess is submitted, run onFail callback', async () => {
+    test('when a guessed word doesn\'t exist, run onNotWord callback', async () => {
 
-      const onFail = jest.fn();
+      const onNotWord = jest.fn();
 
       const props = getProps({
         correctAnswer: 'TESTING',
         guess: '',
-        onFail: onFail,
+        onNotWord: onNotWord,
       });
 
       const { getAllByLabelText, getByRole } = render(<Phrase {...props} />);
@@ -172,6 +171,32 @@ describe('Phrase', () => {
 
       await userEvent.click(getByRole('button'));
 
+      expect(onNotWord).toHaveBeenCalledTimes(1);
+
+    });
+
+    test('when an incorrect guess is submitted, run onFail callback', async () => {
+
+      const onFail = jest.fn();
+
+      const props = getProps({
+        correctAnswer: 'TESTS',
+        guess: '',
+        onFail: onFail,
+      });
+
+      const { getAllByLabelText, getByRole } = render(<Phrase {...props} />);
+
+      const inputs = getAllByLabelText(/Letter #[0-9]+/);
+
+      await userEvent.type(inputs[0], 's');
+      await userEvent.type(inputs[1], 'u');
+      await userEvent.type(inputs[2], 's');
+      await userEvent.type(inputs[3], 'h');
+      await userEvent.type(inputs[4], 'i');
+
+      await userEvent.click(getByRole('button'));
+
       expect(onFail).toHaveBeenCalledTimes(1);
 
     });
@@ -181,7 +206,7 @@ describe('Phrase', () => {
       const onPass = jest.fn();
 
       const props = getProps({
-        correctAnswer: 'TESTING',
+        correctAnswer: 'TESTS',
         guess: '',
         onPass: onPass,
       });
@@ -194,9 +219,7 @@ describe('Phrase', () => {
       await userEvent.type(inputs[1], 'e');
       await userEvent.type(inputs[2], 's');
       await userEvent.type(inputs[3], 't');
-      await userEvent.type(inputs[4], 'i');
-      await userEvent.type(inputs[5], 'n');
-      await userEvent.type(inputs[6], 'g');
+      await userEvent.type(inputs[4], 's');
 
       await userEvent.click(getByRole('button'));
 

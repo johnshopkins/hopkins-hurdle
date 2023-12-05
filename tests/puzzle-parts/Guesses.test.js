@@ -18,6 +18,7 @@ const getProps = (override) => {
     guesses: ['', '', '', '', '', ''],
     hidden: false,
     onGuessFail: () => { },
+    onGuessNotWord: () => { },
     onPuzzlePass: () => { },
     remainingGuesses: 6,
     puzzleStatus: 'IN_PROGRESS',

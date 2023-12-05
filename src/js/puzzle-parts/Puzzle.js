@@ -47,6 +47,7 @@ class Puzzle extends Component {
 
     this.displayMessage = this.displayMessage.bind(this);
     this.onGuessFail = this.onGuessFail.bind(this);
+    this.onGuessNotWord = this.onGuessNotWord.bind(this);
     this.onPuzzlePass = this.onPuzzlePass.bind(this);
     this.openInfoModal = this.openInfoModal.bind(this);
 
@@ -92,6 +93,12 @@ class Puzzle extends Component {
     return message;
   }
 
+  onGuessNotWord() {
+    this.displayMessage({
+      message: 'Sorry, that word is not in the word list. Try again.',
+    });
+  }
+
   onGuessFail(guess, evaluatedGuess, numberOfGuesses) {
     this.setState((state) => {
 
@@ -116,7 +123,6 @@ class Puzzle extends Component {
       if (this.state.puzzle.status === 'FAIL') {
         this.onPuzzleEnd(numberOfGuesses);
       } else {
-        const ordinals = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
         this.displayMessage({
           message: this.getIncorrectGuessMessage(evaluatedGuess, numberOfGuesses),
           screenReaderOnly: true,
@@ -213,6 +219,7 @@ class Puzzle extends Component {
           hidden={this.props.hidden || Boolean(this.state.modalOpen)}
           id={this.props.id}
           onGuessFail={this.onGuessFail}
+          onGuessNotWord={this.onGuessNotWord}
           onPuzzlePass={this.onPuzzlePass}
           remainingGuesses={remainingGuesses}
           puzzleStatus={this.state.puzzle.status}

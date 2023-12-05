@@ -5,6 +5,7 @@ import Letter from './Letter';
 import SubmitButton from './SubmitButton';
 
 import { publish } from '../helpers/events';
+import wordlist from '../data/words';
 
 class Phrase extends Component {
 
@@ -82,6 +83,13 @@ class Phrase extends Component {
 
       let success = true;
 
+      const guess = state.guess.map(g => g.guessedLetter).join('');
+
+      if (!wordlist.includes(guess.toLowerCase())) {
+        this.props.onNotWord();
+        return false;
+      }
+
       // update guess
 
       // check each letter for correctness. if correct; remove that letter from the letter pool
@@ -97,8 +105,6 @@ class Phrase extends Component {
         state.guess[i].status = this.evaluateWrongGuesses(state.guess[i].guessedLetter);
         if (state.guess[i].status !== 'pass') success = false;
       });
-
-      const guess = state.guess.map(g => g.guessedLetter).join('');
 
       success ?
         this.props.onPass(guess, state.guess, this.props.phraseNumber + 1) :
@@ -238,6 +244,7 @@ Phrase.propTypes = {
   isRowComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
   onFail: PropTypes.func.isRequired,
+  onNotWord: PropTypes.func.isRequired,
   onPass: PropTypes.func.isRequired,
   onRefocusComplete: PropTypes.func.isRequired,
   phraseNumber: PropTypes.number.isRequired,

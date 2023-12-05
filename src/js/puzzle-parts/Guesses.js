@@ -50,6 +50,7 @@ class Guesses extends Component {
           key={i}
           onFail={this.props.onGuessFail}
           onPass={this.props.onPuzzlePass}
+          onNotWord={this.props.onGuessNotWord}
           onRefocusComplete={this.onRefocusComplete}
           phraseNumber={i}
           puzzleStatus={this.props.puzzleStatus}
@@ -68,6 +69,7 @@ Guesses.propTypes = {
   guesses: PropTypes.array.isRequired,
   hidden: PropTypes.bool.isRequired,
   onGuessFail: PropTypes.func.isRequired,
+  onGuessNotWord: PropTypes.func.isRequired,
   onPuzzlePass: PropTypes.func.isRequired,
   remainingGuesses: PropTypes.number.isRequired,
   puzzleStatus: PropTypes.string.isRequired,
