@@ -29,7 +29,6 @@ const InfoModal = ({ colors, onClose, testing }) => {
       <p>Letters that are not part of the correct solution will appear in <span className={'incorrect'}>{c.incorrect.toUpperCase()}</span> squares</p>
       <p>Based on this information, continue guessing until you have solved the puzzle. The object is to get the correct answer in as few tries as possible. If you enter six guesses without solving the puzzle, we'll give you the correct answer.</p>
       <p>From there, it's on to the next word puzzle; there are six in all.</p>
-      <p>Note: Experienced Wordle players will know that the game only accepts actual words; no gibberish permitted. While our game technically won't enforce this rule, it's much more fun to play that way.</p>
     </Modal>
   )
 };
