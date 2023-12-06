@@ -84,7 +84,9 @@ class Letter extends Component {
   }
 
   onKeyDown(e) {
-    if (e.key === 'Backspace') {
+    if (this.props.isLastLetter && e.key === 'Enter') {
+      this.props.onEnter();
+    } else if (e.key === 'Backspace') {
       this.props.onBackspace();
     }
   }
@@ -144,6 +146,7 @@ Letter.propTypes = {
   focus: PropTypes.bool.isRequired,
   isRowComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
+  isLastLetter: PropTypes.bool.isRequired,
   isSpace: PropTypes.bool.isRequired,
   letterNumber: PropTypes.number.isRequired,
   onBackspace: PropTypes.func.isRequired,

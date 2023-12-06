@@ -17,6 +17,7 @@ const getProps = (override) => {
     focus: false,
     isRowComplete: false,
     isCurrentRow: true,
+    isLastLetter: false,
     isSpace: false,
     letterNumber: 0,
     onBackspace: () => { },

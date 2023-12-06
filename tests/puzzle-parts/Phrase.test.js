@@ -145,7 +145,7 @@ describe('Phrase', () => {
 
   });
 
-  describe('onSubmit', () => {
+  describe('onEnter', () => {
 
     test('when a guessed word doesn\'t exist, run onNotWord callback', async () => {
 
@@ -157,7 +157,7 @@ describe('Phrase', () => {
         onNotWord: onNotWord,
       });
 
-      const { getAllByLabelText, getByRole } = render(<Phrase {...props} />);
+      const { getAllByLabelText } = render(<Phrase {...props} />);
 
       const inputs = getAllByLabelText(/Letter #[0-9]+/);
 
@@ -169,7 +169,7 @@ describe('Phrase', () => {
       await userEvent.type(inputs[5], 'a');
       await userEvent.type(inputs[6], 'a');
 
-      await userEvent.click(getByRole('button'));
+      await userEvent.type(inputs[6], '{enter}');
 
       expect(onNotWord).toHaveBeenCalledTimes(1);
 
@@ -185,7 +185,7 @@ describe('Phrase', () => {
         onFail: onFail,
       });
 
-      const { getAllByLabelText, getByRole } = render(<Phrase {...props} />);
+      const { getAllByLabelText } = render(<Phrase {...props} />);
 
       const inputs = getAllByLabelText(/Letter #[0-9]+/);
 
@@ -195,7 +195,7 @@ describe('Phrase', () => {
       await userEvent.type(inputs[3], 'h');
       await userEvent.type(inputs[4], 'i');
 
-      await userEvent.click(getByRole('button'));
+      await userEvent.type(inputs[4], '{enter}');
 
       expect(onFail).toHaveBeenCalledTimes(1);
 
@@ -211,7 +211,7 @@ describe('Phrase', () => {
         onPass: onPass,
       });
 
-      const { getAllByLabelText, getByRole } = render(<Phrase {...props} />);
+      const { getAllByLabelText } = render(<Phrase {...props} />);
 
       const inputs = getAllByLabelText(/Letter #[0-9]+/);
 
@@ -221,7 +221,7 @@ describe('Phrase', () => {
       await userEvent.type(inputs[3], 't');
       await userEvent.type(inputs[4], 's');
 
-      await userEvent.click(getByRole('button'));
+      await userEvent.type(inputs[4], '{enter}');
 
       expect(onPass).toHaveBeenCalledTimes(1);
 
@@ -299,22 +299,20 @@ describe('Phrase', () => {
 
   });
 
-  test('focus goes to submit button after all letters are filled out', async () => {
+  test('backspace on last input does not move focus', async () => {
 
     const props = getProps({
       correctAnswer: 'OK',
       guess: ''
     });
 
-    const { getAllByLabelText, getByRole } = render(<Phrase {...props} />);
+    const { getAllByLabelText } = render(<Phrase {...props} />);
 
     const inputs = getAllByLabelText(/Letter #[0-9]+/);
-    const button = getByRole('button');
 
     // first input can accept input
     expect(inputs[0]).not.toHaveAttribute('readonly');
     expect(inputs[1]).toHaveAttribute('readonly');
-    expect(button).toHaveAttribute('disabled');
 
     // enter letter in first input
     await userEvent.type(inputs[0], 'o');
@@ -322,17 +320,14 @@ describe('Phrase', () => {
     // second input can accept input
     expect(inputs[0]).toHaveAttribute('readonly');
     expect(inputs[1]).not.toHaveAttribute('readonly');
-    expect(button).toHaveAttribute('disabled');
 
     // enter letter in second input
     await userEvent.type(inputs[1], 'k');
 
-    // submit button gets focus
-    expect(button).toHaveFocus();
+    // first input retains
+    expect(inputs[1]).toHaveFocus();
     expect(inputs[0]).toHaveAttribute('readonly');
-    expect(inputs[1]).toHaveAttribute('readonly');
-    expect(button).toHaveFocus();
-    expect(button).not.toHaveAttribute('disabled');
+    expect(inputs[1]).not.toHaveAttribute('readonly');
 
     // backspace
     await userEvent.type(inputs[1], '{backspace}');
