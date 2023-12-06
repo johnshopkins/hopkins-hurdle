@@ -122,7 +122,7 @@ class Letter extends Component {
       >
         <input
           aria-label={this.getLabel()}
-          disabled={this.props.isRowComplete || !this.props.isCurrentRow}
+          // disabled={this.props.isRowComplete || !this.props.isCurrentRow}
           maxLength={1}
           onChange={e => this.onChange(e.target.value)}
           onKeyDown={this.onKeyDown}
