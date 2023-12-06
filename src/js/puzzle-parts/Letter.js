@@ -75,8 +75,9 @@ class Letter extends Component {
 
   onChange(value) {
 
-    if ((value === ' ' && !this.props.isSpace) || (value !== ' ' && !value.match(/[A-Za-z]/))) {
-      // space or not aletter
+    if ((value.length > 1) || (value === ' ' && !this.props.isSpace) || (value !== ' ' && !value.match(/[A-Za-z]/))) {
+      // if (value.length > 1) fixes an android bug (it ignores the maxlength attribute, so we must control it here)
+      // space or not a letter
       return;
     }
 
