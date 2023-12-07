@@ -9,6 +9,12 @@
     "stats": "webpack --json > stats.json",
     "watch": "webpack watch"
   },
+  "exports": {
+    ".": "./dist/main.js",
+    "./events": "./dist/events.js",
+    "./modal": "./dist/modal.js",
+    "./storage": "./dist/storage.js"
+  },
   "dependencies": {
     "focus-trap-react": "^10.0.0",
     "prop-types": "^15.8.1"

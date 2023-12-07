@@ -3,10 +3,16 @@ const settings = require('./src/settings');
 
 module.exports = {
   mode: 'production',
-  entry: './src/js/main.js',
+  entry: {
+    main: './src/js/main.js',
+    events: './src/js/events.js',
+    modal: './src/js/modal.js',
+    storage: './src/js/storage.js',
+  },
   output: {
     clean: true,
     path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
     libraryTarget: 'commonjs2'
   },
   externals: {
