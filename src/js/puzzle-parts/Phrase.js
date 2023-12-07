@@ -201,7 +201,7 @@ class Phrase extends Component {
           animate={this.state.animate}
           correctAnswer={this.props.correctAnswer}
           direction={this.state.direction}
-          focus={this.props.isCurrentRow && this.state.activeLetter === i}
+          focus={this.props.puzzleStatus === 'IN_PROGRESS' && this.props.isCurrentRow && this.state.activeLetter === i}
           isRowComplete={this.props.isRowComplete}
           isCurrentRow={this.props.isCurrentRow}
           isLastLetter={i === this.state.guess.length - 1}
