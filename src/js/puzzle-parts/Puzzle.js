@@ -65,6 +65,7 @@ class Puzzle extends Component {
 
     if (userInitiated) {
       publish('userInitiatedInfoModal');
+      publish('modelOpen');
     }
   }
 
@@ -76,6 +77,7 @@ class Puzzle extends Component {
     }
 
     this.setState({ modalOpen: null });
+    publish('modelClose');
   }
 
   getOrdinal(i) {
