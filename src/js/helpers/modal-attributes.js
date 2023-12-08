@@ -2,7 +2,7 @@ export default (label) => {
 
   const attributes = {
     className: 'hh-modal-container',
-    role: 'region',
+    role: 'dialog',
   };
 
   if (label) {
