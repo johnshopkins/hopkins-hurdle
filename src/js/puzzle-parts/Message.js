@@ -7,10 +7,9 @@ const Message = ({ hidden, message, onTtl, screenReaderOnly, ttl }) => {
 
   const attributes = {
     'aria-hidden': hidden,
-    'aria-label': 'Messages',
     'aria-live': 'polite',
     className: 'message',
-    role: 'region'
+    role: 'log'
   };
 
   // runs after the component is rendered
