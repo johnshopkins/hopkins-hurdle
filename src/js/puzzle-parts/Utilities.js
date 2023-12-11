@@ -9,9 +9,7 @@ const Utilities = ({ hidden, openInfoModal }) => {
 
   const attributes = {
     'aria-hidden': hidden,
-    'aria-label': 'Utilities',
     className: 'utils',
-    role: 'region',
   };
 
   return (
