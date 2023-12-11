@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
@@ -30,7 +31,7 @@ const Modal = ({ children, classes, label, onClose, testing }) => {
     }
   }
 
-  return (
+  const modal = (
     <div {...attributes} onKeyDown={onKeyDown}>
       <FocusTrap focusTrapOptions={focusTrapOptions}>
         <div className={classes.join(' ')}>
@@ -42,7 +43,9 @@ const Modal = ({ children, classes, label, onClose, testing }) => {
       </FocusTrap>
       <div className={'overlay'} />
     </div>
-  )
+  );
+
+  return createPortal(modal, document.body);
 };
 
 Modal.defaultProps = {
