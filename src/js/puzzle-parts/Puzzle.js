@@ -199,12 +199,11 @@ class Puzzle extends Component {
 
     return (
       <div {...attributes}>
-        {this.state.modalOpen === 'info' &&
-          <InfoModal
-            colors={this.props.colors}
-            onClose={this.closeModal}
-          />
-        }
+        <InfoModal
+          colors={this.props.colors}
+          onClose={this.closeModal}
+          open={this.state.modalOpen === 'info'}
+        />
         <Utilities
           hidden={this.props.hidden || Boolean(this.state.modalOpen)}
           openInfoModal={() => this.openInfoModal()}

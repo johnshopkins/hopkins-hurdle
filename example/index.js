@@ -14,14 +14,6 @@ import { subscribe } from '../src/js/helpers/events';
 //   console.log('---');
 // });
 
-subscribe('modalOpen', function (e) {
-  console.log('modal open');
-});
-
-subscribe('modalClose', function (e) {
-  console.log('modal close');
-});
-
 import { Puzzle } from '../src/js/main';
 
 const puzzle = {

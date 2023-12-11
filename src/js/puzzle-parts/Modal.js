@@ -15,9 +15,11 @@ class Modal extends Component {
 
   constructor(props) {
 
-    props.classes.push('modal-content');
-
     super(props);
+
+    this.state = {
+      open: this.props.open
+    };
 
     // see: https://github.com/focus-trap/focus-trap#testing-in-jsdom
     this.focusTrapOptions = this.props.testing ? {
@@ -28,35 +30,42 @@ class Modal extends Component {
 
     this.modal = createRef();
 
+    this.onClose = this.onClose.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+  }
+
+  onClose() {
+    this.setState({ open: false });
+    this.props.onClose();
   }
 
   onKeyDown(e) {
     if (e.key === 'Escape') {
-      this.props.onClose();
+      this.onClose();
     }
   }
 
-  componentDidMount() {
-    publish('modalOpen');
-    document.body.classList.add('modal-open');
-    const siblings = this.modal.current.parentNode.children;
-    for (let item of siblings) {
-      if (item !== this.modal.current) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.open === this.props.open) {
+      return;
+    }
+
+    // set new state
+    this.setState({ open: this.props.open });
+
+    // hide or show other elements based on new state
+    for (let item of document.body.children) {
+      if (this.props.open) {
         item.setAttribute('aria-hidden', true);
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    publish('modalClose');
-    document.body.classList.remove('modal-open');
-    const siblings = this.modal.current.parentNode.children;
-    for (let item of siblings) {
-      if (item !== this.modal.current) {
+      } else {
         item.removeAttribute('aria-hidden');
       }
     }
+  }
+
+  getClasses() {
+    this.props.classes.push('modal-content');
+    return this.props.classes.join(' ');
   }
 
   render() {
@@ -66,8 +75,8 @@ class Modal extends Component {
     const modal = (
       <div {...attributes} onKeyDown={this.onKeyDown} ref={this.modal}>
         <FocusTrap focusTrapOptions={this.focusTrapOptions}>
-          <div className={this.props.classes.join(' ')}>
-            <button className={'close-box-x'} aria-label={'Close modal'} onClick={this.props.onClose}>
+          <div className={this.getClasses()}>
+            <button className={'close-box-x'} aria-label={'Close modal'} onClick={this.onClose}>
               <CloseIcon />
             </button>
             {this.props.children}
@@ -77,12 +86,14 @@ class Modal extends Component {
       </div>
     );
 
-    return createPortal(modal, document.body);
+    return this.state.open ? createPortal(modal, document.body) : null;
   }
 };
 
 Modal.defaultProps = {
   classes: [],
+  onClose: () => {},
+  open: false,
   testing: false,
 };
 
@@ -90,6 +101,7 @@ Modal.propTypes = {
   classes: PropTypes.array,
   label: PropTypes.string,
   onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool,
   testing: PropTypes.bool,
 };
 

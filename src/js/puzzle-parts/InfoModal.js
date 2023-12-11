@@ -12,7 +12,7 @@ const defaultColors = {
   incorrect: 'gray'
 };
 
-const InfoModal = ({ colors, onClose, testing }) => {
+const InfoModal = ({ colors, onClose, open, testing }) => {
 
   const c = {
     ...defaultColors,
@@ -20,7 +20,7 @@ const InfoModal = ({ colors, onClose, testing }) => {
   };
 
   return (
-    <Modal classes={['info']} onClose={onClose} testing={testing}>
+    <Modal classes={['info']} onClose={onClose} open={open} testing={testing}>
       <h1>How it works</h1>
       <p>Just as in Wordle and the many spinoffs it has inspired since its October 2021 debut, Hopkins Huddle asks the user to solve word puzzles. In this case, each puzzle is a five-letter word.</p>
       <p>Begin by entering a five-letter word into the first set of squares and pressing RETURN or ENTER.</p>
