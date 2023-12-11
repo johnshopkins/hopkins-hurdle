@@ -36,6 +36,7 @@ class Modal extends Component {
 
   onClose() {
     this.setState({ open: false });
+    document.body.classList.remove('modal-open');
     this.props.onClose();
   }
 
@@ -52,6 +53,13 @@ class Modal extends Component {
 
     // set new state
     this.setState({ open: this.props.open });
+
+    // add/remove body class
+    if (this.props.open) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
 
     // hide or show other elements based on new state
     for (let item of document.body.children) {
