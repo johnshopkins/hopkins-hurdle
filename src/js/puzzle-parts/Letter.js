@@ -21,7 +21,7 @@ class Letter extends Component {
   }
 
   componentDidMount() {
-    this.maybeFocus();
+    // this.maybeFocus();
   }
 
   componentDidUpdate() {
