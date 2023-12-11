@@ -27,11 +27,13 @@ class Modal extends Component {
     } : {};
 
     this.modal = createRef();
+
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   onKeyDown(e) {
     if (e.key === 'Escape') {
-      onClose();
+      this.props.onClose();
     }
   }
 
