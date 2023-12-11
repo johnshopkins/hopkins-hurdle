@@ -62,7 +62,6 @@ class Puzzle extends Component {
 
   openInfoModal(userInitiated = true) {
     this.setState({ modalOpen: 'info' });
-    publish('modalOpen');
 
     if (userInitiated) {
       publish('userInitiatedInfoModal');
@@ -70,14 +69,11 @@ class Puzzle extends Component {
   }
 
   closeModal() {
-    document.body.classList.remove('modal-open');
-
     if (this.state.modalOpen === 'info') {
       localStorage.set('hopkinshurdle.seenInfo', true);
     }
 
     this.setState({ modalOpen: null });
-    publish('modalClose');
   }
 
   getOrdinal(i) {
