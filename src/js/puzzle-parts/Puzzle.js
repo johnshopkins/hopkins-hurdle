@@ -62,10 +62,10 @@ class Puzzle extends Component {
 
   openInfoModal(userInitiated = true) {
     this.setState({ modalOpen: 'info' });
+    publish('modalOpen');
 
     if (userInitiated) {
       publish('userInitiatedInfoModal');
-      publish('modelOpen');
     }
   }
 
@@ -77,7 +77,7 @@ class Puzzle extends Component {
     }
 
     this.setState({ modalOpen: null });
-    publish('modelClose');
+    publish('modalClose');
   }
 
   getOrdinal(i) {
