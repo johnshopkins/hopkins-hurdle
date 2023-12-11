@@ -15,7 +15,7 @@ const Utilities = ({ hidden, openInfoModal }) => {
   return (
     <div {...attributes}>
       <button onClick={openInfoModal}>
-        <InfoIcon /> How to play
+        <InfoIcon /> How it works
       </button>
     </div>
   );
