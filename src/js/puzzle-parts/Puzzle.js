@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { calculateAnimationDuration } from '../helpers/animation-delay-calc';
-import { local as localStorage } from '../helpers/storage';
 import { savePuzzleState, loadPuzzleState } from '../helpers/persistance';
-import { publish } from '../helpers/events';
 import getNiceLetterStatus from '../helpers/nice-letter-status';
 
 import Debug from '../puzzle-parts/Debug';
-import InfoModal from '../puzzle-parts/InfoModal';
 import Guesses from '../puzzle-parts/Guesses';
 import Message from '../puzzle-parts/Message';
 import Utilities from '../puzzle-parts/Utilities';
@@ -40,40 +37,14 @@ class Puzzle extends Component {
         status: 'IN_PROGRESS',
         ...stored,
       },
-      modalOpen: false,
     };
-
-    this.closeModal = this.closeModal.bind(this);
 
     this.displayMessage = this.displayMessage.bind(this);
     this.onGuessFail = this.onGuessFail.bind(this);
     this.onGuessNotWord = this.onGuessNotWord.bind(this);
     this.onPuzzlePass = this.onPuzzlePass.bind(this);
-    this.openInfoModal = this.openInfoModal.bind(this);
 
     this.clearMessage = this.clearMessage.bind(this);
-  }
-
-  componentDidMount() {
-    if (this.props.autoInfoModal && localStorage.get('hopkinshurdle.seenInfo') === null) {
-      this.openInfoModal(false);
-    }
-  }
-
-  openInfoModal(userInitiated = true) {
-    this.setState({ modalOpen: 'info' });
-
-    if (userInitiated) {
-      publish('userInitiatedInfoModal');
-    }
-  }
-
-  closeModal() {
-    if (this.state.modalOpen === 'info') {
-      localStorage.set('hopkinshurdle.seenInfo', true);
-    }
-
-    this.setState({ modalOpen: null });
   }
 
   getOrdinal(i) {
@@ -198,14 +169,9 @@ class Puzzle extends Component {
 
     return (
       <div {...attributes}>
-        <InfoModal
-          colors={this.props.colors}
-          onClose={this.closeModal}
-          open={this.state.modalOpen === 'info'}
-        />
         <Utilities
-          openInfoModal={() => this.openInfoModal()}
-          closeModal={this.closeModal}
+          autoInfoModal={this.props.autoInfoModal}
+          colors={this.props.colors}
         />
         <Guesses
           answerDescription={this.props.puzzle.answerDescription}

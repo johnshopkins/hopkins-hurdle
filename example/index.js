@@ -4,9 +4,9 @@ const { createRoot } = ReactDOM;
 
 import { subscribe } from '../src/js/helpers/events';
 
-// subscribe('userInitiatedInfoModal', function () {
-//   console.log('event fired', 'userInitiatedInfoModal');
-// });
+subscribe('userInitiatedInfoModal', function () {
+  console.log('event fired', 'userInitiatedInfoModal');
+});
 
 // subscribe('userGuess', function (e) {
 //   console.log('user completed a guess');
@@ -40,7 +40,7 @@ root.render(
     puzzle={puzzle}
     debug={true}
     onPuzzleComplete={onPuzzleComplete}
-    autoInfoModal={false}
+    // autoInfoModal={false}
     failMessage={'Solid effort, but it looks like you could use some help. The correct answer is {answer}.'}
     successMessage={'Whoo hoo!'}
     colors={{
