@@ -3,9 +3,6 @@ import { createPortal } from 'react-dom';
 
 import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
-import { publish } from '../helpers/events';
-
-import getAttributes from '../helpers/modal-attributes';
 
 import CloseIcon from '../icons/Close';
 
@@ -71,6 +68,19 @@ class Modal extends Component {
     }
   }
 
+  getAttributes(label) {
+    const attributes = {
+      className: 'hh-modal-container',
+      role: 'dialog',
+    };
+
+    if (label) {
+      attributes['aria-label'] = label;
+    }
+
+    return attributes;
+  }
+
   getClasses() {
     this.props.classes.push('modal-content');
     return this.props.classes.join(' ');
@@ -78,7 +88,7 @@ class Modal extends Component {
 
   render() {
 
-    const attributes = getAttributes(this.props.label);
+    const attributes = this.getAttributes(this.props.label);
 
     const modal = (
       <div {...attributes} onKeyDown={this.onKeyDown} ref={this.modal}>
