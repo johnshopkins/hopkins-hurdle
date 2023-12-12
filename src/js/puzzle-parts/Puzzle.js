@@ -172,6 +172,7 @@ class Puzzle extends Component {
         <Utilities
           autoInfoModal={this.props.autoInfoModal}
           colors={this.props.colors}
+          testing={this.props.testing}
         />
         <Guesses
           answerDescription={this.props.puzzle.answerDescription}
@@ -210,6 +211,7 @@ Puzzle.defaultProps = {
   failMessage: 'The correct answer is {answer}.',
   successMessage: 'Great job!',
   colors: {},
+  testing: false,
 };
 
 Puzzle.propTypes = {
@@ -222,6 +224,7 @@ Puzzle.propTypes = {
   failMessage: PropTypes.string.isRequired,
   successMessage:  PropTypes.string.isRequired,
   colors: PropTypes.object,
+  testing: PropTypes.bool,
 };
 
 export default Puzzle;
