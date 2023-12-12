@@ -191,7 +191,6 @@ class Puzzle extends Component {
     const remainingGuesses = this.availableGuesses - (this.state.puzzle.guesses.filter(n => n).length);
 
     const attributes = {
-      'aria-hidden': this.props.hidden,
       'aria-label': 'Puzzle',
       className: 'hopkins-hurdle',
       role: 'region',
@@ -205,7 +204,6 @@ class Puzzle extends Component {
           open={this.state.modalOpen === 'info'}
         />
         <Utilities
-          hidden={this.props.hidden || Boolean(this.state.modalOpen)}
           openInfoModal={() => this.openInfoModal()}
           closeModal={this.closeModal}
         />
@@ -214,7 +212,6 @@ class Puzzle extends Component {
           currentRow={this.state.puzzle.currentRow}
           correctAnswer={this.props.puzzle.answer.toUpperCase()}
           guesses={this.state.puzzle.guesses}
-          hidden={this.props.hidden || Boolean(this.state.modalOpen)}
           id={this.props.id}
           onGuessFail={this.onGuessFail}
           onGuessNotWord={this.onGuessNotWord}
@@ -223,7 +220,6 @@ class Puzzle extends Component {
           puzzleStatus={this.state.puzzle.status}
         />
         <Message
-          hidden={this.props.hidden || Boolean(this.state.modalOpen)}
           onTtl={this.clearMessage}
           {...this.state.message}
         />
@@ -244,7 +240,6 @@ class Puzzle extends Component {
 Puzzle.defaultProps = {
   autoInfoModal: true,
   debug: false,
-  hidden: false,
   onPuzzleComplete: (status, numberOfGuesses) => { },
   failMessage: 'The correct answer is {answer}.',
   successMessage: 'Great job!',
@@ -252,7 +247,6 @@ Puzzle.defaultProps = {
 };
 
 Puzzle.propTypes = {
-  hidden: PropTypes.bool.isRequired,
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number

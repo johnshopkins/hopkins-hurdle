@@ -29,7 +29,6 @@ class Guesses extends Component {
   render() {
 
     const attributes = {
-      'aria-hidden': this.props.hidden,
       'aria-label': 'Guesses',
       className: 'guesses',
       onClick: this.triggerRefocus,
@@ -67,7 +66,6 @@ Guesses.propTypes = {
   currentRow: PropTypes.number.isRequired,
   correctAnswer: PropTypes.string.isRequired,
   guesses: PropTypes.array.isRequired,
-  hidden: PropTypes.bool.isRequired,
   onGuessFail: PropTypes.func.isRequired,
   onGuessNotWord: PropTypes.func.isRequired,
   onPuzzlePass: PropTypes.func.isRequired,

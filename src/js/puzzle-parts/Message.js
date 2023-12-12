@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 
 import '../../css/Message.scss';
 
-const Message = ({ hidden, message, onTtl, screenReaderOnly, ttl }) => {
+const Message = ({ message, onTtl, screenReaderOnly, ttl }) => {
 
   const attributes = {
-    'aria-hidden': hidden,
     'aria-live': 'polite',
     className: 'message',
     role: 'log'
@@ -28,13 +27,11 @@ const Message = ({ hidden, message, onTtl, screenReaderOnly, ttl }) => {
 };
 
 Message.defaultProps = {
-  hidden: false,
   screenReaderOnly: false,
   ttl: null,
 };
 
 Message.propTypes = {
-  hidden: PropTypes.bool.isRequired,
   message: PropTypes.string,
   onTtl: PropTypes.func.isRequired,
   screenReaderOnly: PropTypes.bool.isRequired,
