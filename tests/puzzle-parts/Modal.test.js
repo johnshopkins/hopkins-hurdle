@@ -24,37 +24,39 @@ describe('Modal', () => {
 
   describe('Close', () => {
 
-    test('Calls onClose callback when close button is pressed', async () => {
-
-      const onClose = jest.fn();
+    test('Modal closes when the close button is pressed', async () => {
 
       const props = getProps({
         label: 'Modal label',
-        onClose: onClose
+        open: true,
       });
-      const { getByLabelText, getByRole } = render(<Modal {...props} />);
+      const { getByRole, queryByRole } = render(<Modal {...props} />);
 
-      expect(getByLabelText('Modal label')).toHaveAttribute('class', 'hh-modal-container');
-      expect(document.body).toHaveAttribute('class', 'modal-open');
+      // screen.debug()
+
+      expect(getByRole('dialog')).toHaveAttribute('class', 'hh-modal-container');
+      expect(getByRole('dialog').parentNode.nodeName).toEqual('BODY')
 
       await userEvent.click(getByRole('button'));
-      expect(onClose).toHaveBeenCalledTimes(1);
+      expect(queryByRole('dialog')).not.toBeInTheDocument();
 
     });
 
-    test('Calls onClose callback when escape key is pressed', async () => {
-
-      const onClose = jest.fn();
+    test('Modal closes when the escape key is pressed', async () => {
 
       const props = getProps({
-        onClose: onClose,
+        label: 'Modal label',
+        open: true,
       });
+      const { container, getByRole, queryByRole } = render(<Modal {...props} />);
 
-      const { container } = render(<Modal {...props} />);
+      // screen.debug()
+
+      expect(getByRole('dialog')).toHaveAttribute('class', 'hh-modal-container');
+      expect(getByRole('dialog').parentNode.nodeName).toEqual('BODY')
 
       await userEvent.type(container, '{escape}');
-
-      expect(onClose).toHaveBeenCalledTimes(1);
+      expect(queryByRole('dialog')).not.toBeInTheDocument();
 
     });
 

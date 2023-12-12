@@ -8,7 +8,7 @@ import { publish } from '../helpers/events';
 
 import '../../css/Utilities.scss';
 
-const Utilities = ({ autoInfoModal, colors }) => {
+const Utilities = ({ autoInfoModal, colors, testing }) => {
 
   const [infoModalOpened, setInfoModalOpened] = useState(false);
 
@@ -41,6 +41,7 @@ const Utilities = ({ autoInfoModal, colors }) => {
         colors={colors}
         onClose={closeModal}
         open={infoModalOpened}
+        testing={testing}
       />
     </div>
   );
@@ -49,11 +50,13 @@ const Utilities = ({ autoInfoModal, colors }) => {
 Utilities.defaultProps = {
   autoInfoModal: true,
   colors: {},
+  testing: false,
 };
 
 Utilities.propTypes = {
   autoInfoModal: PropTypes.bool,
   colors: PropTypes.object,
+  testing: PropTypes.bool,
 };
 
 export default Utilities;
