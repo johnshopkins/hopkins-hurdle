@@ -5518,7 +5518,6 @@ export default [
   'jerry',
   'jesse',
   'jests',
-  'jesus',
   'jetes',
   'jeton',
   'jetty',
