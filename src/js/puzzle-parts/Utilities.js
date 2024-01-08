@@ -1,36 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import InfoIcon from '../icons/Info';
-import StatsIcon from '../icons/Stats';
+import InfoModal from '../puzzle-parts/InfoModal';
+import { local as localStorage } from '../helpers/storage';
+import { publish } from '../helpers/events';
 
 import '../../css/Utilities.scss';
 
-const Utilities = ({ hidden, openInfoModal, openStatsModal }) => {
+const Utilities = ({ autoInfoModal, colors, testing }) => {
 
-  const attributes = {
-    'aria-hidden': hidden,
-    'aria-label': 'Utilities',
-    className: 'utils',
-    role: 'region',
+  const [infoModalOpened, setInfoModalOpened] = useState(false);
+
+  // runs only on first render
+  useEffect(() => {
+    if (autoInfoModal && localStorage.get('hopkinshurdle.seenInfo') === null) {
+      openModal(false);
+    }
+  }, []);
+
+  const closeModal = () => {
+    setInfoModalOpened(false);
+    localStorage.set('hopkinshurdle.seenInfo', true);
+  };
+
+  const openModal = (userInitiated = true) => {
+    setInfoModalOpened(true);
+
+    if (userInitiated) {
+      publish('userInitiatedInfoModal');
+    }
   };
 
   return (
-    <div {...attributes}>
-      <button aria-label={'Information'} onClick={openInfoModal}>
-        <InfoIcon />
+    <div className={'utils'}>
+      <button onClick={openModal}>
+        <InfoIcon /> How it works
       </button>
-      <button aria-label={'Statistics'} onClick={openStatsModal}>
-        <StatsIcon />
-      </button>
+      <InfoModal
+        colors={colors}
+        onClose={closeModal}
+        open={infoModalOpened}
+        testing={testing}
+      />
     </div>
   );
 }
 
+Utilities.defaultProps = {
+  autoInfoModal: true,
+  colors: {},
+  testing: false,
+};
 
-Utilities.Utilities = {
-  openInfoModal: PropTypes.func.isRequired,
-  openStatsModal: PropTypes.func.isRequired,
+Utilities.propTypes = {
+  autoInfoModal: PropTypes.bool,
+  colors: PropTypes.object,
+  testing: PropTypes.bool,
 };
 
 export default Utilities;

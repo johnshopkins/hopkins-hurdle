@@ -5,65 +5,104 @@
 .hopkins-hurdle {
   .guess {
 
-    input {
-      border: 4px $light_gray solid;
-      caret-color: transparent;
-      font-size: 20px;
-      height: 30px;
-      margin: 2px;
-      text-align: center;
-      outline: none;
-      width: 30px;
+    div {
+      background-color: var(--input-bg);
+      border: 4px var(--input-border) solid;
+      display: inline-block;
+      height: var(--input-size) + 4px;
+      margin: calc(var(--input-size) * 0.06);
+      width: var(--input-size) + 4px;
 
-      &:focus {
-        border: 4px $black solid;
+      input {
+        background-color: transparent;
+        border: none;
+        color: var(--input-text);
+        caret-color: transparent;
+        font-size: 20px;
+        height: calc(var(--input-size) - 2px);
+        text-align: center;
+        outline: none;
+        width: calc(var(--input-size) - 2px);
+
+        &.space {
+          height: 22px;
+          width: 5px;
+          opacity: 0; // screen readers will be able to read this
+        }
       }
 
-      &.space {
-        height: 30px;
-        width: 5px;
-        opacity: 0; // screen readers will be able to read this
+      &:focus-within {
+        background-color: var(--input-bg-focus);
+        border: 4px var(--input-border-focus) solid;
+        input {
+          color: var(--input-text-focus);
+        }
       }
 
       &:not(.animate) {
         &.pass {
-          background-color: $green;
-          border-color: $green;
-          color: $white;
+          background-color: var(--correct-spot-bg);
+          border-color: var(--correct-spot-bg);
+          input {
+            color: var(--correct-spot-text);
+          }
         }
 
         &.fail {
-          background-color: $gray;
-          border-color: $gray;
-          color: $white;
+          background-color: var(--wrong-bg);
+          border-color: var(--wrong-bg);
+          input {
+            color: var(--wrong-text);
+          }
         }
 
         &.shuffle {
-          background-color: $yellow;
-          border-color: $yellow;
+          background-color: var(--wrong-spot-bg);
+          border-color: var(--wrong-spot-bg);
+          input {
+            color: var(--wrong-spot-text);
+          }
         }
       }
-      
+
       &.animate.flip {
         &.pass {
-          @include flip(flip-pass, $green, $white);
+          @include flipInput(flip-pass, var(--correct-spot-bg));
           animation: flip-pass #{$flipDuration}ms ease forwards;
+
+          input {
+            @include flipText(flip-text-pass, var(--correct-spot-text));
+            animation: flip-text-pass #{$flipDuration}ms ease forwards;
+          }
         }
 
         &.shuffle {
-          @include flip(flip-shuffle, $yellow, $black);
+          @include flipInput(flip-shuffle, var(--wrong-spot-bg));
           animation: flip-shuffle #{$flipDuration}ms ease forwards;
+
+          input {
+            @include flipText(flip-text-shuffle, var(--wrong-spot-text));
+            animation: flip-text-shuffle #{$flipDuration}ms ease forwards;
+          }
         }
 
         &.fail {
-          @include flip(flip-fail, $gray, $white);
+          @include flipInput(flip-fail, var(--wrong-bg));
           animation: flip-fail #{$flipDuration}ms ease forwards;
+
+          input {
+            @include flipText(flip-text-fail, var(--wrong-text));
+            animation: flip-text-fail #{$flipDuration}ms ease forwards;
+          }
         }
       }
 
       &.animate.jump {
         @include jump();
         animation: flip-pass #{$flipDuration}ms ease forwards, jump #{$jumpDuration}ms ease forwards;
+        input {
+          animation: flip-text-pass #{$flipDuration}ms ease forwards;
+        }
       }
     }
   }

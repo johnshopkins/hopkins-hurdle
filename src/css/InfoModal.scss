@@ -1,0 +1,18 @@
+.hh-modal-container {
+
+  span {
+
+    &.correct {
+      color: var(--correct-spot-bg);
+    }
+
+    &.incorrect {
+      color: var(--wrong-bg);
+    }
+
+    &.shuffle {
+      color: var(--wrong-spot-bg);
+    }
+
+  }
+}

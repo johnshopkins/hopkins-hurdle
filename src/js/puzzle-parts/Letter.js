@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { calculateAnimationDelay } from '../helpers/animation-delay-calc';
+import getNiceLetterStatus from '../helpers/nice-letter-status';
 
 class Letter extends Component {
 
@@ -15,7 +16,7 @@ class Letter extends Component {
 
     this.animationDelay = '0ms';
 
-    // calculate inital animation delay (assuming flip)
+    // calculate initial animation delay (assuming flip)
     this.setAnimationDelay();
   }
 
@@ -74,8 +75,9 @@ class Letter extends Component {
 
   onChange(value) {
 
-    if ((value === ' ' && !this.props.isSpace) || (value !== ' ' && !value.match(/[A-Za-z]/))) {
-      // space or not aletter
+    if ((value.length > 1) || (value === ' ' && !this.props.isSpace) || (value !== ' ' && !value.match(/[A-Za-z]/))) {
+      // if (value.length > 1) fixes an android bug (it ignores the maxlength attribute, so we must control it here)
+      // space or not a letter
       return;
     }
 
@@ -83,23 +85,15 @@ class Letter extends Component {
   }
 
   onKeyDown(e) {
-    if (e.key === 'Backspace') {
+    if (this.props.isLastLetter && e.key === 'Enter') {
+      this.props.onEnter();
+    } else if (e.key === 'Backspace') {
       this.props.onBackspace();
     }
   }
 
   onMouseDown(e) {
     e.preventDefault();
-  }
-
-  getNiceStatus() {
-    if (this.props.status === 'pass') {
-      return 'correct';
-    } else if (this.props.status === 'shuffle') {
-      return 'correct letter, but in wrong position'
-    } else {
-      return 'incorrect';
-    }
   }
 
   getLabel() {
@@ -109,7 +103,7 @@ class Letter extends Component {
     if (this.props.isSpace) {
       label += `: Space`
     } else if (this.props.isRowComplete) {
-      label += `: ${this.getNiceStatus()}`
+      label += `: ${getNiceLetterStatus(this.props.status)}`
     }
 
     return label;
@@ -122,21 +116,26 @@ class Letter extends Component {
       this.setAnimationDelay();
     }
 
-    return <input
-      aria-label={this.getLabel()}
-      className={this.getClass()}
-      disabled={this.props.isRowComplete}
-      maxLength={1}
-      onChange={e => this.onChange(e.target.value)}
-      onKeyDown={this.onKeyDown}
-      onMouseDown={this.onMouseDown}
-      readOnly={this.isSpace || !this.props.focus}
-      ref={this.input}
-      style={{animationDelay: this.animationDelay}}
-      tabIndex={this.props.focus ? null : -1}
-      type={'text'}
-      value={this.props.value}
-    />
+    return (
+      <div
+        className={this.getClass()}
+        style={{animationDelay: this.animationDelay}}
+      >
+        <input
+          aria-label={this.getLabel()}
+          disabled={this.props.puzzleStatus !== 'IN_PROGRESS'}
+          maxLength={1}
+          onChange={e => this.onChange(e.target.value)}
+          onKeyDown={this.onKeyDown}
+          onMouseDown={this.onMouseDown}
+          readOnly={this.isSpace || !this.props.focus}
+          ref={this.input}
+          tabIndex={this.props.focus ? null : -1}
+          type={'text'}
+          value={this.props.value}
+        />
+      </div>
+    )
   }
 
 }
@@ -148,6 +147,7 @@ Letter.propTypes = {
   focus: PropTypes.bool.isRequired,
   isRowComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
+  isLastLetter: PropTypes.bool.isRequired,
   isSpace: PropTypes.bool.isRequired,
   letterNumber: PropTypes.number.isRequired,
   onBackspace: PropTypes.func.isRequired,

@@ -1,5 +1,5 @@
 {
-  "name": "hopkins-hurdle",
+  "name": "@johnshopkins/hopkins-hurdle",
   "version": "1.0.0",
   "scripts": {
     "test": "jest",
@@ -8,6 +8,12 @@
     "dev": "webpack serve --config ./webpack.dev.js",
     "stats": "webpack --json > stats.json",
     "watch": "webpack watch"
+  },
+  "exports": {
+    ".": "./dist/main.js",
+    "./events": "./dist/events.js",
+    "./modal": "./dist/modal.js",
+    "./storage": "./dist/storage.js"
   },
   "dependencies": {
     "focus-trap-react": "^10.0.0",
@@ -32,7 +38,6 @@
     "jsdom": "^20.0.2",
     "prettier": "2.7.1",
     "react": "^18.2.0",
-    "react-countdown": "^2.3.5",
     "react-dom": "^18.2.0",
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",

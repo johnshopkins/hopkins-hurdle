@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Letter from './Letter';
-import SubmitButton from './SubmitButton';
+
+import { publish } from '../helpers/events';
+import wordlist from '../data/words';
 
 class Phrase extends Component {
 
@@ -39,7 +41,6 @@ class Phrase extends Component {
     this.state = {
       activeLetter: 0,
       direction: 'forward', // forward (new latter) OR backward (backspace)
-      submitButtonActive: false,
       guess: guess,
       animate: false,
     };
@@ -80,6 +81,13 @@ class Phrase extends Component {
 
       let success = true;
 
+      const guess = state.guess.map(g => g.guessedLetter).join('');
+
+      if (!wordlist.includes(guess.toLowerCase())) {
+        this.props.onNotWord();
+        return false;
+      }
+
       // update guess
 
       // check each letter for correctness. if correct; remove that letter from the letter pool
@@ -96,11 +104,15 @@ class Phrase extends Component {
         if (state.guess[i].status !== 'pass') success = false;
       });
 
-      const guess = state.guess.map(g => g.guessedLetter).join('');
-
       success ?
         this.props.onPass(guess, state.guess, this.props.phraseNumber + 1) :
         this.props.onFail(guess, state.guess, this.props.phraseNumber + 1);
+
+      publish('userGuess', {
+        success: success,
+        guess: guess,
+        id: this.props.id,
+      });
 
       return {
         animate: true,
@@ -128,10 +140,6 @@ class Phrase extends Component {
       if (state.activeLetter !== guess.length - 1) {
         // only increase the activeLetter if we're NOT on the last letter
         update.activeLetter = state.activeLetter + 1
-      } else {
-        // focus on submit button
-        update.submitButtonActive = true;
-        update.activeLetter = false;
       }
 
       // update guess
@@ -157,13 +165,12 @@ class Phrase extends Component {
 
       const guess = state.guess;
 
-      if (!state.submitButtonActive) {
+      if (state.activeLetter === state.guess.length - 1 && guess[i].guessedLetter.match(/[A-Za-z]/)) {
+        // last letter and NOT EMPTY. remove the letter, but do not move the cursor
+        guess[i].guessedLetter = '';
+      } else {
         update.activeLetter = state.activeLetter - 1;
         guess[i - 1].guessedLetter = '';
-      } else {
-        update.submitButtonActive = false;
-        update.activeLetter = guess.length - 1;
-        guess[guess.length - 1].guessedLetter = '';
       }
 
       update.guess = guess;
@@ -183,7 +190,6 @@ class Phrase extends Component {
     }
 
     const attributes = {
-      'aria-hidden': !this.props.testing && (this.props.isRowComplete || this.props.isCurrentRow),
       'aria-label': label,
       className: 'guess',
       role: 'group'
@@ -195,13 +201,15 @@ class Phrase extends Component {
           animate={this.state.animate}
           correctAnswer={this.props.correctAnswer}
           direction={this.state.direction}
-          focus={this.props.isCurrentRow && this.state.activeLetter === i}
+          focus={this.props.puzzleStatus === 'IN_PROGRESS' && this.props.isCurrentRow && this.state.activeLetter === i}
           isRowComplete={this.props.isRowComplete}
           isCurrentRow={this.props.isCurrentRow}
+          isLastLetter={i === this.state.guess.length - 1}
           isSpace={character.correctLetter === ' '}
           key={i}
           letterNumber={i}
           onBackspace={() => this.onBackspace(i)}
+          onEnter={this.evaluateGuess}
           onChange={(letter) => this.onChange(letter, i)}
           onRefocusComplete={this.props.onRefocusComplete}
           puzzleStatus={this.props.puzzleStatus}
@@ -210,22 +218,11 @@ class Phrase extends Component {
           value={character.guessedLetter}
           />
       )}
-      {this.props.isCurrentRow &&
-        <SubmitButton
-          focus={this.state.submitButtonActive}
-          onBackspace={() => this.onBackspace(null)}
-          onSubmit={this.evaluateGuess}
-          onRefocusComplete={this.props.onRefocusComplete}
-          triggerFocus={this.props.triggerFocus && this.state.submitButtonActive}
-        />
-      }
     </div>
   }
 }
 
-Phrase.defaultProps = {
-  testing: false,
-};
+Phrase.defaultProps = {};
 
 Phrase.propTypes = {
   correctAnswer: PropTypes.string.isRequired,
@@ -233,11 +230,11 @@ Phrase.propTypes = {
   isRowComplete: PropTypes.bool.isRequired,
   isCurrentRow: PropTypes.bool.isRequired,
   onFail: PropTypes.func.isRequired,
+  onNotWord: PropTypes.func.isRequired,
   onPass: PropTypes.func.isRequired,
   onRefocusComplete: PropTypes.func.isRequired,
   phraseNumber: PropTypes.number.isRequired,
   puzzleStatus: PropTypes.string.isRequired,
-  testing: PropTypes.bool,
   triggerFocus: PropTypes.bool.isRequired,
 };
 

@@ -18,6 +18,7 @@ const getProps = (override) => {
     guesses: ['', '', '', '', '', ''],
     hidden: false,
     onGuessFail: () => { },
+    onGuessNotWord: () => { },
     onPuzzlePass: () => { },
     remainingGuesses: 6,
     puzzleStatus: 'IN_PROGRESS',
@@ -88,7 +89,7 @@ describe('Guesses', () => {
       const props = getProps({
         currentRow: 1
       });
-      const { getByLabelText, getByRole } = render(<Guesses {...props} />);
+      const { getByLabelText, getByText } = render(<Guesses {...props} />);
 
       // initially, the first letter of the second guess has focus
       const secondGuess = getByLabelText('Guess #2: in progress');
@@ -100,34 +101,8 @@ describe('Guesses', () => {
       expect(letter).not.toHaveFocus();
 
       // clicking inside Guesses returns focus
-      await userEvent.click(getByRole('heading'));
+      await userEvent.click(getByText('The answer consists of 2 letters, followed by a space, followed by 4 letters. You have 6 guesses remaining.'));
       expect(letter).toHaveFocus();
-
-    });
-
-  });
-
-  describe('Hidden', () => {
-
-    test('Component is hidden when hidden=true', () => {
-
-      const props = getProps({
-        hidden: true
-      });
-      const { getByLabelText } = render(<Guesses {...props} />);
-
-      expect(getByLabelText('Guesses')).toHaveAttribute('aria-hidden', 'true');
-
-    });
-
-    test('Component is not hidden when hidden=false', () => {
-
-      const props = getProps({
-        hidden: false
-      });
-      const { getByLabelText } = render(<Guesses {...props} />);
-
-      expect(getByLabelText('Guesses')).toHaveAttribute('aria-hidden', 'false');
 
     });
 
