@@ -1,6 +1,6 @@
 {
   "name": "@johnshopkins/hopkins-hurdle",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
