@@ -1,6 +1,6 @@
 {
   "name": "@johnshopkins/huddle-puzzle",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
